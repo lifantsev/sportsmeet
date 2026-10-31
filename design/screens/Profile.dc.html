@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Profile</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F8F8F7}
+a{color:#121316}a:hover{color:#2F62B0}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F8F8F7; color: #121316; font-family: 'Schibsted Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased">
+  <header style="background: #FFFFFF; border-bottom: 1px solid #ECECEE">
+    <nav aria-label="Primary" style="max-width: 1280px; margin: 0 auto; padding: 14px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 32px; box-sizing: border-box">
+      <a href="Discover-E.dc.html" style="font-size: 26px; font-weight: 800; letter-spacing: -0.05em; text-decoration: none; color: #121316">pickup</a>
+      <div style="display: flex; flex-wrap: wrap; gap: 4px">
+        <a href="Discover-E.dc.html" style="padding: 10px 14px; color: #63666E; font-size: 15px; font-weight: 500; text-decoration: none">Discover</a>
+        <a href="Map.dc.html" style="padding: 10px 14px; color: #63666E; font-size: 15px; font-weight: 500; text-decoration: none">Map</a>
+        <a href="Create.dc.html" style="padding: 10px 14px; color: #63666E; font-size: 15px; font-weight: 500; text-decoration: none">Create</a>
+        <a href="Profile.dc.html" aria-current="page" style="padding: 10px 14px; color: #121316; font-size: 15px; font-weight: 700; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 8px">Profile</a>
+      </div>
+      <div style="margin-left: auto; display: flex; align-items: center; gap: 12px">
+        <a href="Create.dc.html" style="display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 20px; border-radius: 999px; background: #121316; color: #FFFFFF; font-size: 15px; font-weight: 600; text-decoration: none"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>Host a game</a>
+        <a href="Profile.dc.html" aria-label="Your profile" style="width: 44px; height: 44px; border-radius: 999px; background: #121316; color: #FFFFFF; display: grid; place-items: center; font-size: 15px; font-weight: 700; text-decoration: none">SL</a>
+      </div>
+    </nav>
+  </header>
+
+  <main style="max-width: 1280px; margin: 0 auto; padding: 32px 32px 96px; display: flex; flex-direction: column; gap: 28px; box-sizing: border-box">
+    <section style="border-radius: 30px; overflow: hidden; background: #FFFFFF; border: 1px solid #ECECEE">
+      <div style="height: 170px; overflow: hidden">
+        <dc-import name="Court" sport="Beach volleyball" h="170px" hint-size="100%,170px"></dc-import>
+      </div>
+      <div style="padding: 0 32px 28px; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 20px 28px">
+        <div style="margin-top: -60px; width: 128px; height: 128px; border-radius: 999px; border: 5px solid #FFFFFF; background: #E3E9F5; color: #2F62B0; display: grid; place-items: center; font-size: 42px; font-weight: 800; letter-spacing: -0.03em; box-sizing: border-box">SL</div>
+        <div style="flex: 999 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 8px; padding-top: 16px">
+          <h1 style="margin: 0; font-size: 40px; line-height: 1; font-weight: 800; letter-spacing: -0.045em">Sophia L.</h1>
+          <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; font-size: 15px; color: #63666E">
+            <span style="display: flex; align-items: center; gap: 6px"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 3 3 10.5l7.5 3 3 7.5z"></path></svg>Westwood, Los Angeles</span>
+            <span>Playing since Sep 2026</span>
+          </span>
+          <p style="margin: 4px 0 0; font-size: 17px; line-height: 1.5; color: #3D4047; max-width: 620px">Pickup regular. Usually at Pauley on weeknights, down for beach volleyball on weekends.</p>
+        </div>
+        <div style="display: flex; gap: 10px">
+          <a href="Onboarding.dc.html" style="display: flex; align-items: center; height: 46px; padding: 0 20px; border-radius: 999px; border: 1px solid #E2E2E6; font-size: 15px; font-weight: 600; text-decoration: none">Edit profile</a>
+          <button type="button" style="height: 46px; padding: 0 20px; border-radius: 999px; border: 1px solid #E2E2E6; background: #FFFFFF; color: #121316; font: 600 15px 'Schibsted Grotesk', system-ui, sans-serif; cursor: pointer">Share</button>
+        </div>
+      </div>
+    </section>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 28px">
+      <aside style="flex: 1 1 340px; display: flex; flex-direction: column; gap: 16px">
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 22px 8px; border-radius: 26px; background: #FFFFFF; border: 1px solid #ECECEE">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 2px; border-right: 1px solid #F0F0F2"><span style="font-size: 36px; font-weight: 800; letter-spacing: -0.05em">24</span><span style="font-size: 14px; color: #63666E">Games played</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 2px; border-right: 1px solid #F0F0F2"><span style="font-size: 36px; font-weight: 800; letter-spacing: -0.05em">6</span><span style="font-size: 14px; color: #63666E">Hosted</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 2px"><span style="font-size: 36px; font-weight: 800; letter-spacing: -0.05em">5</span><span style="font-size: 14px; color: #63666E">This month</span></div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 6px; padding: 22px; border-radius: 26px; background: #FFFFFF; border: 1px solid #ECECEE">
+          <h2 style="margin: 0 0 8px; font-size: 20px; font-weight: 700; letter-spacing: -0.03em">Sports &amp; skill</h2>
+          <sc-for list="{{sports}}" as="s" hint-placeholder-count="3">
+            <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0">
+              <span style="flex: none; width: 52px; height: 40px; border-radius: 10px; overflow: hidden; display: block"><dc-import name="Court" sport="{{s.name}}" h="40px" hint-size="52px,40px"></dc-import></span>
+              <span style="flex: 1; display: flex; flex-direction: column"><strong style="font-size: 16px">{{s.name}}</strong><span style="font-size: 13px; color: #63666E">{{s.count}}</span></span>
+              <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#121316" aria-hidden="true"><rect x="4" y="13" width="4" height="7" rx="1"></rect><rect x="10" y="9" width="4" height="11" rx="1" opacity="{{s.b2}}"></rect><rect x="16" y="5" width="4" height="15" rx="1" opacity="{{s.b3}}"></rect></svg>
+                {{s.level}}
+              </span>
+            </div>
+          </sc-for>
+        </div>
+
+        <a href="Game.dc.html" style="display: flex; flex-direction: column; gap: 6px; padding: 20px 22px; border-radius: 26px; background: #121316; color: #FFFFFF; text-decoration: none">
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #C7C9D1"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 999px; background: #4C8DFF"></span>Up next</span>
+          <strong style="font-size: 20px; letter-spacing: -0.03em">Friday Night Runs</strong>
+          <span style="font-size: 14px; color: #C7C9D1">Today at 6:30 PM · Pauley Pavilion courts</span>
+        </a>
+      </aside>
+
+      <section aria-labelledby="history" style="flex: 999 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+          <h2 id="history" style="margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.04em">Match history</h2>
+          <div style="display: flex; padding: 4px; gap: 4px; border-radius: 999px; background: #EFEFF1">
+            <button type="button" aria-pressed="true" style="height: 36px; padding: 0 14px; border-radius: 999px; border: 0; background: #FFFFFF; color: #121316; box-shadow: 0 1px 3px rgba(18,19,22,0.12); font: 600 14px 'Schibsted Grotesk', system-ui, sans-serif; cursor: pointer">All</button>
+            <button type="button" style="height: 36px; padding: 0 14px; border-radius: 999px; border: 0; background: transparent; color: #4D5058; font: 600 14px 'Schibsted Grotesk', system-ui, sans-serif; cursor: pointer">Played</button>
+            <button type="button" style="height: 36px; padding: 0 14px; border-radius: 999px; border: 0; background: transparent; color: #4D5058; font: 600 14px 'Schibsted Grotesk', system-ui, sans-serif; cursor: pointer">Hosted</button>
+          </div>
+        </div>
+        <sc-for list="{{groups}}" as="grp" hint-placeholder-count="3">
+          <div style="display: flex; flex-direction: column; gap: 10px">
+            <h3 style="margin: 8px 0 0; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #63666E">{{grp.label}}</h3>
+            <ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column">
+              <sc-for list="{{grp.items}}" as="it" hint-placeholder-count="2">
+                <li style="display: flex; gap: 18px">
+                  <div aria-hidden="true" style="flex: none; width: 14px; display: flex; flex-direction: column; align-items: center">
+                    <span style="width: 2px; height: 26px; background: #E2E2E6"></span>
+                    <span style="width: 12px; height: 12px; border-radius: 999px; background: {{it.dot}}; border: 2px solid #121316; box-sizing: border-box"></span>
+                    <span style="width: 2px; flex: 1; background: #E2E2E6"></span>
+                  </div>
+                  <a href="Game.dc.html" style="flex: 1; min-width: 0; margin: 8px 0; display: flex; align-items: center; gap: 16px; padding: 12px; border-radius: 20px; background: #FFFFFF; border: 1px solid #ECECEE; color: #121316; text-decoration: none">
+                    <span style="flex: none; width: 88px; height: 64px; border-radius: 12px; overflow: hidden; display: block"><dc-import name="Court" sport="{{it.sport}}" h="64px" hint-size="88px,64px"></dc-import></span>
+                    <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px">
+                      <strong style="font-size: 17px; letter-spacing: -0.02em">{{it.title}}</strong>
+                      <span style="font-size: 14px; color: #63666E">{{it.park}} · {{it.date}}</span>
+                    </span>
+                    <span style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px">
+                      <span style="padding: 3px 10px; border-radius: 999px; background: {{it.roleBg}}; color: {{it.roleFg}}; font-size: 12px; font-weight: 700">{{it.role}}</span>
+                      <span style="font-size: 13px; color: #63666E">{{it.players}} players</span>
+                    </span>
+                  </a>
+                </li>
+              </sc-for>
+            </ol>
+          </div>
+        </sc-for>
+      </section>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1560}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const lv = { 'Beginner': 1, 'Intermediate': 2, 'Advanced': 3 };
+    const sports = [
+      { name: 'Basketball', level: 'Intermediate', count: '11 games' },
+      { name: 'Beach volleyball', level: 'Intermediate', count: '8 games' },
+      { name: 'Soccer', level: 'Beginner', count: '5 games' }
+    ].map((s) => Object.assign({}, s, { b2: lv[s.level] >= 2 ? 1 : 0.3, b3: lv[s.level] >= 3 ? 1 : 0.3 }));
+    const role = (r) => r === 'Hosted' ? { roleBg: '#121316', roleFg: '#FFFFFF', dot: '#121316' } : { roleBg: '#F1F1F3', roleFg: '#121316', dot: '#FFFFFF' };
+    const groups = [
+      { label: 'This week', items: [
+        { sport: 'Basketball', title: 'Late-night 4v4', park: 'Pauley Pavilion courts', date: 'Thu, Oct 29', role: 'Played', players: 8 },
+        { sport: 'Beach volleyball', title: 'Beginner beach doubles', park: 'Santa Monica beach courts', date: 'Tue, Oct 27', role: 'Hosted', players: 8 }
+      ] },
+      { label: 'Earlier in October', items: [
+        { sport: 'Soccer', title: 'Saturday 7v7', park: 'Drake Stadium fields', date: 'Sat, Oct 24', role: 'Played', players: 14 },
+        { sport: 'Basketball', title: 'Friday Night Runs', park: 'Pauley Pavilion courts', date: 'Fri, Oct 16', role: 'Played', players: 10 },
+        { sport: 'Beach volleyball', title: 'Sunset doubles', park: 'Santa Monica beach courts', date: 'Sun, Oct 11', role: 'Played', players: 4 }
+      ] },
+      { label: 'September', items: [
+        { sport: 'Soccer', title: 'Welcome week pickup', park: 'Drake Stadium fields', date: 'Sun, Sep 27', role: 'Hosted', players: 12 }
+      ] }
+    ].map((g) => ({ label: g.label, items: g.items.map((it) => Object.assign({}, it, role(it.role))) }));
+    return { sports, groups };
+  }
+}
+</script>
+</body>
+</html>

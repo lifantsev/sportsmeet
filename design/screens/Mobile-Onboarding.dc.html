@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Set up your profile (mobile)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F8F8F7}
+a{color:#121316}a:hover{color:#2F62B0}
+textarea::placeholder{color:#7C7F87}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #F8F8F7; color: #121316; font-family: 'Schibsted Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased">
+  <div style="position: absolute; inset: 0; overflow-y: auto; padding: 56px 20px 120px; display: flex; flex-direction: column; gap: 22px; box-sizing: border-box">
+    <div style="display: flex; align-items: center; justify-content: space-between">
+      <a href="Mobile-SignIn.dc.html" aria-label="Back" style="width: 44px; height: 44px; border-radius: 999px; background: #FFFFFF; border: 1px solid #ECECEE; display: grid; place-items: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></a>
+      <span style="font-size: 14px; font-weight: 600; color: #63666E">Step 2 of 3</span>
+      <a href="Mobile-Discover.dc.html" style="font-size: 15px; font-weight: 600; color: #63666E">Skip</a>
+    </div>
+    <div style="display: flex; gap: 6px" aria-hidden="true"><span style="flex: 1; height: 5px; border-radius: 999px; background: #121316"></span><span style="flex: 1; height: 5px; border-radius: 999px; background: #121316"></span><span style="flex: 1; height: 5px; border-radius: 999px; background: #DCDCE0"></span></div>
+    <h1 style="margin: 0; font-size: 34px; line-height: 1; font-weight: 800; letter-spacing: -0.05em">Set up your profile</h1>
+
+    <div style="display: flex; align-items: center; gap: 16px">
+      <span style="width: 80px; height: 80px; border-radius: 999px; border: 2px dashed #CFCFD5; background: #FFFFFF; color: #63666E; display: grid; place-items: center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg></span>
+      <button type="button" style="height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid #E2E2E6; background: #FFFFFF; color: #121316; font: 600 15px 'Schibsted Grotesk', system-ui, sans-serif">Upload photo</button>
+    </div>
+
+    <label style="display: flex; flex-direction: column; gap: 8px"><span style="font-size: 15px; font-weight: 700">Bio</span><textarea rows="3" placeholder="Pickup regular. Usually at Pauley on weeknights." style="padding: 12px 14px; border-radius: 14px; border: 1px solid #DFDFE3; background: #FFFFFF; font: 400 16px/1.45 'Schibsted Grotesk', system-ui, sans-serif; resize: none; box-sizing: border-box"></textarea></label>
+    <label style="display: flex; flex-direction: column; gap: 8px"><span style="font-size: 15px; font-weight: 700">Home location</span><input type="text" value="Westwood, Los Angeles" style="height: 50px; padding: 0 14px; border-radius: 14px; border: 1px solid #DFDFE3; background: #FFFFFF; font: 500 16px 'Schibsted Grotesk', system-ui, sans-serif; box-sizing: border-box"></label>
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 15px; font-weight: 700">Favorite sports</span>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <button type="button" aria-pressed="true" style="height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid #121316; background: #121316; color: #FFFFFF; font: 600 15px 'Schibsted Grotesk', system-ui, sans-serif">Basketball</button>
+        <button type="button" aria-pressed="true" style="height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid #121316; background: #121316; color: #FFFFFF; font: 600 15px 'Schibsted Grotesk', system-ui, sans-serif">Soccer</button>
+        <button type="button" aria-pressed="true" style="height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid #121316; background: #121316; color: #FFFFFF; font: 600 15px 'Schibsted Grotesk', system-ui, sans-serif">Beach volleyball</button>
+        <button type="button" aria-pressed="false" style="height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid #E2E2E6; background: #FFFFFF; color: #121316; font: 600 15px 'Schibsted Grotesk', system-ui, sans-serif">Tennis</button>
+        <button type="button" aria-pressed="false" style="height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid #E2E2E6; background: #FFFFFF; color: #121316; font: 600 15px 'Schibsted Grotesk', system-ui, sans-serif">Ultimate</button>
+        <button type="button" aria-pressed="false" style="height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid #E2E2E6; background: #FFFFFF; color: #121316; font: 600 15px 'Schibsted Grotesk', system-ui, sans-serif">Spikeball</button>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 15px; font-weight: 700">Skill level</span>
+      <sc-for list="{{rows}}" as="r" hint-placeholder-count="3">
+        <div style="display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 16px; background: #FFFFFF; border: 1px solid #ECECEE">
+          <strong style="font-size: 15px">{{r.name}}</strong>
+          <div role="radiogroup" aria-label="{{r.name}} skill level" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 999px; background: #F1F1F3">
+            <sc-for list="{{r.opts}}" as="o" hint-placeholder-count="3">
+              <button type="button" role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" style="height: 38px; border-radius: 999px; border: 0; background: {{o.bg}}; color: {{o.fg}}; font: 600 13px 'Schibsted Grotesk', system-ui, sans-serif">{{o.label}}</button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 20px 30px; background: #F8F8F7; border-top: 1px solid #ECECEE">
+    <a href="Mobile-Discover.dc.html" style="display: flex; align-items: center; justify-content: center; height: 56px; border-radius: 999px; background: #121316; color: #FFFFFF; font-size: 17px; font-weight: 700; text-decoration: none">Finish setup</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { levels: { 'Basketball': 'Intermediate', 'Soccer': 'Beginner', 'Beach volleyball': 'Intermediate' } };
+  }
+  renderVals() {
+    const levels = this.state.levels;
+    const rows = ['Basketball', 'Soccer', 'Beach volleyball'].map((n) => ({
+      name: n,
+      opts: ['Beginner', 'Intermediate', 'Advanced'].map((l) => {
+        const on = levels[n] === l;
+        return { label: l, on, bg: on ? '#121316' : 'transparent', fg: on ? '#FFFFFF' : '#4D5058', pick: () => this.setState({ levels: Object.assign({}, levels, { [n]: l }) }) };
+      })
+    }));
+    return { rows };
+  }
+}
+</script>
+</body>
+</html>

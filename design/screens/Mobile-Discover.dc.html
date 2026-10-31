@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Discover (mobile)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F8F8F7}
+a{color:#121316}a:hover{color:#2F62B0}
+input::placeholder{color:#7C7F87}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #F8F8F7; color: #121316; font-family: 'Schibsted Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased">
+  <div style="position: absolute; inset: 0; overflow-y: auto; padding: 56px 0 130px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box">
+    <div style="padding: 0 20px; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px">
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <span style="font-size: 15px; font-weight: 600; color: #63666E">Fri, Oct 30 · Westwood</span>
+        <h1 style="margin: 0; font-size: 34px; line-height: 1; font-weight: 800; letter-spacing: -0.05em">Games near you</h1>
+      </div>
+      <a href="Mobile-Profile.dc.html" aria-label="Your profile" style="flex: none; width: 48px; height: 48px; border-radius: 999px; background: #E3E9F5; color: #2F62B0; display: grid; place-items: center; font-size: 16px; font-weight: 700; text-decoration: none">SL</a>
+    </div>
+
+    <div style="padding: 0 20px">
+      <label style="display: flex; align-items: center; gap: 10px; height: 54px; padding: 0 6px 0 18px; border-radius: 999px; background: #FFFFFF; border: 1px solid #E2E2E6; color: #63666E; box-sizing: border-box">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+        <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Search</span>
+        <input type="search" placeholder="Search games, sports, or parks" style="flex: 1; min-width: 0; border: 0; background: transparent; outline: none; color: #121316; font: 400 16px 'Schibsted Grotesk', system-ui, sans-serif">
+        <a href="Mobile-Map.dc.html" aria-label="Open map" style="width: 44px; height: 44px; border-radius: 999px; background: #F1F1F3; display: grid; place-items: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#121316" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"></path><path d="M9 4v14M15 6v14"></path></svg></a>
+      </label>
+    </div>
+
+    <div style="display: flex; gap: 8px; overflow-x: auto; padding: 0 20px; scrollbar-width: none">
+      <button aria-pressed="true" style="flex: none; height: 42px; padding: 0 16px; border-radius: 999px; border: 1px solid #121316; background: #121316; color: #FFFFFF; font: 600 14px 'Schibsted Grotesk', system-ui, sans-serif">All sports</button>
+      <button style="flex: none; height: 42px; padding: 0 14px; border-radius: 999px; border: 1px solid #E2E2E6; background: #FFFFFF; color: #121316; font: 500 14px 'Schibsted Grotesk', system-ui, sans-serif">Basketball</button>
+      <button style="flex: none; height: 42px; padding: 0 14px; border-radius: 999px; border: 1px solid #E2E2E6; background: #FFFFFF; color: #121316; font: 500 14px 'Schibsted Grotesk', system-ui, sans-serif">Soccer</button>
+      <button style="flex: none; height: 42px; padding: 0 14px; border-radius: 999px; border: 1px solid #E2E2E6; background: #FFFFFF; color: #121316; font: 500 14px 'Schibsted Grotesk', system-ui, sans-serif">Skill: Any</button>
+      <button style="flex: none; height: 42px; padding: 0 14px; border-radius: 999px; border: 1px solid #E2E2E6; background: #FFFFFF; color: #121316; font: 500 14px 'Schibsted Grotesk', system-ui, sans-serif">This week</button>
+      <button style="flex: none; height: 42px; padding: 0 14px; border-radius: 999px; border: 1px solid #E2E2E6; background: #FFFFFF; color: #121316; font: 500 14px 'Schibsted Grotesk', system-ui, sans-serif">Within 5 mi</button>
+    </div>
+
+    <section aria-labelledby="m-soon" style="padding: 0 20px; display: flex; flex-direction: column; gap: 12px">
+      <h2 id="m-soon" style="margin: 0; font-size: 21px; font-weight: 700; letter-spacing: -0.035em">Starting soon</h2>
+      <a href="Mobile-Game.dc.html" style="display: flex; flex-direction: column; border-radius: 26px; overflow: hidden; background: #FFFFFF; border: 1px solid #ECECEE; color: #121316; text-decoration: none">
+        <div style="position: relative; height: 190px">
+          <dc-import name="Court" sport="Basketball" h="190px" hint-size="350px,190px"></dc-import>
+          <span style="position: absolute; left: 14px; top: 14px; display: flex; align-items: center; gap: 7px; padding: 7px 12px; border-radius: 999px; background: #121316; color: #FFFFFF; font-size: 13px; font-weight: 600"><span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 999px; background: #4C8DFF"></span>Starts in 25 min</span>
+          <div style="position: absolute; left: 14px; right: 14px; bottom: 14px; display: flex; justify-content: space-between">
+            <span style="display: flex; align-items: center; height: 30px; padding: 0 11px; border-radius: 999px; background: rgba(18,19,22,0.6); backdrop-filter: blur(12px); color: #FFFFFF; font-size: 13px; font-weight: 700">Basketball</span>
+            <span style="display: flex; align-items: center; height: 30px; padding: 0 11px; border-radius: 999px; background: rgba(18,19,22,0.6); backdrop-filter: blur(12px); color: #FFFFFF; font-size: 13px; font-weight: 700">Intermediate</span>
+          </div>
+        </div>
+        <div style="padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px">
+          <strong style="font-size: 22px; line-height: 1.1; font-weight: 800; letter-spacing: -0.04em">Friday Night Runs: 5v5 full court</strong>
+          <span style="font-size: 14px; color: #5C5F67">Pauley Pavilion courts · Today at 6:30 PM</span>
+          <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 6px">
+            <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600"><span style="width: 28px; height: 28px; border-radius: 999px; background: #E3E9F5; color: #2F62B0; display: grid; place-items: center; font-size: 11px; font-weight: 800">JL</span>Jordan Lee</span>
+            <span style="font-size: 14px"><strong style="color: #2F62B0">2 spots left</strong> · 8/10</span>
+          </div>
+        </div>
+      </a>
+    </section>
+
+    <section aria-labelledby="m-more" style="padding: 0 20px; display: flex; flex-direction: column; gap: 12px">
+      <div style="display: flex; align-items: center; justify-content: space-between"><h2 id="m-more" style="margin: 0; font-size: 21px; font-weight: 700; letter-spacing: -0.035em">More games near you</h2><a href="#" style="font-size: 15px; font-weight: 700; text-decoration: none">See all</a></div>
+      <sc-for list="{{games}}" as="g" hint-placeholder-count="4">
+        <a href="Mobile-Game.dc.html" style="display: flex; flex-direction: column; border-radius: 24px; overflow: hidden; background: #FFFFFF; border: 1px solid #ECECEE; color: #121316; text-decoration: none">
+          <div style="position: relative; height: 150px">
+            <dc-import name="Court" sport="{{g.sport}}" h="150px" hint-size="350px,150px"></dc-import>
+            <span style="position: absolute; right: 12px; top: 12px; height: 28px; display: flex; align-items: center; padding: 0 10px; border-radius: 999px; background: #FFFFFF; font-size: 12px; font-weight: 700">{{g.dist}}</span>
+            <div style="position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; justify-content: space-between">
+              <span style="display: flex; align-items: center; height: 30px; padding: 0 11px; border-radius: 999px; background: rgba(18,19,22,0.6); backdrop-filter: blur(12px); color: #FFFFFF; font-size: 13px; font-weight: 700">{{g.sport}}</span>
+              <span style="display: flex; align-items: center; height: 30px; padding: 0 11px; border-radius: 999px; background: rgba(18,19,22,0.6); backdrop-filter: blur(12px); color: #FFFFFF; font-size: 13px; font-weight: 700">{{g.skill}}</span>
+            </div>
+          </div>
+          <div style="padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px">
+            <strong style="font-size: 19px; line-height: 1.15; font-weight: 800; letter-spacing: -0.035em">{{g.title}}</strong>
+            <span style="font-size: 14px; color: #5C5F67">{{g.park}}</span>
+            <span style="font-size: 14px; color: #5C5F67">{{g.when}}</span>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 6px">
+              <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600"><span style="width: 28px; height: 28px; border-radius: 999px; background: {{g.avBg}}; color: {{g.avFg}}; display: grid; place-items: center; font-size: 11px; font-weight: 800">{{g.initials}}</span>{{g.host}}</span>
+              <span style="font-size: 14px"><strong style="color: {{g.leftColor}}">{{g.leftText}}</strong> · {{g.joined}}/{{g.max}}</span>
+            </div>
+          </div>
+        </a>
+      </sc-for>
+    </section>
+  </div>
+
+  <nav aria-label="Primary" style="position: absolute; left: 14px; right: 14px; bottom: 18px; height: 72px; padding: 0 6px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: center; border-radius: 28px; background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); border: 1px solid #ECECEE; box-shadow: 0 12px 30px rgba(18,19,22,0.12)">
+    <a href="Mobile-Discover.dc.html" aria-current="page" style="display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; font-weight: 700; color: #121316; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m15.5 8.5-2 5-5 2 2-5z" fill="currentColor"></path></svg>Discover</a>
+    <a href="Mobile-Map.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; color: #6B6E76; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"></path><path d="M9 4v14M15 6v14"></path></svg>Map</a>
+    <a href="Mobile-Create.dc.html" aria-label="Host a game" style="justify-self: center; margin-top: -30px; width: 62px; height: 62px; border-radius: 999px; background: #121316; color: #FFFFFF; display: grid; place-items: center; border: 4px solid #F8F8F7; box-shadow: 0 10px 24px rgba(18,19,22,0.3)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></a>
+    <a href="Mobile-Profile.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; color: #6B6E76; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg>My games</a>
+    <a href="Mobile-Profile.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; color: #6B6E76; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Profile</a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const av = [['#E0F0E6', '#22663F'], ['#F3E6D8', '#7A4A1E'], ['#EEE6F7', '#5B3B8C'], ['#F7E3E6', '#9A2F45'], ['#E6EEF2', '#2D5A70']];
+    const base = [
+      { sport: 'Soccer', skill: 'All levels', title: 'Sunday morning 7v7', park: 'Drake Stadium fields', dist: '0.6 mi', when: 'Sun, Nov 1 at 9:00 AM', joined: 11, max: 14, host: 'Diego Ramirez' },
+      { sport: 'Beach volleyball', skill: 'Intermediate', title: 'Doubles, king of the court', park: 'Santa Monica beach courts', dist: '4.8 mi', when: 'Sat, Oct 31 at 10:30 AM', joined: 6, max: 8, host: 'Priya Nair' },
+      { sport: 'Basketball', skill: 'Advanced', title: '3v3 half court, winners stay on', park: 'Pauley Pavilion courts', dist: '0.3 mi', when: 'Today at 8:00 PM', joined: 5, max: 6, host: 'Marcus Thompson' },
+      { sport: 'Tennis', skill: 'Beginner', title: 'Doubles rally for new players', park: 'Westwood Park', dist: '1.4 mi', when: 'Sun, Nov 1 at 4:00 PM', joined: 2, max: 4, host: 'Sam Okafor' }
+    ];
+    const games = base.map((g, i) => {
+      const left = g.max - g.joined;
+      return Object.assign({}, g, {
+        avBg: av[i][0], avFg: av[i][1],
+        initials: g.host.split(' ').map((w) => w[0]).join(''),
+        leftText: left === 1 ? '1 spot left' : left + ' spots left',
+        leftColor: left <= 2 ? '#2F62B0' : '#5C5F67'
+      });
+    });
+    return { games };
+  }
+}
+</script>
+</body>
+</html>

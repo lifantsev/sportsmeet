@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Map (mobile)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EEF0EA}
+a{color:#121316}a:hover{color:#2F62B0}
+input::placeholder{color:#7C7F87}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #EEF0EA; color: #121316; font-family: 'Schibsted Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased">
+  <svg width="390" height="844" viewBox="0 0 390 844" aria-hidden="true" style="position: absolute; inset: 0; display: block">
+    <path d="M0 0H390V70C300 100 150 80 0 120Z" fill="#DEE8D6"></path>
+    <path d="M180 190C230 160 320 170 335 230 348 285 300 330 240 330 190 330 160 290 165 250 166 220 170 200 180 190Z" fill="#D5E6CA"></path>
+    <path d="M250 455H315V510H250Z" fill="#D5E6CA"></path>
+    <path d="M40 290C70 275 110 280 115 305 120 330 90 345 60 340 35 335 25 305 40 290Z" fill="#DCE8D2"></path>
+    <path d="M0 500C40 590 70 700 92 844H0Z" fill="#CFE1EE"></path>
+    <path d="M0 500C40 590 70 700 92 844" fill="none" stroke="#EFE3C4" stroke-width="10"></path>
+    <g fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round">
+      <path d="M0 165C120 182 220 145 390 160"></path>
+      <path d="M20 425C140 412 260 402 390 396"></path>
+      <path d="M50 530C160 515 270 500 390 494"></path>
+      <path d="M80 640C190 628 290 618 390 612"></path>
+      <path d="M300 150V844"></path>
+      <path d="M110 120V844"></path>
+    </g>
+    <path d="M200 0C195 300 203 600 214 844" fill="none" stroke="#F1D79E" stroke-width="9" stroke-linecap="round"></path>
+  </svg>
+  <span style="position: absolute; left: 232px; top: 300px; font-size: 12px; font-weight: 700; color: #4F7A44">UCLA</span>
+  <span style="position: absolute; left: 312px; top: 420px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #7C7F87">Westwood</span>
+  <span style="position: absolute; left: 30px; top: 360px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #7C7F87">Brentwood</span>
+  <span style="position: absolute; left: 100px; top: 575px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #7C7F87">Santa Monica</span>
+
+  <sc-for list="{{games}}" as="g" hint-placeholder-count="7">
+    <button type="button" onClick="{{g.pick}}" aria-label="{{g.title}}" style="position: absolute; left: {{g.x}}; top: {{g.y}}; transform: translate(-50%, -50%); z-index: {{g.z}}; width: {{g.pinSize}}; height: {{g.pinSize}}; border-radius: 999px; border: 3px solid #FFFFFF; background: {{g.pinBg}}; color: {{g.pinFg}}; display: grid; place-items: center; box-shadow: 0 6px 16px rgba(18,19,22,0.25); padding: 0; cursor: pointer">
+      <sc-if value="{{g.isSoccer}}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="20"></circle><path d="M24 17l6.7 4.8-2.6 7.9h-8.2l-2.6-7.9z" fill="currentColor"></path><path d="M24 17V4M30.7 21.8l12.3-4M28.1 29.7l7.7 10.5M19.9 29.7l-7.7 10.5M17.3 21.8 5 17.8"></path></svg></sc-if>
+      <sc-if value="{{g.isBasketball}}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3.6" aria-hidden="true"><circle cx="24" cy="24" r="20"></circle><path d="M24 4v40M4 24h40M10.5 9.5c4.5 4 7 9 7 14.5s-2.5 10.5-7 14.5M37.5 9.5c-4.5 4-7 9-7 14.5s2.5 10.5 7 14.5"></path></svg></sc-if>
+      <sc-if value="{{g.isVolleyball}}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3.6" aria-hidden="true"><circle cx="24" cy="24" r="20"></circle><path d="M24 24c0-8 4-15 12-18M24 24c-7 4-15 4-21-1M24 24c7 4 11 11 11 18"></path></svg></sc-if>
+      <sc-if value="{{g.isTennis}}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3.6" aria-hidden="true"><circle cx="24" cy="24" r="20"></circle><path d="M7.5 12.5c6 6 6 17 0 23M40.5 12.5c-6 6-6 17 0 23"></path></svg></sc-if>
+      <sc-if value="{{g.isUltimate}}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3.6" aria-hidden="true"><ellipse cx="24" cy="26" rx="20" ry="8"></ellipse><ellipse cx="24" cy="25.5" rx="9" ry="3"></ellipse></svg></sc-if>
+      <sc-if value="{{g.isSpikeball}}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" aria-hidden="true"><ellipse cx="24" cy="24" rx="20" ry="8"></ellipse><path d="M8 28l2 14M40 28l-2 14"></path></svg></sc-if>
+    </button>
+  </sc-for>
+
+  <div style="position: absolute; left: 16px; right: 16px; top: 54px; display: flex; flex-direction: column; gap: 10px">
+    <div style="display: flex; gap: 8px">
+      <a href="Mobile-Discover.dc.html" aria-label="Back to list" style="flex: none; width: 52px; height: 52px; border-radius: 999px; background: #FFFFFF; display: grid; place-items: center; box-shadow: 0 6px 18px rgba(18,19,22,0.12)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></a>
+      <label style="flex: 1; display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 16px; border-radius: 999px; background: #FFFFFF; color: #63666E; box-shadow: 0 6px 18px rgba(18,19,22,0.12)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+        <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Search</span>
+        <input type="search" placeholder="Search this area" style="flex: 1; min-width: 0; border: 0; background: transparent; outline: none; color: #121316; font: 400 16px 'Schibsted Grotesk', system-ui, sans-serif">
+      </label>
+    </div>
+    <div style="display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none">
+      <span style="flex: none; display: flex; align-items: center; height: 38px; padding: 0 14px; border-radius: 999px; background: #121316; color: #FFFFFF; font-size: 13px; font-weight: 600">All sports</span>
+      <span style="flex: none; display: flex; align-items: center; height: 38px; padding: 0 14px; border-radius: 999px; background: #FFFFFF; font-size: 13px; font-weight: 600; box-shadow: 0 3px 10px rgba(18,19,22,0.08)">Skill: Any</span>
+      <span style="flex: none; display: flex; align-items: center; height: 38px; padding: 0 14px; border-radius: 999px; background: #FFFFFF; font-size: 13px; font-weight: 600; box-shadow: 0 3px 10px rgba(18,19,22,0.08)">This week</span>
+      <span style="flex: none; display: flex; align-items: center; height: 38px; padding: 0 14px; border-radius: 999px; background: #FFFFFF; font-size: 13px; font-weight: 600; box-shadow: 0 3px 10px rgba(18,19,22,0.08)">Within 5 mi</span>
+    </div>
+  </div>
+
+  <section aria-label="Games in this area" style="position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 16px 112px; display: flex; flex-direction: column; gap: 12px; border-radius: 28px 28px 0 0; background: #FFFFFF; box-shadow: 0 -10px 30px rgba(18,19,22,0.12)">
+    <span aria-hidden="true" style="align-self: center; width: 40px; height: 5px; border-radius: 999px; background: #DCDCE0"></span>
+    <div style="display: flex; align-items: center; justify-content: space-between"><strong style="font-size: 18px; letter-spacing: -0.03em">7 games nearby</strong><a href="Mobile-Discover.dc.html" style="font-size: 14px; font-weight: 700; text-decoration: none">View list</a></div>
+    <a href="Mobile-Game.dc.html" style="display: flex; gap: 12px; padding: 10px; border-radius: 20px; border: 2px solid #121316; color: #121316; text-decoration: none">
+      <span style="flex: none; width: 84px; height: 84px; border-radius: 14px; overflow: hidden; display: block"><dc-import name="Court" sport="{{cur.sport}}" h="84px" hint-size="84px,84px"></dc-import></span>
+      <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px">
+        <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #63666E">{{cur.sport}} · {{cur.skill}}</span>
+        <strong style="font-size: 17px; line-height: 1.15; letter-spacing: -0.03em">{{cur.title}}</strong>
+        <span style="font-size: 13px; color: #5C5F67">{{cur.park}} · {{cur.when}}</span>
+        <span style="font-size: 13px; font-weight: 700; color: #2F62B0">{{cur.leftText}} · {{cur.joined}}/{{cur.max}}</span>
+      </span>
+    </a>
+  </section>
+
+  <nav aria-label="Primary" style="position: absolute; left: 14px; right: 14px; bottom: 18px; height: 72px; padding: 0 6px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: center; border-radius: 28px; background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); border: 1px solid #ECECEE; box-shadow: 0 12px 30px rgba(18,19,22,0.12)">
+    <a href="Mobile-Discover.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; color: #6B6E76; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m15.5 8.5-2 5-5 2 2-5z"></path></svg>Discover</a>
+    <a href="Mobile-Map.dc.html" aria-current="page" style="display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; font-weight: 700; color: #121316; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"></path><path d="M9 4v14M15 6v14" stroke="#FFFFFF"></path></svg>Map</a>
+    <a href="Mobile-Create.dc.html" aria-label="Host a game" style="justify-self: center; margin-top: -30px; width: 62px; height: 62px; border-radius: 999px; background: #121316; color: #FFFFFF; display: grid; place-items: center; border: 4px solid #FFFFFF; box-shadow: 0 10px 24px rgba(18,19,22,0.3)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></a>
+    <a href="Mobile-Profile.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; color: #6B6E76; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg>My games</a>
+    <a href="Mobile-Profile.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; color: #6B6E76; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Profile</a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { sel: 'g0' };
+  }
+  renderVals() {
+    const base = [
+      { id: 'g0', sport: 'Basketball', skill: 'Intermediate', title: 'Friday Night Runs', park: 'Pauley Pavilion', when: 'Today 6:30 PM', joined: 8, max: 10, x: '272px', y: '232px' },
+      { id: 'g1', sport: 'Basketball', skill: 'Advanced', title: '3v3 half court, winners stay on', park: 'Pauley Pavilion', when: 'Today 8:00 PM', joined: 5, max: 6, x: '312px', y: '205px' },
+      { id: 'g2', sport: 'Spikeball', skill: 'Beginner', title: 'Roundnet on the lawn', park: 'Sunset Rec', when: 'Sat 2:00 PM', joined: 4, max: 8, x: '218px', y: '196px' },
+      { id: 'g3', sport: 'Soccer', skill: 'All levels', title: 'Sunday morning 7v7', park: 'Drake Stadium fields', when: 'Sun 9:00 AM', joined: 11, max: 14, x: '262px', y: '292px' },
+      { id: 'g4', sport: 'Ultimate', skill: 'Intermediate', title: 'Ultimate scrimmage under the lights', park: 'Drake Stadium fields', when: 'Mon 7:00 PM', joined: 9, max: 14, x: '222px', y: '316px' },
+      { id: 'g5', sport: 'Tennis', skill: 'Beginner', title: 'Doubles rally for new players', park: 'Westwood Park', when: 'Sun 4:00 PM', joined: 2, max: 4, x: '283px', y: '482px' },
+      { id: 'g6', sport: 'Beach volleyball', skill: 'Intermediate', title: 'Doubles, king of the court', park: 'Santa Monica beach', when: 'Sat 10:30 AM', joined: 6, max: 8, x: '58px', y: '560px' }
+    ];
+    const sel = this.state.sel;
+    const games = base.map((g) => {
+      const on = g.id === sel;
+      return Object.assign({}, g, {
+        isSoccer: g.sport === 'Soccer', isBasketball: g.sport === 'Basketball', isVolleyball: g.sport === 'Beach volleyball',
+        isTennis: g.sport === 'Tennis', isUltimate: g.sport === 'Ultimate', isSpikeball: g.sport === 'Spikeball',
+        pinBg: on ? '#121316' : '#FFFFFF', pinFg: on ? '#FFFFFF' : '#121316', pinSize: on ? '50px' : '40px', z: on ? 5 : 1,
+        pick: () => this.setState({ sel: g.id })
+      });
+    });
+    const c = base.find((g) => g.id === sel);
+    const left = c.max - c.joined;
+    const cur = Object.assign({}, c, { leftText: left === 1 ? '1 spot left' : left + ' spots left' });
+    return { games, cur };
+  }
+}
+</script>
+</body>
+</html>

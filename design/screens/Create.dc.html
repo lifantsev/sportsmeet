@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Host a game</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F8F8F7}
+a{color:#121316}a:hover{color:#2F62B0}
+input::placeholder,textarea::placeholder{color:#7C7F87}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F8F8F7; color: #121316; font-family: 'Schibsted Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased">
+  <header style="background: #FFFFFF; border-bottom: 1px solid #ECECEE">
+    <nav aria-label="Primary" style="max-width: 1280px; margin: 0 auto; padding: 14px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 32px; box-sizing: border-box">
+      <a href="Discover-E.dc.html" style="font-size: 26px; font-weight: 800; letter-spacing: -0.05em; text-decoration: none; color: #121316">pickup</a>
+      <div style="display: flex; flex-wrap: wrap; gap: 4px">
+        <a href="Discover-E.dc.html" style="padding: 10px 14px; color: #63666E; font-size: 15px; font-weight: 500; text-decoration: none">Discover</a>
+        <a href="Map.dc.html" style="padding: 10px 14px; color: #63666E; font-size: 15px; font-weight: 500; text-decoration: none">Map</a>
+        <a href="Create.dc.html" aria-current="page" style="padding: 10px 14px; color: #121316; font-size: 15px; font-weight: 700; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 8px">Create</a>
+        <a href="Profile.dc.html" style="padding: 10px 14px; color: #63666E; font-size: 15px; font-weight: 500; text-decoration: none">Profile</a>
+      </div>
+      <div style="margin-left: auto; display: flex; align-items: center; gap: 12px">
+        <a href="Profile.dc.html" aria-label="Your profile" style="width: 44px; height: 44px; border-radius: 999px; background: #E3E9F5; color: #2F62B0; display: grid; place-items: center; font-size: 15px; font-weight: 700; text-decoration: none">SL</a>
+      </div>
+    </nav>
+  </header>
+
+  <main style="max-width: 1280px; margin: 0 auto; padding: 44px 32px 96px; display: flex; flex-direction: column; gap: 28px; box-sizing: border-box">
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <h1 style="margin: 0; font-size: 56px; line-height: 1; font-weight: 800; letter-spacing: -0.05em">Host a game</h1>
+      <p style="margin: 0; font-size: 18px; color: #4D5058">Pick a spot and a time. Players nearby will see it on Discover and the map.</p>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 28px">
+      <form style="flex: 999 1 600px; min-width: 0; display: flex; flex-direction: column; border-radius: 28px; background: #FFFFFF; border: 1px solid #ECECEE">
+        <fieldset style="margin: 0; padding: 26px 28px; border: 0; border-bottom: 1px solid #F0F0F2; display: flex; flex-direction: column; gap: 12px">
+          <legend style="padding: 0; margin-bottom: 12px; font-size: 16px; font-weight: 700">Sport</legend>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(130px, 100%), 1fr)); gap: 8px">
+            <sc-for list="{{sports}}" as="s" hint-placeholder-count="6">
+              <button type="button" aria-pressed="{{s.on}}" onClick="{{s.pick}}" style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 14px; border-radius: 16px; border: 1px solid {{s.border}}; background: {{s.bg}}; color: {{s.fg}}; font: 600 14px 'Schibsted Grotesk', system-ui, sans-serif; text-align: left; cursor: pointer">
+                <sc-if value="{{s.isBasketball}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><circle cx="24" cy="24" r="20"></circle><path d="M24 4v40M4 24h40M10.5 9.5c4.5 4 7 9 7 14.5s-2.5 10.5-7 14.5M37.5 9.5c-4.5 4-7 9-7 14.5s2.5 10.5 7 14.5"></path></svg></sc-if>
+                <sc-if value="{{s.isSoccer}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="20"></circle><path d="M24 17l6.7 4.8-2.6 7.9h-8.2l-2.6-7.9z" fill="currentColor"></path><path d="M24 17V4M30.7 21.8l12.3-4M28.1 29.7l7.7 10.5M19.9 29.7l-7.7 10.5M17.3 21.8 5 17.8"></path></svg></sc-if>
+                <sc-if value="{{s.isVolleyball}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><circle cx="24" cy="24" r="20"></circle><path d="M24 24c0-8 4-15 12-18M24 24c-7 4-15 4-21-1M24 24c7 4 11 11 11 18"></path></svg></sc-if>
+                <sc-if value="{{s.isTennis}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><circle cx="24" cy="24" r="20"></circle><path d="M7.5 12.5c6 6 6 17 0 23M40.5 12.5c-6 6-6 17 0 23"></path></svg></sc-if>
+                <sc-if value="{{s.isUltimate}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><ellipse cx="24" cy="26" rx="20" ry="8"></ellipse><ellipse cx="24" cy="25.5" rx="9" ry="3"></ellipse></svg></sc-if>
+                <sc-if value="{{s.isSpikeball}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><ellipse cx="24" cy="24" rx="20" ry="8"></ellipse><path d="M8 28l2 14M40 28l-2 14"></path></svg></sc-if>
+                {{s.name}}
+              </button>
+            </sc-for>
+          </div>
+        </fieldset>
+
+        <div style="padding: 26px 28px; border-bottom: 1px solid #F0F0F2; display: flex; flex-direction: column; gap: 8px">
+          <label for="title-in" style="font-size: 16px; font-weight: 700">Title</label>
+          <input id="title-in" type="text" value="{{title}}" onChange="{{setTitle}}" maxlength="60" style="height: 54px; padding: 0 16px; border-radius: 14px; border: 1px solid #DFDFE3; color: #121316; font: 500 17px 'Schibsted Grotesk', system-ui, sans-serif; box-sizing: border-box">
+        </div>
+
+        <fieldset style="margin: 0; padding: 26px 28px; border: 0; border-bottom: 1px solid #F0F0F2; display: flex; flex-direction: column; gap: 12px">
+          <legend style="padding: 0; margin-bottom: 12px; font-size: 16px; font-weight: 700">Location</legend>
+          <label style="display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 16px; border-radius: 14px; border: 1px solid #DFDFE3; color: #63666E">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+            <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Search parks and courts</span>
+            <input type="search" placeholder="Search parks and courts" style="flex: 1; min-width: 0; border: 0; outline: none; background: transparent; color: #121316; font: 400 16px 'Schibsted Grotesk', system-ui, sans-serif">
+          </label>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px">
+            <div style="flex: 1 1 260px; display: flex; flex-direction: column; gap: 6px">
+              <sc-for list="{{locs}}" as="l" hint-placeholder-count="4">
+                <button type="button" aria-pressed="{{l.on}}" onClick="{{l.pick}}" style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 14px; border: 1.5px solid {{l.border}}; background: #FFFFFF; color: #121316; font-family: inherit; text-align: left; cursor: pointer">
+                  <span style="flex: none; width: 36px; height: 36px; border-radius: 10px; background: #F1F1F3; display: grid; place-items: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg></span>
+                  <span style="display: flex; flex-direction: column"><strong style="font-size: 15px">{{l.name}}</strong><span style="font-size: 13px; color: #63666E">{{l.sub}}</span></span>
+                </button>
+              </sc-for>
+            </div>
+            <div style="position: relative; flex: 1 1 260px; min-height: 240px; border-radius: 18px; overflow: hidden; background: #EEF0EA">
+              <svg width="100%" height="100%" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position: absolute; inset: 0; display: block">
+                <path d="M170 30C240 10 320 30 330 80 340 130 290 160 220 160 160 160 130 120 135 80 138 55 150 38 170 30Z" fill="#D5E6CA"></path>
+                <path d="M210 190H280V245H210Z" fill="#D5E6CA"></path>
+                <g fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"><path d="M0 175C120 168 260 165 400 160"></path><path d="M190 0V260"></path><path d="M300 0V260"></path></g>
+                <path d="M150 0C148 90 152 180 158 260" fill="none" stroke="#F1D79E" stroke-width="9"></path>
+              </svg>
+              <span style="position: absolute; left: {{pinX}}; top: {{pinY}}; transform: translate(-50%, -100%); display: flex; flex-direction: column; align-items: center">
+                <span style="width: 42px; height: 42px; border-radius: 999px; border: 3px solid #FFFFFF; background: #121316; display: grid; place-items: center; box-shadow: 0 6px 16px rgba(18,19,22,0.25)"><span style="width: 10px; height: 10px; border-radius: 999px; background: #FFFFFF"></span></span>
+                <span style="width: 3px; height: 10px; background: #121316"></span>
+              </span>
+              <span style="position: absolute; left: 12px; bottom: 12px; padding: 6px 10px; border-radius: 999px; background: #FFFFFF; font-size: 12px; font-weight: 600; box-shadow: 0 2px 8px rgba(18,19,22,0.1)">Drag the pin to adjust</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset style="margin: 0; padding: 26px 28px; border: 0; border-bottom: 1px solid #F0F0F2; display: flex; flex-direction: column; gap: 12px">
+          <legend style="padding: 0; margin-bottom: 12px; font-size: 16px; font-weight: 700">Date &amp; time</legend>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr)); gap: 10px">
+            <label style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 13px; color: #63666E">Date</span><input type="text" value="Sun, Nov 1" style="height: 50px; padding: 0 14px; border-radius: 14px; border: 1px solid #DFDFE3; font: 500 16px 'Schibsted Grotesk', system-ui, sans-serif; box-sizing: border-box"></label>
+            <label style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 13px; color: #63666E">Start time</span><input type="text" value="4:00 PM" style="height: 50px; padding: 0 14px; border-radius: 14px; border: 1px solid #DFDFE3; font: 500 16px 'Schibsted Grotesk', system-ui, sans-serif; box-sizing: border-box"></label>
+            <label style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 13px; color: #63666E">Duration</span><input type="text" value="1.5 hours" style="height: 50px; padding: 0 14px; border-radius: 14px; border: 1px solid #DFDFE3; font: 500 16px 'Schibsted Grotesk', system-ui, sans-serif; box-sizing: border-box"></label>
+          </div>
+        </fieldset>
+
+        <div style="padding: 26px 28px; border-bottom: 1px solid #F0F0F2; display: flex; flex-wrap: wrap; gap: 24px 40px">
+          <div style="display: flex; flex-direction: column; gap: 12px">
+            <span id="skill-lbl" style="font-size: 16px; font-weight: 700">Skill level</span>
+            <div role="radiogroup" aria-labelledby="skill-lbl" style="display: flex; flex-wrap: wrap; padding: 4px; gap: 4px; border-radius: 999px; background: #F1F1F3">
+              <sc-for list="{{skills}}" as="k" hint-placeholder-count="4">
+                <button type="button" role="radio" aria-checked="{{k.on}}" onClick="{{k.pick}}" style="height: 40px; padding: 0 16px; border-radius: 999px; border: 0; background: {{k.bg}}; color: {{k.fg}}; box-shadow: {{k.shadow}}; font: 600 14px 'Schibsted Grotesk', system-ui, sans-serif; cursor: pointer">{{k.label}}</button>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px">
+            <span id="max-lbl" style="font-size: 16px; font-weight: 700">Max players</span>
+            <div role="group" aria-labelledby="max-lbl" style="display: flex; align-items: center; gap: 4px; padding: 4px; border-radius: 999px; background: #F1F1F3">
+              <button type="button" aria-label="Fewer players" onClick="{{dec}}" style="width: 40px; height: 40px; border-radius: 999px; border: 0; background: #FFFFFF; font: 600 20px 'Schibsted Grotesk', sans-serif; cursor: pointer">&#8722;</button>
+              <span style="min-width: 44px; text-align: center; font-size: 18px; font-weight: 800">{{max}}</span>
+              <button type="button" aria-label="More players" onClick="{{inc}}" style="width: 40px; height: 40px; border-radius: 999px; border: 0; background: #FFFFFF; font: 600 20px 'Schibsted Grotesk', sans-serif; cursor: pointer">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding: 26px 28px; display: flex; flex-direction: column; gap: 8px">
+          <label for="notes-in" style="font-size: 16px; font-weight: 700">Notes for players</label>
+          <textarea id="notes-in" rows="3" placeholder="What to bring, how teams are split, where to meet" style="padding: 14px 16px; border-radius: 14px; border: 1px solid #DFDFE3; color: #121316; font: 400 16px/1.45 'Schibsted Grotesk', system-ui, sans-serif; resize: vertical; box-sizing: border-box">Bring your own racket. I have a can of new balls. Courts are by the rec center.</textarea>
+        </div>
+      </form>
+
+      <aside style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 14px">
+        <span style="font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #63666E">Preview</span>
+        <article style="display: flex; flex-direction: column; border-radius: 26px; overflow: hidden; background: #FFFFFF; border: 1px solid #ECECEE; box-shadow: 0 12px 34px rgba(18,19,22,0.07)">
+          <div style="position: relative; height: 190px">
+            <dc-import name="Court" sport="{{sport}}" h="190px" hint-size="100%,190px"></dc-import>
+            <span style="position: absolute; right: 14px; top: 14px; height: 30px; display: flex; align-items: center; padding: 0 11px; border-radius: 999px; background: #FFFFFF; font-size: 13px; font-weight: 700">{{locDist}}</span>
+            <div style="position: absolute; left: 14px; right: 14px; bottom: 14px; display: flex; justify-content: space-between; gap: 8px">
+              <span style="display: flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 999px; background: rgba(18,19,22,0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.2); color: #FFFFFF; font-size: 13px; font-weight: 700">{{sport}}</span>
+              <span style="display: flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 999px; background: rgba(18,19,22,0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.2); color: #FFFFFF; font-size: 13px; font-weight: 700">{{skill}}</span>
+            </div>
+          </div>
+          <div style="padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px">
+            <h3 style="margin: 0; font-size: 21px; line-height: 1.18; font-weight: 800; letter-spacing: -0.035em">{{titleShown}}</h3>
+            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 15px; color: #5C5F67">
+              <span style="display: flex; align-items: center; gap: 8px"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 3 3 10.5l7.5 3 3 7.5z"></path></svg>{{locName}}</span>
+              <span style="display: flex; align-items: center; gap: 8px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Sun, Nov 1 at 4:00 PM</span>
+            </div>
+            <div style="padding-top: 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+              <span style="display: flex; align-items: center; gap: 9px; font-size: 14px; font-weight: 600"><span style="width: 30px; height: 30px; border-radius: 999px; background: #E3E9F5; color: #2F62B0; display: grid; place-items: center; font-size: 11px; font-weight: 800">SL</span>Sophia L.</span>
+              <span style="font-size: 14px; font-weight: 700; color: #5C5F67">1/{{max}} · {{leftText}}</span>
+            </div>
+          </div>
+        </article>
+        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #63666E">You&#8217;re added as the first player. You can edit or cancel the game any time before it starts.</p>
+        <div style="display: flex; gap: 10px">
+          <button type="button" style="flex: 1; height: 54px; border-radius: 999px; border: 1px solid #E2E2E6; background: #FFFFFF; color: #121316; font: 600 16px 'Schibsted Grotesk', system-ui, sans-serif; cursor: pointer">Save draft</button>
+          <a href="Game.dc.html" style="flex: 1.4; display: flex; align-items: center; justify-content: center; height: 54px; border-radius: 999px; background: #121316; color: #FFFFFF; font-size: 16px; font-weight: 700; text-decoration: none">Post game</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1560}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { sport: 'Tennis', title: 'Doubles rally for new players', loc: 0, skill: 'Beginner', max: 4 };
+  }
+  renderVals() {
+    const st = this.state;
+    const all = ['Basketball', 'Soccer', 'Beach volleyball', 'Tennis', 'Ultimate', 'Spikeball'];
+    const sports = all.map((n) => {
+      const on = st.sport === n;
+      return {
+        name: n, on,
+        isBasketball: n === 'Basketball', isSoccer: n === 'Soccer', isVolleyball: n === 'Beach volleyball', isTennis: n === 'Tennis', isUltimate: n === 'Ultimate', isSpikeball: n === 'Spikeball',
+        bg: on ? '#121316' : '#FFFFFF', fg: on ? '#FFFFFF' : '#121316', border: on ? '#121316' : '#E2E2E6',
+        pick: () => this.setState({ sport: n })
+      };
+    });
+    const L = [
+      { name: 'Westwood Park', sub: 'Sepulveda Blvd · 1.4 mi', dist: '1.4 mi', x: '58%', y: '82%' },
+      { name: 'Pauley Pavilion courts', sub: 'UCLA campus · 0.3 mi', dist: '0.3 mi', x: '62%', y: '38%' },
+      { name: 'Drake Stadium fields', sub: 'UCLA campus · 0.6 mi', dist: '0.6 mi', x: '48%', y: '52%' },
+      { name: 'Sunset Rec', sub: 'UCLA campus · 0.9 mi', dist: '0.9 mi', x: '44%', y: '22%' }
+    ];
+    const locs = L.map((l, i) => ({ name: l.name, sub: l.sub, on: st.loc === i, border: st.loc === i ? '#121316' : '#ECECEE', pick: () => this.setState({ loc: i }) }));
+    const skills = ['All levels', 'Beginner', 'Intermediate', 'Advanced'].map((k) => {
+      const on = st.skill === k;
+      return { label: k, on, bg: on ? '#FFFFFF' : 'transparent', fg: on ? '#121316' : '#4D5058', shadow: on ? '0 1px 3px rgba(18,19,22,0.12)' : 'none', pick: () => this.setState({ skill: k }) };
+    });
+    const left = st.max - 1;
+    const cur = L[st.loc];
+    return {
+      sports, locs, skills,
+      sport: st.sport, skill: st.skill, max: st.max, title: st.title,
+      titleShown: st.title || 'Untitled game',
+      setTitle: (e) => this.setState({ title: e.target.value }),
+      locName: cur.name, locDist: cur.dist, pinX: cur.x, pinY: cur.y,
+      leftText: left === 1 ? '1 spot left' : left + ' spots left',
+      dec: () => this.setState({ max: Math.max(2, st.max - 1) }),
+      inc: () => this.setState({ max: Math.min(30, st.max + 1) })
+    };
+  }
+}
+</script>
+</body>
+</html>

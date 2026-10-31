@@ -1,0 +1,50 @@
+{
+  "_note": "Mock data matching the designs. Names, stats and comments are made up. All lat/lng values and the Pauley address are approximate: verify before using. Times are Los Angeles local (PDT until Nov 1 2026, PST after).",
+  "now": "2026-10-30T18:05:00-07:00",
+  "currentUserId": "u_me",
+  "users": [
+    { "id": "u_me", "name": "Sophia L.", "bio": "Pickup regular. Usually at Pauley on weeknights, down for beach volleyball on weekends.", "homeLocation": { "label": "Westwood, Los Angeles", "lat": 34.0635, "lng": -118.4455 }, "sports": [ { "sport": "Basketball", "skill": "Intermediate" }, { "sport": "Beach volleyball", "skill": "Intermediate" }, { "sport": "Soccer", "skill": "Beginner" } ] },
+    { "id": "u_jordan", "name": "Jordan Lee", "bio": "Hosts most Friday nights.", "sports": [ { "sport": "Basketball", "skill": "Advanced" } ] },
+    { "id": "u_aisha", "name": "Aisha Khan", "sports": [ { "sport": "Basketball", "skill": "Intermediate" } ] },
+    { "id": "u_marcus", "name": "Marcus Thompson", "sports": [ { "sport": "Basketball", "skill": "Advanced" } ] },
+    { "id": "u_diego", "name": "Diego Ramirez", "sports": [ { "sport": "Soccer", "skill": "Intermediate" } ] },
+    { "id": "u_priya", "name": "Priya Nair", "sports": [ { "sport": "Beach volleyball", "skill": "Intermediate" } ] },
+    { "id": "u_hannah", "name": "Hannah Cho", "sports": [ { "sport": "Spikeball", "skill": "Beginner" } ] },
+    { "id": "u_sam", "name": "Sam Okafor", "sports": [ { "sport": "Tennis", "skill": "Beginner" } ] },
+    { "id": "u_ellie", "name": "Ellie Park", "sports": [ { "sport": "Ultimate", "skill": "Intermediate" } ] },
+    { "id": "u_kevin", "name": "Kevin Nguyen" },
+    { "id": "u_ben", "name": "Ben Carter" },
+    { "id": "u_ray", "name": "Ray Ortiz" },
+    { "id": "u_tyler", "name": "Tyler Brooks" }
+  ],
+  "locations": [
+    { "id": "loc_pauley", "name": "Pauley Pavilion courts", "address": "301 Westwood Plaza, Los Angeles, CA 90095", "lat": 34.0702, "lng": -118.4468 },
+    { "id": "loc_drake", "name": "Drake Stadium fields", "lat": 34.0683, "lng": -118.4451 },
+    { "id": "loc_sunset", "name": "Sunset Rec", "lat": 34.0748, "lng": -118.4519 },
+    { "id": "loc_westwood_park", "name": "Westwood Park", "lat": 34.0517, "lng": -118.4443 },
+    { "id": "loc_sm_beach", "name": "Santa Monica beach courts", "lat": 34.0092, "lng": -118.4975 }
+  ],
+  "games": [
+    { "id": "g_friday_runs", "sport": "Basketball", "skill": "Intermediate", "title": "Friday Night Runs: 5v5 full court", "locationId": "loc_pauley", "startsAt": "2026-10-30T18:30:00-07:00", "durationMin": 120, "maxPlayers": 10, "hostId": "u_jordan", "playerIds": ["u_jordan", "u_aisha", "u_marcus", "u_diego", "u_kevin", "u_ben", "u_ray", "u_tyler"], "notes": "Full-court 5v5, games to 15 by 1s and 2s. Winners stay on. Bring a light and a dark shirt so we can split teams fast. Meet at the north entrance." },
+    { "id": "g_3v3", "sport": "Basketball", "skill": "Advanced", "title": "3v3 half court, winners stay on", "locationId": "loc_pauley", "startsAt": "2026-10-30T20:00:00-07:00", "durationMin": 90, "maxPlayers": 6, "hostId": "u_marcus", "playerIds": ["u_marcus", "u_ray", "u_tyler", "u_kevin", "u_ben"], "notes": "" },
+    { "id": "g_beach_doubles", "sport": "Beach volleyball", "skill": "Intermediate", "title": "Doubles, king of the court", "locationId": "loc_sm_beach", "startsAt": "2026-10-31T10:30:00-07:00", "durationMin": 120, "maxPlayers": 8, "hostId": "u_priya", "playerIds": ["u_priya", "u_hannah", "u_aisha", "u_ellie", "u_sam", "u_diego"], "notes": "" },
+    { "id": "g_roundnet", "sport": "Spikeball", "skill": "Beginner", "title": "Roundnet on the lawn", "locationId": "loc_sunset", "startsAt": "2026-10-31T14:00:00-07:00", "durationMin": 90, "maxPlayers": 8, "hostId": "u_hannah", "playerIds": ["u_hannah", "u_ben", "u_sam", "u_ellie"], "notes": "" },
+    { "id": "g_sunday_7v7", "sport": "Soccer", "skill": "All levels", "title": "Sunday morning 7v7", "locationId": "loc_drake", "startsAt": "2026-11-01T09:00:00-08:00", "durationMin": 90, "maxPlayers": 14, "hostId": "u_diego", "playerIds": ["u_diego", "u_jordan", "u_aisha", "u_marcus", "u_kevin", "u_ben", "u_ray", "u_tyler", "u_sam", "u_ellie", "u_hannah"], "notes": "" },
+    { "id": "g_tennis_doubles", "sport": "Tennis", "skill": "Beginner", "title": "Doubles rally for new players", "locationId": "loc_westwood_park", "startsAt": "2026-11-01T16:00:00-08:00", "durationMin": 90, "maxPlayers": 4, "hostId": "u_sam", "playerIds": ["u_sam", "u_priya"], "notes": "Bring your own racket. I have a can of new balls. Courts are by the rec center." },
+    { "id": "g_ultimate", "sport": "Ultimate", "skill": "Intermediate", "title": "Ultimate scrimmage under the lights", "locationId": "loc_drake", "startsAt": "2026-11-02T19:00:00-08:00", "durationMin": 120, "maxPlayers": 14, "hostId": "u_ellie", "playerIds": ["u_ellie", "u_hannah", "u_sam", "u_diego", "u_kevin", "u_ben", "u_ray", "u_tyler", "u_aisha"], "notes": "" }
+  ],
+  "comments": [
+    { "id": "c1", "gameId": "g_friday_runs", "authorId": "u_jordan", "body": "Court 2 is confirmed. Warming up at 6:15, first game tips at 6:30 sharp.", "pinned": true, "createdAt": "2026-10-30T16:05:00-07:00" },
+    { "id": "c2", "gameId": "g_friday_runs", "authorId": "u_aisha", "body": "Running 5 min late from Royce, save me a spot on the next game?", "pinned": false, "createdAt": "2026-10-30T17:25:00-07:00" },
+    { "id": "c3", "gameId": "g_friday_runs", "authorId": "u_jordan", "body": "All good, you're on team two.", "pinned": false, "createdAt": "2026-10-30T17:30:00-07:00" },
+    { "id": "c4", "gameId": "g_friday_runs", "authorId": "u_marcus", "body": "Anyone have a pump? Ball's a little flat.", "pinned": false, "createdAt": "2026-10-30T17:53:00-07:00" }
+  ],
+  "matchHistory_u_me": [
+    { "title": "Late-night 4v4", "sport": "Basketball", "location": "Pauley Pavilion courts", "date": "2026-10-29", "role": "Played", "players": 8 },
+    { "title": "Beginner beach doubles", "sport": "Beach volleyball", "location": "Santa Monica beach courts", "date": "2026-10-27", "role": "Hosted", "players": 8 },
+    { "title": "Saturday 7v7", "sport": "Soccer", "location": "Drake Stadium fields", "date": "2026-10-24", "role": "Played", "players": 14 },
+    { "title": "Friday Night Runs", "sport": "Basketball", "location": "Pauley Pavilion courts", "date": "2026-10-16", "role": "Played", "players": 10 },
+    { "title": "Sunset doubles", "sport": "Beach volleyball", "location": "Santa Monica beach courts", "date": "2026-10-11", "role": "Played", "players": 4 },
+    { "title": "Welcome week pickup", "sport": "Soccer", "location": "Drake Stadium fields", "date": "2026-09-27", "role": "Hosted", "players": 12 }
+  ]
+}

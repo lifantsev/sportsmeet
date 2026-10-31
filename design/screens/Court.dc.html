@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Court</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="position: relative; width: 100%; height: {{h}}; overflow: hidden; background: {{bg}}">
+  <sc-if value="{{isBasketball}}" hint-placeholder-val="{{ false }}">
+    <svg width="100%" height="100%" viewBox="-40 -40 1020 580" preserveAspectRatio="xMidYMid meet" aria-hidden="true" style="position: absolute; inset: 0; display: block">
+      <g fill="#2F62B0"><rect x="0" y="170" width="190" height="160"></rect><rect x="750" y="170" width="190" height="160"></rect><circle cx="470" cy="250" r="60"></circle></g>
+      <g fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linejoin="round">
+        <rect x="0" y="0" width="940" height="500"></rect>
+        <path d="M470 0V500"></path>
+        <circle cx="470" cy="250" r="60"></circle>
+        <rect x="0" y="170" width="190" height="160"></rect>
+        <rect x="750" y="170" width="190" height="160"></rect>
+        <path d="M190 190a60 60 0 0 1 0 120M750 190a60 60 0 0 0 0 120"></path>
+        <path d="M0 30H142A237.5 237.5 0 0 1 142 470H0"></path>
+        <path d="M940 30H798A237.5 237.5 0 0 0 798 470H940"></path>
+        <path d="M52.5 210a40 40 0 0 1 0 80M887.5 210a40 40 0 0 0 0 80"></path>
+        <path d="M40 220V280M900 220V280"></path>
+      </g>
+      <g fill="none" stroke="#FFFFFF" stroke-width="5"><circle cx="52.5" cy="250" r="9"></circle><circle cx="887.5" cy="250" r="9"></circle></g>
+    </svg>
+  </sc-if>
+  <sc-if value="{{isSoccer}}" hint-placeholder-val="{{ false }}">
+    <svg width="100%" height="100%" viewBox="-50 -50 1150 780" preserveAspectRatio="xMidYMid meet" aria-hidden="true" style="position: absolute; inset: 0; display: block">
+      <g fill="none" stroke="#FFFFFF" stroke-width="7">
+        <rect x="0" y="0" width="1050" height="680"></rect>
+        <path d="M525 0V680"></path>
+        <circle cx="525" cy="340" r="91.5"></circle>
+        <rect x="0" y="138.5" width="165" height="403"></rect>
+        <rect x="0" y="248.5" width="55" height="183"></rect>
+        <rect x="885" y="138.5" width="165" height="403"></rect>
+        <rect x="995" y="248.5" width="55" height="183"></rect>
+        <path d="M165 266.9A91.5 91.5 0 0 1 165 413.1M885 266.9A91.5 91.5 0 0 0 885 413.1"></path>
+        <path d="M0 303.4h-24v73.2h24M1050 303.4h24v73.2h-24"></path>
+      </g>
+      <g fill="#FFFFFF"><circle cx="525" cy="340" r="8"></circle><circle cx="110" cy="340" r="6"></circle><circle cx="940" cy="340" r="6"></circle></g>
+    </svg>
+  </sc-if>
+  <sc-if value="{{isTennis}}" hint-placeholder-val="{{ false }}">
+    <svg width="100%" height="100%" viewBox="-120 -90 1191 619" preserveAspectRatio="xMidYMid meet" aria-hidden="true" style="position: absolute; inset: 0; display: block">
+      <rect x="0" y="0" width="951" height="439" fill="#2F62B0"></rect>
+      <g fill="none" stroke="#FFFFFF" stroke-width="6">
+        <rect x="0" y="0" width="951" height="439"></rect>
+        <path d="M0 55H951M0 384H951M219.5 55V384M731.5 55V384M219.5 219.5H731.5M0 219.5h16M951 219.5h-16"></path>
+      </g>
+      <path d="M475.5 -34V473" stroke="#FFFFFF" stroke-width="10"></path>
+      <circle cx="660" cy="130" r="14" fill="#E3D23B"></circle>
+    </svg>
+  </sc-if>
+  <sc-if value="{{isVolleyball}}" hint-placeholder-val="{{ false }}">
+    <svg width="100%" height="100%" viewBox="-80 -70 960 540" preserveAspectRatio="xMidYMid meet" aria-hidden="true" style="position: absolute; inset: 0; display: block">
+      <rect x="0" y="0" width="800" height="400" fill="none" stroke="#2D72B0" stroke-width="9"></rect>
+      <path d="M400 -40V440" stroke="#15171C" stroke-width="10"></path>
+      <circle cx="400" cy="-40" r="11" fill="#15171C"></circle>
+      <circle cx="400" cy="440" r="11" fill="#15171C"></circle>
+      <circle cx="580" cy="150" r="24" fill="#FFFFFF" stroke="#15171C" stroke-width="4"></circle>
+      <path d="M580 150c0-10 6-19 16-21M580 150c-9 5-19 5-26-1M580 150c8 5 11 13 10 22" fill="none" stroke="#15171C" stroke-width="3"></path>
+    </svg>
+  </sc-if>
+  <sc-if value="{{isUltimate}}" hint-placeholder-val="{{ false }}">
+    <svg width="100%" height="100%" viewBox="-50 -60 1100 490" preserveAspectRatio="xMidYMid meet" aria-hidden="true" style="position: absolute; inset: 0; display: block">
+      <rect x="0" y="0" width="180" height="370" fill="#245848"></rect>
+      <rect x="820" y="0" width="180" height="370" fill="#245848"></rect>
+      <g fill="none" stroke="#FFFFFF" stroke-width="7">
+        <rect x="0" y="0" width="1000" height="370"></rect>
+        <path d="M180 0V370M820 0V370M352 177l16 16M368 177l-16 16M632 177l16 16M648 177l-16 16"></path>
+      </g>
+      <ellipse cx="560" cy="110" rx="28" ry="10" fill="#FFFFFF"></ellipse>
+    </svg>
+  </sc-if>
+  <sc-if value="{{isSpikeball}}" hint-placeholder-val="{{ false }}">
+    <svg width="100%" height="100%" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid meet" aria-hidden="true" style="position: absolute; inset: 0; display: block">
+      <circle cx="200" cy="120" r="96" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="10 9"></circle>
+      <circle cx="200" cy="120" r="38" fill="#15171C"></circle>
+      <path d="M166 106h68M162 120h76M166 134h68M184 86v68M200 82v76M216 86v68" stroke="#3E4048" stroke-width="2"></path>
+      <circle cx="200" cy="120" r="38" fill="none" stroke="#EBB42A" stroke-width="8"></circle>
+      <circle cx="300" cy="56" r="11" fill="#EBB42A"></circle>
+    </svg>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"sport":{"editor":"enum","options":["Basketball","Soccer","Tennis","Beach volleyball","Ultimate","Spikeball"],"default":"Basketball"},"h":{"editor":"text","default":"180px"},"$preview":{"width":360,"height":180}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const sport = this.props.sport ?? 'Basketball';
+    const bgs = {
+      'Basketball': 'repeating-linear-gradient(0deg, #D8A066 0 17px, #CC955B 17px 18px)',
+      'Soccer': 'repeating-linear-gradient(90deg, #2F8050 0 44px, #368A58 44px 88px)',
+      'Tennis': '#3E8A5A',
+      'Beach volleyball': 'radial-gradient(circle, #DCC48F 1.2px, transparent 1.8px) 0 0 / 16px 16px, #EBD7A8',
+      'Ultimate': 'repeating-linear-gradient(90deg, #2C6E59 0 44px, #317862 44px 88px)',
+      'Spikeball': 'repeating-linear-gradient(90deg, #4E9A57 0 44px, #55A35E 44px 88px)'
+    };
+    return {
+      h: this.props.h ?? '180px',
+      bg: bgs[sport] || bgs['Basketball'],
+      isBasketball: sport === 'Basketball', isSoccer: sport === 'Soccer', isTennis: sport === 'Tennis',
+      isVolleyball: sport === 'Beach volleyball', isUltimate: sport === 'Ultimate', isSpikeball: sport === 'Spikeball'
+    };
+  }
+}
+</script>
+</body>
+</html>

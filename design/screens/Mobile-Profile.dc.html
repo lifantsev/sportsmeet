@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Profile (mobile)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F8F8F7}
+a{color:#121316}a:hover{color:#2F62B0}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #F8F8F7; color: #121316; font-family: 'Schibsted Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased">
+  <div style="position: absolute; inset: 0; overflow-y: auto; padding-bottom: 130px; box-sizing: border-box">
+    <div style="height: 150px; overflow: hidden">
+      <dc-import name="Court" sport="Beach volleyball" h="150px" hint-size="390px,150px"></dc-import>
+    </div>
+    <div style="padding: 0 20px; display: flex; flex-direction: column; gap: 18px">
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 12px">
+        <div style="margin-top: -48px; width: 100px; height: 100px; border-radius: 999px; border: 4px solid #F8F8F7; background: #E3E9F5; color: #2F62B0; display: grid; place-items: center; font-size: 32px; font-weight: 800; box-sizing: border-box">SL</div>
+        <a href="Mobile-Onboarding.dc.html" style="display: flex; align-items: center; height: 42px; padding: 0 16px; border-radius: 999px; border: 1px solid #E2E2E6; background: #FFFFFF; font-size: 14px; font-weight: 600; text-decoration: none">Edit profile</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <h1 style="margin: 0; font-size: 30px; line-height: 1; font-weight: 800; letter-spacing: -0.045em">Sophia L.</h1>
+        <span style="font-size: 14px; color: #63666E">Westwood, Los Angeles · Since Sep 2026</span>
+        <p style="margin: 4px 0 0; font-size: 15px; line-height: 1.5; color: #3D4047">Pickup regular. Usually at Pauley on weeknights, down for beach volleyball on weekends.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 16px 4px; border-radius: 22px; background: #FFFFFF; border: 1px solid #ECECEE">
+        <div style="display: flex; flex-direction: column; align-items: center; border-right: 1px solid #F0F0F2"><strong style="font-size: 28px; letter-spacing: -0.05em">24</strong><span style="font-size: 13px; color: #63666E">Played</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; border-right: 1px solid #F0F0F2"><strong style="font-size: 28px; letter-spacing: -0.05em">6</strong><span style="font-size: 13px; color: #63666E">Hosted</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center"><strong style="font-size: 28px; letter-spacing: -0.05em">5</strong><span style="font-size: 13px; color: #63666E">This month</span></div>
+      </div>
+
+      <section style="display: flex; flex-direction: column; gap: 4px; padding: 16px; border-radius: 22px; background: #FFFFFF; border: 1px solid #ECECEE">
+        <h2 style="margin: 0 0 6px; font-size: 17px; font-weight: 700">Sports &amp; skill</h2>
+        <div style="display: flex; justify-content: space-between; padding: 8px 0; font-size: 15px"><strong>Basketball</strong><span style="color: #4D5058">Intermediate</span></div>
+        <div style="display: flex; justify-content: space-between; padding: 8px 0; font-size: 15px; border-top: 1px solid #F0F0F2"><strong>Beach volleyball</strong><span style="color: #4D5058">Intermediate</span></div>
+        <div style="display: flex; justify-content: space-between; padding: 8px 0; font-size: 15px; border-top: 1px solid #F0F0F2"><strong>Soccer</strong><span style="color: #4D5058">Beginner</span></div>
+      </section>
+
+      <section style="display: flex; flex-direction: column; gap: 10px">
+        <h2 style="margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.04em">Match history</h2>
+        <ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column">
+          <sc-for list="{{items}}" as="it" hint-placeholder-count="4">
+            <li style="display: flex; gap: 14px">
+              <div aria-hidden="true" style="flex: none; width: 12px; display: flex; flex-direction: column; align-items: center"><span style="width: 2px; height: 22px; background: #E2E2E6"></span><span style="width: 12px; height: 12px; border-radius: 999px; border: 2px solid #121316; background: {{it.dot}}; box-sizing: border-box"></span><span style="width: 2px; flex: 1; background: #E2E2E6"></span></div>
+              <a href="Mobile-Game.dc.html" style="flex: 1; min-width: 0; margin: 6px 0; display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 18px; background: #FFFFFF; border: 1px solid #ECECEE; color: #121316; text-decoration: none">
+                <span style="flex: none; width: 58px; height: 46px; border-radius: 10px; overflow: hidden; display: block"><dc-import name="Court" sport="{{it.sport}}" h="46px" hint-size="58px,46px"></dc-import></span>
+                <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><strong style="font-size: 15px">{{it.title}}</strong><span style="font-size: 13px; color: #63666E">{{it.date}}</span></span>
+                <span style="padding: 3px 9px; border-radius: 999px; background: {{it.roleBg}}; color: {{it.roleFg}}; font-size: 12px; font-weight: 700">{{it.role}}</span>
+              </a>
+            </li>
+          </sc-for>
+        </ol>
+      </section>
+    </div>
+  </div>
+
+  <nav aria-label="Primary" style="position: absolute; left: 14px; right: 14px; bottom: 18px; height: 72px; padding: 0 6px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: center; border-radius: 28px; background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); border: 1px solid #ECECEE; box-shadow: 0 12px 30px rgba(18,19,22,0.12)">
+    <a href="Mobile-Discover.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; color: #6B6E76; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m15.5 8.5-2 5-5 2 2-5z"></path></svg>Discover</a>
+    <a href="Mobile-Map.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; color: #6B6E76; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"></path><path d="M9 4v14M15 6v14"></path></svg>Map</a>
+    <a href="Mobile-Create.dc.html" aria-label="Host a game" style="justify-self: center; margin-top: -30px; width: 62px; height: 62px; border-radius: 999px; background: #121316; color: #FFFFFF; display: grid; place-items: center; border: 4px solid #F8F8F7; box-shadow: 0 10px 24px rgba(18,19,22,0.3)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></a>
+    <a href="Mobile-Profile.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; color: #6B6E76; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg>My games</a>
+    <a href="Mobile-Profile.dc.html" aria-current="page" style="display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; font-weight: 700; color: #121316; text-decoration: none"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="8" r="4.5"></circle><path d="M3.5 21a8.5 8.5 0 0 1 17 0z"></path></svg>Profile</a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const role = (r) => r === 'Hosted' ? { roleBg: '#121316', roleFg: '#FFFFFF', dot: '#121316' } : { roleBg: '#F1F1F3', roleFg: '#121316', dot: '#FFFFFF' };
+    const items = [
+      { sport: 'Basketball', title: 'Late-night 4v4', date: 'Thu, Oct 29 · Pauley', role: 'Played' },
+      { sport: 'Beach volleyball', title: 'Beginner beach doubles', date: 'Tue, Oct 27 · Santa Monica', role: 'Hosted' },
+      { sport: 'Soccer', title: 'Saturday 7v7', date: 'Sat, Oct 24 · Drake', role: 'Played' },
+      { sport: 'Basketball', title: 'Friday Night Runs', date: 'Fri, Oct 16 · Pauley', role: 'Played' },
+      { sport: 'Soccer', title: 'Welcome week pickup', date: 'Sun, Sep 27 · Drake', role: 'Hosted' }
+    ].map((it) => Object.assign({}, it, role(it.role)));
+    return { items };
+  }
+}
+</script>
+</body>
+</html>
