@@ -1,0 +1,47 @@
+/* Design tokens from design/HANDOFF.md section 2 */
+:root {
+  --bg: #f8f8f7;
+  --surface: #ffffff;
+  --ink: #121316;
+  --text-2: #4d5058;
+  --muted: #63666e;
+  --muted-2: #5c5f67;
+  --border: #ececee;
+  --border-2: #e2e2e6;
+  --input-border: #dfdfe3;
+  --fill: #f1f1f3;
+  --accent: #2f62b0;
+  --live: #4c8dff;
+  --success: #22663f;
+  --error: #a3263a;
+  --error-bg: #fbedee;
+
+  --radius-pill: 999px;
+  --radius-card: 26px;
+  --radius-panel: 28px;
+  --radius-input: 14px;
+  --radius-tile: 16px;
+
+  --shadow-float: 0 10px 30px rgba(18, 19, 22, 0.08);
+
+  font-family: 'Schibsted Grotesk', system-ui, sans-serif;
+  color: var(--text-2);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--ink);
+  margin: 0;
+}

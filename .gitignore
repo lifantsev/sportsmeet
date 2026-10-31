@@ -1,0 +1,22 @@
+# Dependencies (recreate with npm install)
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# Secrets: include .env in the submitted tarball, but never commit it
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS and editor files
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.sw?
