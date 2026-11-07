@@ -20,6 +20,9 @@ function Discover({ games, loading, error }) {
       return next
     })
     }
+
+    
+
   return (
     <main style={{ maxWidth: 1280, margin: '0 auto', padding: 32 }}>
       <header>
@@ -29,34 +32,55 @@ function Discover({ games, loading, error }) {
         <p>Search for games below:</p>
       </header>
 
-     <button
-        onClick={() => setOnlyJoinable(!onlyJoinable)}
-        aria-pressed={onlyJoinable}
-        >
-        Only Joinable Games
-    </button>
+    <div class="filter-button-container">
+      <button
 
-    <button
-        onClick={() => toggleSport("Soccer")}
-        aria-pressed={onlyJoinable}
-        >
-        Soccer
-    </button>
+          onClick={() => {
+            setOnlyJoinable(!onlyJoinable)
+            
+          }}
+          aria-pressed={onlyJoinable}
+          className = {onlyJoinable ? "filter-button active" : "filter-button"}
+          >
+          Only Joinable Games
+      </button>
 
-    <button
-        onClick={() => toggleSport("Basketball")}
-        aria-pressed={onlyJoinable}
-        >
-        Basketball
-    </button>
+      <button
 
-    <button
-        onClick={() => toggleSport("Beach volleyball")}
-        aria-pressed={onlyJoinable}
-        >
-        Beach volleyball
-    </button>
+          onClick={() => {
+            toggleSport("Soccer")
+        
+          }}
+          aria-pressed={sportFilter.has("Soccer")}
+          className = {sportFilter.has("Soccer") ? "filter-button active" : "filter-button"}
+          >
+          Soccer
+      </button>
 
+      <button
+
+          onClick={() => {
+            toggleSport("Basketball")
+          
+          }}
+          aria-pressed={sportFilter.has("Basketball")}
+          className = {sportFilter.has("Basketball") ? "filter-button active" : "filter-button"}
+          >
+          Basketball
+      </button>
+
+      <button
+
+          onClick={() => {
+            toggleSport("Beach volleyball")
+          
+          }}
+          aria-pressed={sportFilter.has("Beach volleyball")}
+          className = {sportFilter.has("Beach volleyball") ? "filter-button active" : "filter-button"}
+          >
+          Beach volleyball
+      </button>
+    </div>
 
 
 
