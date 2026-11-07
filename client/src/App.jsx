@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
+import Discover from './Discover.jsx'
 
-// Placeholder page that proves the client can reach the API.
-// Replace with the real Discover page (design/screens/Discover-E.dc.html).
+// App loads the data; Discover decides how to display it.
 function App() {
   const [games, setGames] = useState([])
   const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetch('/api/games')
@@ -14,22 +15,10 @@ function App() {
       })
       .then(setGames)
       .catch((err) => setError(err.message))
+      .finally(() => setLoading(false))
   }, [])
 
-  return (
-    <main style={{ maxWidth: 1280, margin: '0 auto', padding: 32 }}>
-      <h1 style={{ fontSize: 64, fontWeight: 800, letterSpacing: '-0.05em' }}>pickup</h1>
-      {error && <p style={{ color: 'var(--error)' }}>Couldn't load games: {error}</p>}
-      <ul>
-        {games.map((game) => (
-          <li key={game.id}>
-            <strong>{game.title}</strong> · {game.sport} · {game.locationName} ·{' '}
-            {game.playerCount}/{game.maxPlayers}
-          </li>
-        ))}
-      </ul>
-    </main>
-  )
+  return <Discover games={games} loading={loading} error={error} />
 }
 
 export default App
