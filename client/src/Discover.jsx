@@ -1,11 +1,25 @@
 import { useEffect, useState } from 'react'
+import GameCard from './GameCard.jsx'
 // This is the home screen. App passes data in through these props.
 // Design reference: design/HANDOFF.md and design/screens/Discover-E.dc.html
 function Discover({ games, loading, error }) {
-  // TODO 3: Add search state with useState('') and a labeled search input.
-  // Then filter games by title and render the filtered array below.
     const [search, setSearch] = useState('')
-  
+    const [onlyJoinable, setOnlyJoinable] = useState(false)
+    const [sportFilter, setSportFilter] = useState(() => new Set())
+    
+    function toggleSport(sport){
+      setSportFilter((previous) => {
+      const next = new Set(previous)
+
+      if (next.has(sport)) {
+        next.delete(sport)
+      } else {
+        next.add(sport)
+      }
+
+      return next
+    })
+    }
   return (
     <main style={{ maxWidth: 1280, margin: '0 auto', padding: 32 }}>
       <header>
@@ -15,7 +29,38 @@ function Discover({ games, loading, error }) {
         <p>Search for games below:</p>
       </header>
 
-      {/* TODO 4: Add sport filter buttons after search works. */}
+     <button
+        onClick={() => setOnlyJoinable(!onlyJoinable)}
+        aria-pressed={onlyJoinable}
+        >
+        Only Joinable Games
+    </button>
+
+    <button
+        onClick={() => toggleSport("Soccer")}
+        aria-pressed={onlyJoinable}
+        >
+        Soccer
+    </button>
+
+    <button
+        onClick={() => toggleSport("Basketball")}
+        aria-pressed={onlyJoinable}
+        >
+        Basketball
+    </button>
+
+    <button
+        onClick={() => toggleSport("Beach volleyball")}
+        aria-pressed={onlyJoinable}
+        >
+        Beach volleyball
+    </button>
+
+
+
+
+     
 
       <section aria-labelledby="games-heading">
         <h2 id="games-heading">Upcoming games</h2>
@@ -26,19 +71,31 @@ function Discover({ games, loading, error }) {
 
         {!loading && !error && (
           <ul>
-            {games.map((game) => {
-              
-              const spotsLeft = game.maxPlayers - game.playerCount
-              
+            {games.filter((game) => {
+                
+                let joinable = true
+                if (onlyJoinable){
+                    joinable = game.playerCount < game.maxPlayers;
+                }
+                
+                let matchesSport = true
+                if (sportFilter.size != 0){
+                  if (!sportFilter.has(game.sport)){
+                    matchesSport = false
+                  }
+                }
+                  
 
+                
+                return joinable && matchesSport
+
+                
+            }).map((game) => {
+              
+              
+              
               return (<li key={game.id}>
-                <h3>{game.title}</h3>
-                <p>{game.sport} · {game.locationName}</p>
-                {/* TODO 2: Show playerCount / maxPlayers here using game's fields.
-                    Example JSX for a value: <span>{game.sport}</span>
-                    After that, calculate and display the number of spots left. */}
-                <span>{game.playerCount} / {game.maxPlayers} joined</span>
-                <span> {spotsLeft} spots left! </span>
+                <GameCard game={game}/>
               </li>
               )
             })}
