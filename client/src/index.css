@@ -54,6 +54,11 @@ h3 {
   margin: 10px;
   text-align: center;
   display: inline-block;
+  min-width: 400px;
+  min-height: 500px;
+  justify-content: space-between;
+  display: flex;           /* Replace display: inline-block */
+  flex-direction: column;
 }
 
 .filter-button{
@@ -77,3 +82,50 @@ h3 {
   border: 1px solid #e2e2e6;
   
 }
+
+.game-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+}
+
+
+
+.card-player-count{
+  border: 1px solid #e2e2e6;
+  border-radius: 10px;
+  background-color: #22663f;
+  color:#dfdfe3;
+  padding: 5px;
+}
+
+.card-location{
+
+  border: 1px solid #e2e2e6;
+  border-radius: 10px;
+  background-color: #22663f;
+  color:#dfdfe3;
+  padding: 5px;
+}
+
+.card-header{
+  display: flex;
+  gap: 5px;
+  justify-content: space-between;
+}
+
+.card-footer{
+  text-align: left;
+}
+
+.card-section{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+}
+
