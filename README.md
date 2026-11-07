@@ -11,6 +11,7 @@ UCLA CS35L Project: a web app for finding, joining and hosting pickup games arou
 ```
 client/   React app (Vite), runs on http://localhost:5173
 server/   Express API + PostgreSQL, runs on http://localhost:3001
+scripts/  Development helper scripts
 design/   Designs from Claude Design (the UI spec)
 ```
 
@@ -48,7 +49,17 @@ You need Node.js 22+ and PostgreSQL 16+.
 
 ## Running
 
-Use two terminals.
+After completing setup, start PostgreSQL and run this command from the project root to launch both the backend and frontend in one terminal:
+
+```bash
+bash scripts/dev.sh
+```
+
+Then open http://localhost:5173. Press **Ctrl+C** to stop both servers.
+
+The script checks that dependencies are installed and creates `server/.env` from `server/.env.example` if it is missing. It does not start PostgreSQL, create the database, or reset existing data.
+
+Alternatively, start the servers separately in two terminals, each from the project root:
 
 ```bash
 cd server && npm run dev
