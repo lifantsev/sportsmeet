@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import MapPage from './MapPage.jsx'
 
 // Placeholder page that proves the client can reach the API.
 // Replace with the real Discover page (design/screens/Discover-E.dc.html).
@@ -19,6 +20,7 @@ function App() {
   return (
     <main style={{ maxWidth: 1280, margin: '0 auto', padding: 32 }}>
       <h1 style={{ fontSize: 64, fontWeight: 800, letterSpacing: '-0.05em' }}>pickup</h1>
+      <MapPage />
       {error && <p style={{ color: 'var(--error)' }}>Couldn't load games: {error}</p>}
       <ul>
         {games.map((game) => (
