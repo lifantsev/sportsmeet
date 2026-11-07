@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import GameCard from './GameCard.jsx'
+import FilterBar from './FilterBar.jsx'
 // This is the home screen. App passes data in through these props.
 // Design reference: design/HANDOFF.md and design/screens/Discover-E.dc.html
 function Discover({ games, loading, error }) {
@@ -32,55 +33,12 @@ function Discover({ games, loading, error }) {
         <p>Search for games below:</p>
       </header>
 
-    <div class="filter-button-container">
-      <button
-
-          onClick={() => {
-            setOnlyJoinable(!onlyJoinable)
-            
-          }}
-          aria-pressed={onlyJoinable}
-          className = {onlyJoinable ? "filter-button active" : "filter-button"}
-          >
-          Only Joinable Games
-      </button>
-
-      <button
-
-          onClick={() => {
-            toggleSport("Soccer")
-        
-          }}
-          aria-pressed={sportFilter.has("Soccer")}
-          className = {sportFilter.has("Soccer") ? "filter-button active" : "filter-button"}
-          >
-          Soccer
-      </button>
-
-      <button
-
-          onClick={() => {
-            toggleSport("Basketball")
-          
-          }}
-          aria-pressed={sportFilter.has("Basketball")}
-          className = {sportFilter.has("Basketball") ? "filter-button active" : "filter-button"}
-          >
-          Basketball
-      </button>
-
-      <button
-
-          onClick={() => {
-            toggleSport("Beach volleyball")
-          
-          }}
-          aria-pressed={sportFilter.has("Beach volleyball")}
-          className = {sportFilter.has("Beach volleyball") ? "filter-button active" : "filter-button"}
-          >
-          Beach volleyball
-      </button>
-    </div>
+      <FilterBar
+        sportFilter={sportFilter}
+        toggleSport={toggleSport}
+        onlyJoinable={onlyJoinable}
+        onToggleJoinable={() => setOnlyJoinable((previous) => !previous)}
+      />
 
 
 
