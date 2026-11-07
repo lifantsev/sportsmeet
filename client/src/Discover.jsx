@@ -25,7 +25,7 @@ function Discover({ games, loading, error }) {
     
 
   return (
-    <main style={{ maxWidth: 1280, margin: '0 auto', padding: 32 }}>
+    <main style={{ maxWidth: 1280, gap: 32,  margin: '0 auto', padding: 32, display: 'flex', flexDirection: 'column'}}>
       <header>
         <p>pickup</p>
         <h1>Find your next game</h1>
@@ -44,7 +44,7 @@ function Discover({ games, loading, error }) {
 
      
 
-      <section aria-labelledby="games-heading">
+      <section className = 'card-section' aria-labelledby="games-heading">
         <h2 id="games-heading">Upcoming games</h2>
 
         {loading && <p role="status">Loading games…</p>}
@@ -52,7 +52,7 @@ function Discover({ games, loading, error }) {
         {!loading && !error && games.length === 0 && <p>No games found.</p>}
 
         {!loading && !error && (
-          <ul>
+          <ul class='game-list'>
             {games.filter((game) => {
                 
                 let joinable = true

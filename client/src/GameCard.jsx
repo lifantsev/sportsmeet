@@ -4,11 +4,20 @@ function GameCard({game}){
 
     return(
         <div className = "gameCard">
-            <h2>{game.title}</h2>
-            <p>{game.sport}</p>
-            <p>{game.locationName}</p>
-            <span>{game.playerCount} / {game.maxPlayers} joined</span>
-            <span> {spotsLeft} spots left! </span>
+            <div className = 'card-header'>
+                <span className = 'card-location'>{game.locationName}</span>
+                <span className = "card-player-count">{game.playerCount} / {game.maxPlayers} joined</span>
+            </div>
+            
+            
+            <div className = 'card-footer'>
+                <h2>{game.title}</h2>
+                <p>{game.sport}</p>
+                
+            </div>
+            
+            
+            
         </div>
     )
 }
