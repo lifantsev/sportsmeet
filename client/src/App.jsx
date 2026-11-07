@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import SignIn from './pages/SignIn'
+import Discover from './Discover.jsx'
 
-// Placeholder page that proves the client can reach the API.
-// Replace with the real Discover page (design/screens/Discover-E.dc.html).
+// App loads the data; Discover decides how to display it.
 function App() {
   const [games, setGames] = useState([])
   const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   const [user, setUser] = useState(null) 
   const [checking, setChecking] = useState(true)
@@ -18,18 +19,9 @@ function App() {
       })
       .then(setGames)
       .catch((err) => setError(err.message))
-    
-    fetch('/api/auth/me', { credentials: 'include' })
-      .then((res) => res.ok ? res.json() : null)
-      .then((data) => setUser(data?.user ?? null))
-      .catch(() => setUser(null))
-      .finally(() => setChecking(false))
+      .finally(() => setLoading(false))
   }, [])
 
-  if (checking) return <p>Checking your session...</p>
-  if (user) return <p>Signed in as {user.name}</p>
-  return <SignIn onSignedIn={setUser} />
-  /*
   return (
     <main style={{ maxWidth: 1280, margin: '0 auto', padding: 32 }}>
       <h1 style={{ fontSize: 64, fontWeight: 800, letterSpacing: '-0.05em' }}>pickup</h1>
@@ -43,10 +35,7 @@ function App() {
         ))}
       </ul>
     </main>
-    
   )
-  */
-    
 }
 
 export default App
