@@ -45,3 +45,35 @@ h3 {
   color: var(--ink);
   margin: 0;
 }
+
+.gameCard{
+  border:1px solid black;
+  border-radius:10px;
+  box-shadow: 5px 5px 5px rgba(55, 50, 50, 0.183);
+  padding: 20px;
+  margin: 10px;
+  text-align: center;
+  display: inline-block;
+}
+
+.filter-button{
+  background-color: #dfdfe3;
+  color:#22663f;
+  border: 1px solid #22663f;
+  border-radius: 20px;
+  padding: 7px;
+}
+
+.filter-button-container{
+   display: flex;            
+  flex-direction: row;       
+  gap: 2px;                
+  justify-content: flex-start; 
+}
+
+.filter-button.active{
+  background-color: #22663f;
+  color:#dfdfe3;
+  border: 1px solid #e2e2e6;
+  
+}
