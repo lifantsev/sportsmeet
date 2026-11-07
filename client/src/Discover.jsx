@@ -1,15 +1,18 @@
+import { useEffect, useState } from 'react'
 // This is the home screen. App passes data in through these props.
 // Design reference: design/HANDOFF.md and design/screens/Discover-E.dc.html
 function Discover({ games, loading, error }) {
   // TODO 3: Add search state with useState('') and a labeled search input.
   // Then filter games by title and render the filtered array below.
-
+    const [search, setSearch] = useState('')
+  
   return (
     <main style={{ maxWidth: 1280, margin: '0 auto', padding: 32 }}>
       <header>
         <p>pickup</p>
         <h1>Find your next game</h1>
         {/* TODO 1: Add a short description underneath the heading. */}
+        <p>Search for games below:</p>
       </header>
 
       {/* TODO 4: Add sport filter buttons after search works. */}
@@ -23,15 +26,22 @@ function Discover({ games, loading, error }) {
 
         {!loading && !error && (
           <ul>
-            {games.map((game) => (
-              <li key={game.id}>
+            {games.map((game) => {
+              
+              const spotsLeft = game.maxPlayers - game.playerCount
+              
+
+              return (<li key={game.id}>
                 <h3>{game.title}</h3>
                 <p>{game.sport} · {game.locationName}</p>
                 {/* TODO 2: Show playerCount / maxPlayers here using game's fields.
                     Example JSX for a value: <span>{game.sport}</span>
                     After that, calculate and display the number of spots left. */}
+                <span>{game.playerCount} / {game.maxPlayers} joined</span>
+                <span> {spotsLeft} spots left! </span>
               </li>
-            ))}
+              )
+            })}
           </ul>
         )}
       </section>
