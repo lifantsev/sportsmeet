@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="488" viewBox="0 0 300 122" fill="none" stroke-width="1.5">
+  <title>Beach volleyball court</title>
+  <rect width="300" height="122" fill="#fbefd6" stroke="none"/>
+  <path d="M200 0H300V122H238Z" fill="#6598b6" fill-opacity=".29" stroke="none"/>
+  <g stroke="#032d42">
+    <path d="M29 29H271V97H29ZM150 18V108M142 29V97M158 29V97"/>
+    <path d="M142 38H158M142 47H158M142 56H158M142 65H158M142 74H158M142 83H158M142 92H158" stroke-opacity=".65"/>
+  </g>
+  <circle cx="209" cy="69" r="12" fill="#c81024" stroke="none"/>
+  <path d="M202 59Q215 63 217 77M197 69Q212 74 217 60" stroke="#fbefd6"/>
+</svg>

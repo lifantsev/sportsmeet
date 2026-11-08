@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="488" viewBox="0 0 300 122" fill="none" stroke-width="1.5">
+  <title>Soccer pitch</title>
+  <rect width="300" height="122" fill="#6598b6" stroke="none"/>
+  <path d="M49 0H89V122H49ZM130 0H170V122H130ZM211 0H251V122H211Z" fill="#032d42" fill-opacity=".17" stroke="none"/>
+  <g stroke="#fbefd6" stroke-width="1.8">
+    <path d="M24 22H276V102H24ZM150 22V102M24 38H71V86H24M276 38H229V86H276M24 50H43V74H24M276 50H257V74H276"/>
+    <circle cx="150" cy="62" r="21" fill="#fbefd6" fill-opacity=".24"/>
+    <path d="M71 50A15 15 0 0 1 71 74M229 50A15 15 0 0 0 229 74"/>
+  </g>
+  <circle cx="150" cy="62" r="4" fill="#790500" stroke="none"/>
+</svg>
