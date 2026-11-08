@@ -40,6 +40,7 @@ CREATE TABLE games (
   duration_min  integer NOT NULL CHECK (duration_min > 0),
   max_players   integer NOT NULL CHECK (max_players BETWEEN 2 AND 30),
   notes         text NOT NULL DEFAULT '',
+  status        text NOT NULL DEFAULT 'open' CHECK (status IN ('open', 'canceled')),
   host_id       text NOT NULL REFERENCES users(id),
   created_at    timestamptz NOT NULL DEFAULT now()
 );
