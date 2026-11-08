@@ -1,16 +1,19 @@
 /* Design tokens from design/HANDOFF.md section 2 */
 :root {
-  --bg: #f8f8f7;
+  --bg: #F2F0EF;
   --surface: #ffffff;
-  --ink: #121316;
-  --text-2: #4d5058;
+  --ink: black;
+  --text-2: #242528;
   --muted: #63666e;
   --muted-2: #5c5f67;
+  --muted-3: #fdf0d5
   --border: #ececee;
   --border-2: #e2e2e6;
   --input-border: #dfdfe3;
+  --label: #003049;
   --fill: #f1f1f3;
-  --accent: #2f62b0;
+  --accent: #c1121f;
+  --accent-2: #780000;
   --live: #4c8dff;
   --success: #22663f;
   --error: #a3263a;
@@ -30,6 +33,15 @@
   -webkit-font-smoothing: antialiased;
 }
 
+@font-face {
+    font-family: "Integral CF";
+    src: url("https://db.onlinewebfonts.com/t/e5cf4323214de97c3428d64ece016410.eot");
+    src: url("https://db.onlinewebfonts.com/t/e5cf4323214de97c3428d64ece016410.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/e5cf4323214de97c3428d64ece016410.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/e5cf4323214de97c3428d64ece016410.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/e5cf4323214de97c3428d64ece016410.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/e5cf4323214de97c3428d64ece016410.svg#Integral CF")format("svg");
+}
 * {
   box-sizing: border-box;
 }
@@ -44,10 +56,13 @@ h2,
 h3 {
   color: var(--ink);
   margin: 0;
+  font-family: 'Integral CF';
 }
 
 .gameCard{
-  border:1px solid black;
+  background-color: white;
+  align-items: flex-start;  
+  border:1px solid --border;
   border-radius:10px;
   box-shadow: 5px 5px 5px rgba(55, 50, 50, 0.183);
   padding: 20px;
@@ -62,9 +77,9 @@ h3 {
 }
 
 .filter-button{
-  background-color: #dfdfe3;
-  color:#22663f;
-  border: 1px solid #22663f;
+  background-color: white;
+  color: var(--accent-2);
+  border: 2px var(--accent-2);
   border-radius: 20px;
   padding: 7px;
 }
@@ -77,7 +92,7 @@ h3 {
 }
 
 .filter-button.active{
-  background-color: #22663f;
+  background-color: var(--accent);
   color:#dfdfe3;
   border: 1px solid #e2e2e6;
   
@@ -93,12 +108,22 @@ h3 {
   overflow-x: auto;
 }
 
+.join-button{
+  background-color: #c1121f;
+  color: #ffffff;
+  font-family: 'Helvetica Neue';
+  font-weight: 600;
+  font-size: larger;
+  border: none;
+  border-radius: 10px;
+  padding:10px;
+}
 
 
 .card-player-count{
   border: 1px solid #e2e2e6;
   border-radius: 10px;
-  background-color: #22663f;
+  background-color: var(--label);
   color:#dfdfe3;
   padding: 5px;
 }
@@ -107,7 +132,7 @@ h3 {
 
   border: 1px solid #e2e2e6;
   border-radius: 10px;
-  background-color: #22663f;
+  background-color: var(--label);
   color:#dfdfe3;
   padding: 5px;
 }
@@ -129,3 +154,49 @@ h3 {
 
 }
 
+
+.calendar-bar{
+  display:flex;
+  gap: 5px;
+}
+
+
+
+.card-game-title {
+  font-weight: 600;
+  font-size: larger;
+}
+
+.calendar-button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 250px;
+  height: 64px;
+  font-weight: 700;
+  font-size: 22;
+  font-family: 'Integral CF';
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 5px;
+  text-align: left;
+  background-color: #669bbc;
+}
+
+.calendar-button.active {
+  background-color: var(--label);
+  color:#dfdfe3;
+  border-color: #ececee;
+}
+
+.card-game-sport{
+  font-style: italic;
+  font-size:medium;
+  font-weight: 500;
+}
+
+.card-image{
+  display:block;
+  object-fit: contain;
+  width: 100%;
+}
