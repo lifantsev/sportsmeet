@@ -33,7 +33,8 @@
 
                 (pkgs.writeShellScriptBin "db" /*sh*/ ''
                     ${findroot}
-                    postgres -D ./.postgresql -k "$(pwd)/.postgresql"
+                    cd server
+                    postgres -D ./.postgres -k "$(pwd)/.postgres"
                 '')
 
                 (pkgs.writeShellScriptBin "cl" /*sh*/ ''
