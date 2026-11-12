@@ -46,6 +46,24 @@
   box-sizing: border-box;
 }
 
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .game-card {
+    animation: none;
+  }
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -61,26 +79,35 @@ h3 {
 
 .game-card{
   background-color: white;
-  border:1px solid --border;
+  border:3px solid transparent;
   border-radius:10px;
   padding: 20px;
   margin: 10px;
   text-align: center;
   display: inline-block;
   min-width: 900px;
-  min-height: 350px;
+  min-height: 300px;
+  height: auto;
   justify-content: space-between;
   position:relative;
   overflow: hidden;
   display: flex;           /* Replace display: inline-block */
+  transition: transform 180ms ease, border-color 180ms ease;
+  animation: card-enter 220ms ease-out;
 }
 
+.game-card:hover{
+  border-color: var(--accent-2);
+  transform: translateY(-4px);
+  
+}
 .card-information{
   width: 40%;
   padding: 10px;
   display: flex;
   flex-direction:column;
   justify-content: space-between;
+  gap: 28px;
   
   z-index: 2;
 }
@@ -169,7 +196,7 @@ h3 {
   text-align: left;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .card-section{
@@ -188,8 +215,10 @@ h3 {
 
 
 .card-game-title {
-  font-weight: 600;
+  font-weight: 500;
   font-size: larger;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .calendar-button {
@@ -201,17 +230,22 @@ h3 {
   font-weight: 700;
   font-size: 22;
   font-family: 'Integral CF';
-  border: 1px solid white;
+  border: 3px solid transparent;
   border-radius: 10px;
   padding: 5px;
   text-align: left;
   background-color: #669bbc;
+  transition: border-color 180ms ease;
 }
 
 .calendar-button.active {
   background-color: var(--label);
   color:#dfdfe3;
   border-color: #ececee;
+}
+
+.calendar-button:hover{
+  border-color: var(--label);
 }
 
 .card-game-sport{

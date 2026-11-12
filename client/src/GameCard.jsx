@@ -4,6 +4,7 @@ import volleyballImg from './assets/images/beach-volleyball-court.svg'
 import { FaLocationPin } from "react-icons/fa6";
 import { FaClock } from "react-icons/fa";
 import { IoPerson } from "react-icons/io5";
+import { FaLocationArrow } from "react-icons/fa";
 function GameCard({game}){
 
     const spotsLeft = game.maxPlayers - game.playerCount
@@ -47,7 +48,7 @@ function GameCard({game}){
                         <h2 className = 'card-game-sport'>{game.sport}</h2>
                         <h3>{game.skill}</h3>
                         <div className= 'card-location-section'>
-                            <span className = 'card-label'><FaLocationPin /> {game.locationName} |  5 mi</span>
+                            <span className = 'card-label'><FaLocationPin /> {game.locationName} | <FaLocationArrow /> 5 mi</span>
 
                         </div>
                         <span className='card-label'><FaClock /> {startsAt}</span>

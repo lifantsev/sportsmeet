@@ -12,6 +12,7 @@ function Discover({ games, loading, error }) {
     const [onlyJoinable, setOnlyJoinable] = useState(false)
     const [sportFilter, setSportFilter] = useState(() => new Set())
     const [dateFilter, setDateFilter] = useState(today.toDateString())
+    const [geoInfo, setGeoInfo] = useState()
 
   
 
