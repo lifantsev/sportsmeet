@@ -44,7 +44,7 @@ function Discover({ games, loading, error }) {
     
 
   return (
-    <main style={{ maxWidth: 1280, gap: 32,  margin: '32px auto', padding: 32, display: 'flex', flexDirection: 'column'}}>
+    <main style={{ maxWidth: 1280, gap: 32,  margin: '48px auto', padding: 32, display: 'flex', flexDirection: 'column'}}>
       <header>
         <div style={{ display: "flex", flexDirection: 'column', gap: 16 }}>
         <h2 style = {{fontFamily: 'system-ui'}}>pickup</h2>

@@ -5,6 +5,7 @@ import { FaLocationPin } from "react-icons/fa6";
 import { FaClock } from "react-icons/fa";
 import { IoPerson } from "react-icons/io5";
 import { FaLocationArrow } from "react-icons/fa";
+import { FaRunning } from "react-icons/fa";
 function GameCard({game}){
 
     const spotsLeft = game.maxPlayers - game.playerCount
@@ -46,19 +47,27 @@ function GameCard({game}){
             <div className = 'card-information'>
                 <div className = 'card-header'>
                         <h2 className = 'card-game-sport'>{game.sport}</h2>
-                        <h3>{game.skill}</h3>
                         <div className= 'card-location-section'>
-                            <span className = 'card-label'><FaLocationPin /> {game.locationName} | <FaLocationArrow /> 5 mi</span>
+                            <span className='card-label'><FaLocationPin aria-hidden="true" /><span>{game.locationName}</span></span>
+                            <span className="card-label-separator" aria-hidden="true">|</span>
+                            <span className='card-label'><FaLocationArrow aria-hidden="true" /><span>5 mi</span></span>
+                            <span className="card-label-separator" aria-hidden="true">|</span>
+                            <span className='card-label'><FaRunning aria-hidden="true" /><span>{game.skill}</span></span>
 
                         </div>
-                        <span className='card-label'><FaClock /> {startsAt}</span>
+                        <div className = 'card-more-info'>
+                             <span className='card-label time-label'><FaClock aria-hidden="true" /><span>{startsAt}</span></span>
+                             
+                        </div>
+                       
+
                 </div>
                 <div className = 'card-footer'>
                     <h2 className='card-game-title'>{game.title}</h2>
                     <div style = {{display: 'flex', gap: '10px', alignItems: 'center'}}>
                         <button className = {gameJoinable? 'join-button': 'join-button full'}>
                             {gameJoinable? 'JOIN GAME' : 'GAME FULL'}</button>
-                        <span className = "card-label" style = {{fontSize: '20px'}}><IoPerson /> {game.playerCount} / {game.maxPlayers}</span>
+                        <span className = "card-label" style = {{fontSize: '20px'}}><IoPerson aria-hidden="true" /><span>{game.playerCount} / {game.maxPlayers}</span></span>
                     </div>
                 </div>
             </div>
