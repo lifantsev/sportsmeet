@@ -45,10 +45,11 @@ function Discover({ games, loading, error }) {
   return (
     <main style={{ maxWidth: 1280, gap: 32,  margin: '32px auto', padding: 32, display: 'flex', flexDirection: 'column'}}>
       <header>
+        <div style={{ display: "flex", flexDirection: 'column', gap: 16 }}>
         <h2 style = {{fontFamily: 'system-ui'}}>pickup</h2>
-        <h1>Find your next game</h1>
-        {/* TODO 1: Add a short description underneath the heading. */}
-        <p>Search for games below:</p>
+        <h1 style = {{fontStyle: 'italic'}}>Discover</h1>
+        </div>
+        
       </header>
 
       <CalendarBar dateFilter={dateFilter} toggleDateFilter={toggleDateFilter} dates = {dates}></CalendarBar>

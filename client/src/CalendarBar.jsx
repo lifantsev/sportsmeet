@@ -12,6 +12,7 @@ function CalendarBar ({dateFilter, toggleDateFilter, dates}){
                 <span>
                     {date.getDate()}
                 </span>
+                
             </button>
           ))}
             
