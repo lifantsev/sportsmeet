@@ -48,6 +48,18 @@ You need Node.js 22+ and PostgreSQL 16+.
 
 ## Running
 
+From the repository root, start both servers with:
+
+```bash
+bash scripts/dev.sh
+```
+
+Open http://localhost:5173. Press Ctrl+C to stop both servers.
+The script creates `server/.env` from the example if missing; it does not
+create or reset the database. Complete the setup above before the first run.
+
+Alternatively, start them separately:
+
 Use two terminals.
 
 ```bash
