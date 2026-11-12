@@ -59,21 +59,30 @@ h3 {
   font-family: 'Integral CF';
 }
 
-.gameCard{
+.game-card{
   background-color: white;
-  align-items: flex-start;  
   border:1px solid --border;
   border-radius:10px;
-  box-shadow: 5px 5px 5px rgba(55, 50, 50, 0.183);
   padding: 20px;
   margin: 10px;
   text-align: center;
   display: inline-block;
-  min-width: 400px;
-  min-height: 500px;
+  min-width: 900px;
+  min-height: 350px;
   justify-content: space-between;
+  position:relative;
+  overflow: hidden;
   display: flex;           /* Replace display: inline-block */
-  flex-direction: column;
+}
+
+.card-information{
+  width: 40%;
+  padding: 10px;
+  display: flex;
+  flex-direction:column;
+  justify-content: space-between;
+  
+  z-index: 2;
 }
 
 .filter-button{
@@ -104,12 +113,13 @@ h3 {
   margin: 0;
 
   display: flex;
+  flex-direction: column;
   gap: 10px;
   overflow-x: auto;
 }
 
 .join-button{
-  background-color: #c1121f;
+  background-color: var(--accent);
   color: #ffffff;
   font-family: 'Helvetica Neue';
   font-weight: 600;
@@ -119,13 +129,16 @@ h3 {
   padding:10px;
 }
 
+.join-button.full{
+  background-color: #e2e2e6;
+  color:#5c5f67;
+}
 
-.card-player-count{
-  border: 1px solid #e2e2e6;
-  border-radius: 10px;
-  background-color: var(--label);
-  color:#dfdfe3;
-  padding: 5px;
+
+.card-label{
+  color: var(--label);
+  font-weight: 700;
+  width: fit-content;
 }
 
 .card-location{
@@ -135,16 +148,28 @@ h3 {
   background-color: var(--label);
   color:#dfdfe3;
   padding: 5px;
+  font-weight: 700;
+}
+
+.card-location-section{
+  display: flex; 
+  justify-content: space-between;
 }
 
 .card-header{
   display: flex;
-  gap: 5px;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
   justify-content: space-between;
+  align-items: start;
 }
 
 .card-footer{
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .card-section{
@@ -190,13 +215,58 @@ h3 {
 }
 
 .card-game-sport{
+  font-size: 30px;
   font-style: italic;
-  font-size:medium;
   font-weight: 500;
+  text-align: start;
+  color : var(--accent)
 }
 
-.card-image{
-  display:block;
-  object-fit: contain;
-  width: 100%;
+.card-media{
+  position: absolute;
+  width: 57%;
+  inset: 0 0 0 auto;
+  z-index: 1; /* allows for stacking */
+  clip-path: polygon(25% 0, 100% 0, 100% 100%, 0 100%); /* allows for diagonal crop */
 }
+
+.card-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+
+/* Diagonal game card rebuild — pair these steps with the GameCard.jsx TODOs.
+ *
+ * TODO 2: Lay out the two panels.
+ * - Rename .gameCard to .game-card to match your JSX, then update its rules
+ *   rather than leaving conflicting width/display rules.
+ * - Aim for a cream card about 720px wide and at least 380px tall.
+ * - Give the card position: relative and overflow: hidden.
+ * - Keep the left panel in normal flow, about 57% wide, with padding.
+ * - Use a vertical flex layout and gap inside it; push Join down with auto margin.
+ * - Position the right panel absolutely against the top, bottom, and right edges;
+ *   aim for 47% width. Keep the text above it with positioning and z-index.
+ * Check: first get two rectangular panels working, with no text hidden.
+ *
+ * TODO 4: Cut the diagonal and fill it with the image.
+ * - Use clip-path: polygon(...) on the RIGHT PANEL, not the whole card.
+ * - Polygon points go clockwise: inset top-left, top-right, bottom-right,
+ *   bottom-left. Try moving only the top-left point inward to form the slope.
+ * - Give the image the panel's full width and height, using object-fit: cover.
+ * - Avoid inner padding so the image reaches every panel edge.
+ * Check: the image is cropped rather than stretched, with no gaps at its edges.
+ *
+ * TODO 5: Fine-tune the style and image crop.
+ * - Try a red uppercase sport/skill label, navy italic title, and red Join button.
+ * - Use object-position on the volleyball-only image class to center the ball;
+ *   the preview used 75% center. Other images can stay centered.
+ *
+ * TODO 6: Check smaller screens and difficult content.
+ * - Add a media query for a narrower card and smaller title.
+ * - Test long titles, full games, each sport, and missing images.
+ * - Ensure the information doesn't overlap the slanted image edge.
+ */
