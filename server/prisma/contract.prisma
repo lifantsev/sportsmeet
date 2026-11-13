@@ -1,56 +1,37 @@
 // use prisma-8
+// the comment above is required by prisma ( genius design :O )
+
 model User {
-    id    Int     @id @default(autoincrement())
-    email String  @unique
-    name  String?
+  id           Int              @id @default(autoincrement())
+  email        String           @unique
+  name         String?
+  
+  ownedGames   Game[]           @relation("GameOwner")
+  joinedGames  GameParticipant[]
+
+  createdAt    DateTime         @default(now())
 }
 
-// datasource db {
-//   provider = "postgresql"
-//   url      = env("DATABASE_URL")
-// }
+model Game {
+  id           Int              @id @default(autoincrement())
+  sport        String
+  place        String
+  time         DateTime
+  
+  ownerId      Int
+  owner        User             @relation("GameOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  
+  participants GameParticipant[]
 
-// generator client {
-//   provider = "prisma-client-js"
-// }
+  createdAt    DateTime         @default(now())
+}
 
-// model User {
-//   id           Int              @id @default(autoincrement())
-//   email        String           @unique
-//   name         String?
-//   
-//   // 1-to-Many: Games owned/created by this user
-//   ownedGames   Game[]           @relation("GameOwner")
-//   
-//   // Many-to-Many: Games this user has joined
-//   joinedGames  GameParticipant[]
+model GameParticipant {
+  userId       Int
+  gameId       Int
+  user         User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  game         Game             @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  joinedAt     DateTime         @default(now())
 
-//   createdAt    DateTime         @default(now())
-// }
-
-// model Game {
-//   id           Int              @id @default(autoincrement())
-//   sport        String
-//   place        String
-//   time         DateTime
-//   
-//   // Foreign Key to User (Owner)
-//   ownerId      Int
-//   owner        User             @relation("GameOwner", fields: [ownerId], references: [id], onDelete: Cascade)
-//   
-//   // Many-to-Many: Participants joined in this game
-//   participants GameParticipant[]
-
-//   createdAt    DateTime         @default(now())
-// }
-
-// // Explicit Junction Table for Users joining Games
-// model GameParticipant {
-//   userId       Int
-//   gameId       Int
-//   user         User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-//   game         Game             @relation(fields: [gameId], references: [id], onDelete: Cascade)
-//   joinedAt     DateTime         @default(now())
-
-//   @@id([userId, gameId]) // Composite primary key ensures a user can't join the same game twice
-// }
+  @@id([userId, gameId]) // Composite primary key ensures a user can't join the same game twice
+}
