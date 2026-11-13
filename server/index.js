@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3001
 app.use(express.json())
 
 app.get('/api/health', (req, res) => {
-  res.json({ ok: true })
+    res.json({ ok: true })
 })
 
 app.use('/api/games', gamesRouter)
@@ -17,5 +17,5 @@ app.use('/api/locations', locationsRouter)
 app.use('/api/users', usersRouter)
 
 app.listen(PORT, () => {
-  console.log(`API listening on http://localhost:${PORT}`)
+    console.log(`API listening on http://localhost:${PORT}`)
 })

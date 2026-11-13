@@ -1,0 +1,56 @@
+// use prisma-8
+model User {
+    id    Int     @id @default(autoincrement())
+    email String  @unique
+    name  String?
+}
+
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// model User {
+//   id           Int              @id @default(autoincrement())
+//   email        String           @unique
+//   name         String?
+//   
+//   // 1-to-Many: Games owned/created by this user
+//   ownedGames   Game[]           @relation("GameOwner")
+//   
+//   // Many-to-Many: Games this user has joined
+//   joinedGames  GameParticipant[]
+
+//   createdAt    DateTime         @default(now())
+// }
+
+// model Game {
+//   id           Int              @id @default(autoincrement())
+//   sport        String
+//   place        String
+//   time         DateTime
+//   
+//   // Foreign Key to User (Owner)
+//   ownerId      Int
+//   owner        User             @relation("GameOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+//   
+//   // Many-to-Many: Participants joined in this game
+//   participants GameParticipant[]
+
+//   createdAt    DateTime         @default(now())
+// }
+
+// // Explicit Junction Table for Users joining Games
+// model GameParticipant {
+//   userId       Int
+//   gameId       Int
+//   user         User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   game         Game             @relation(fields: [gameId], references: [id], onDelete: Cascade)
+//   joinedAt     DateTime         @default(now())
+
+//   @@id([userId, gameId]) // Composite primary key ensures a user can't join the same game twice
+// }

@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { pool } from '../db/index.js'
 import { CURRENT_USER_ID } from '../currentUser.js'
+import db from '../prisma/db.js'
 
 const router = Router()
 
@@ -23,6 +24,15 @@ router.get('/me', async (req, res, next) => {
   } catch (err) {
     next(err)
   }
+})
+
+// GET /api/users/dump (Mark's Prisma test endpoint)
+router.get('/dump', async (req, res, next) => {
+    try {
+        res.json(await db.orm.public.User.all())
+    } catch (err) {
+        next(err)
+    }
 })
 
 export default router
