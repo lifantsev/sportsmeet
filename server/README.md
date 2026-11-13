@@ -1,10 +1,10 @@
 # PostgreSQL Database
 
-`initdb -D .postgres` To create the postgres database:
+`initdb -D .postgres` to create the postgres database
 
-`db` To run the database server: (script from ../flake.nix)
+`db` to run the database server (script from ../flake.nix)
 
-`createdb sportsmeet -h localhost` to initialize sportsmeet db (postgres must be running):
+`createdb sportsmeet -h localhost` to initialize sportsmeet db (postgres must be running)
 
 # Prisma ORM
 
