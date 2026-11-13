@@ -1,5 +1,6 @@
 import express from 'express'
 import gamesRouter from './routes/games.js'
+import locationsRouter from './routes/locations.js'
 import usersRouter from './routes/users.js'
 
 const app = express()
@@ -12,6 +13,7 @@ app.get('/api/health', (req, res) => {
 })
 
 app.use('/api/games', gamesRouter)
+app.use('/api/locations', locationsRouter)
 app.use('/api/users', usersRouter)
 
 app.listen(PORT, () => {

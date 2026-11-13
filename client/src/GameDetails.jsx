@@ -1,6 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
-import L from 'leaflet'
+import { Fragment, useEffect, useState } from 'react'
+import { MapContainer, TileLayer, CircleMarker } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
+import { api, gameUrl } from './api.js'
+import { EditGameDialog, RemovePlayerDialog } from './HostTools.jsx'
 
 // Game detail page (design/screens/Game.dc.html).
 // Loads the game from GET /api/games/:id and the viewer from GET /api/users/me.
@@ -99,30 +101,14 @@ function ago(iso, now) {
   return `${Math.round(mins / 1440)}d ago`
 }
 
-// Calls the API and returns the parsed JSON (null for 204). Throws an Error with the server's
-// message on failure, which the page shows as feedback.
-async function api(method, url, body) {
-  const res = await fetch(url, {
-    method,
-    headers: body ? { 'Content-Type': 'application/json' } : undefined,
-    body: body ? JSON.stringify(body) : undefined,
-  })
-  if (!res.ok) {
-    const { error } = await res.json().catch(() => ({}))
-    throw new Error(error || 'Something went wrong. Please try again.')
-  }
-  return res.status === 204 ? null : res.json()
-}
-
-const gameUrl = (gameId) => `/api/games/${encodeURIComponent(gameId)}`
-
 // Both resolve to { players }: the roster after the change, straight from the server.
 const joinGame = (gameId) => api('POST', `${gameUrl(gameId)}/join`)
 const leaveGame = (gameId) => api('DELETE', `${gameUrl(gameId)}/join`)
 
-// Comment calls. postComment and setPinned resolve to the saved comment; the host can pin and delete.
-const postComment = (gameId, body) => api('POST', `${gameUrl(gameId)}/comments`, { body })
-const setPinned = (gameId, commentId, pinned) => api('PATCH', `${gameUrl(gameId)}/comments/${commentId}`, { pinned })
+// Comment calls. Each resolves to the saved comment (delete resolves to null).
+// Anyone can post, reply and edit their own; the host can pin; the author or the host can delete.
+const postComment = (gameId, body, parentId) => api('POST', `${gameUrl(gameId)}/comments`, { body, parentId })
+const updateComment = (gameId, commentId, fields) => api('PATCH', `${gameUrl(gameId)}/comments/${commentId}`, fields)
 const deleteComment = (gameId, commentId) => api('DELETE', `${gameUrl(gameId)}/comments/${commentId}`)
 
 // Pinned comments first, then oldest to newest (matches the server's order).
@@ -153,17 +139,6 @@ function Avatar({ userId, name, size = 38, you = false }) {
 const card = {
   background: 'var(--surface)',
   border: '1px solid var(--border)',
-}
-
-const miniButton = {
-  height: 30,
-  padding: '0 12px',
-  borderRadius: 999,
-  border: '1px solid var(--border-2)',
-  background: 'var(--surface)',
-  color: 'var(--ink)',
-  font: "600 13px 'Schibsted Grotesk', system-ui, sans-serif",
-  cursor: 'pointer',
 }
 
 function InfoTile({ label, value, icon }) {
@@ -216,34 +191,36 @@ function Pill({ children }) {
 
 const directionsUrl = ({ lat, lng }) => `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`
 
-// Static OpenStreetMap preview: no controls, no panning or zooming, so it can sit inside a link.
-function MapPreview({ lat, lng }) {
-  const el = useRef(null)
+// Pin colors per sport, same as the Map page.
+const SPORT_COLORS = {
+  Basketball: '#7A4A1E',
+  Soccer: '#22663F',
+  'Beach volleyball': '#24598C',
+  Tennis: '#2F62B0',
+  Ultimate: '#22594A',
+  Spikeball: '#7A5A0C',
+}
 
-  useEffect(() => {
-    const map = L.map(el.current, {
-      zoomControl: false,
-      attributionControl: false,
-      dragging: false,
-      touchZoom: false,
-      doubleClickZoom: false,
-      scrollWheelZoom: false,
-      boxZoom: false,
-      keyboard: false,
-    })
-    map.setView([lat, lng], 16)
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map)
-    const pin = L.divIcon({
-      className: '',
-      html: '<span style="display:block;width:22px;height:22px;border-radius:999px;border:3px solid #fff;background:#121316;box-shadow:0 4px 12px rgba(18,19,22,0.3)"></span>',
-      iconSize: [22, 22],
-      iconAnchor: [11, 11],
-    })
-    L.marker([lat, lng], { icon: pin, interactive: false }).addTo(map)
-    return () => map.remove()
-  }, [lat, lng])
-
-  return <div ref={el} style={{ height: 170, cursor: 'pointer' }} />
+// Static map preview like the Map page's, but with no controls or panning so it can sit inside a link.
+function MapPreview({ lat, lng, sport }) {
+  return (
+    <MapContainer
+      center={[lat, lng]}
+      zoom={16}
+      style={{ height: 170, cursor: 'pointer' }}
+      zoomControl={false}
+      attributionControl={false}
+      dragging={false}
+      touchZoom={false}
+      doubleClickZoom={false}
+      scrollWheelZoom={false}
+      boxZoom={false}
+      keyboard={false}
+    >
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <CircleMarker center={[lat, lng]} radius={12} pathOptions={{ color: SPORT_COLORS[sport] ?? '#121316', fillOpacity: 0.85, interactive: false }} />
+    </MapContainer>
+  )
 }
 
 const fetchJson = async (url) => {
@@ -284,14 +261,146 @@ export default function GameDetails({ gameId }) {
   return <GameView game={state.game} me={state.me} />
 }
 
-function GameView({ game, me }) {
-  const [players, setPlayers] = useState(game.players)
+const actionButton = {
+  padding: 0,
+  border: 0,
+  background: 'transparent',
+  color: 'var(--muted)',
+  font: "600 13px 'Schibsted Grotesk', system-ui, sans-serif",
+  cursor: 'pointer',
+}
+
+// One comment or reply, with its Reply / Edit / Pin / Delete actions and the inline edit and reply form.
+function CommentItem({ comment, isReply = false, replyCount = 0, me, host, now, onPin, onEdit, onReply, onDelete }) {
+  const [mode, setMode] = useState(null) // 'edit' | 'reply' | null
+  const [confirmingDelete, setConfirmingDelete] = useState(false)
+  const [draft, setDraft] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState(null)
+  const { author } = comment
+  const isAuthor = author.id === me.id
+  const isHost = me.id === host.id
+  const byHost = author.id === host.id
+
+  const open = (next) => {
+    setMode(next)
+    setDraft(next === 'edit' ? comment.body : '')
+    setError(null)
+  }
+
+  const submit = async (event) => {
+    event.preventDefault()
+    const body = draft.trim()
+    if (!body || busy) return
+    setBusy(true)
+    setError(null)
+    try {
+      await (mode === 'edit' ? onEdit(comment, body) : onReply(comment, body))
+      setMode(null)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <div style={{ display: 'flex', gap: 12, padding: isReply ? '14px 18px 14px 66px' : 18, background: comment.pinned || byHost ? 'var(--muted-3)' : 'transparent', borderLeft: `4px solid ${byHost ? 'var(--accent)' : 'transparent'}`, borderBottom: '1px solid var(--border)' }}>
+      <Avatar userId={author.id} name={author.name} size={isReply ? 30 : 36} />
+      <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <span style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, fontSize: 14 }}>
+          <strong style={{ color: 'var(--ink)' }}>{author.name}</strong>
+          {author.id === host.id && (
+            <span style={{ padding: '2px 8px', borderRadius: 999, background: 'var(--ink)', color: '#fff', fontSize: 11, fontWeight: 700 }}>Host</span>
+          )}
+          {comment.pinned && <span style={{ color: 'var(--accent)', fontWeight: 600 }}><span aria-hidden="true">📌 </span>Pinned</span>}
+          <span style={{ color: 'var(--muted)' }}>
+            {ago(comment.createdAt, now)}
+            {comment.editedAt && ' · edited'}
+          </span>
+        </span>
+
+        {mode === 'edit' ? null : (
+          <p style={{ margin: 0, fontSize: 16, lineHeight: 1.5, overflowWrap: 'anywhere' }}>{comment.body}</p>
+        )}
+
+        {mode ? (
+          <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 2 }}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 4px 4px 14px', borderRadius: 999, background: 'var(--fill)' }}>
+              <span style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0 0 0 0)' }}>
+                {mode === 'edit' ? 'Edit comment' : `Reply to ${author.name}`}
+              </span>
+              <input
+                type="text"
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                maxLength={1000}
+                autoFocus
+                placeholder={mode === 'edit' ? 'Edit your comment' : `Reply to ${author.name}`}
+                style={{ flex: 1, minWidth: 0, border: 0, background: 'transparent', outline: 'none', color: 'var(--ink)', font: "400 15px 'Schibsted Grotesk', system-ui, sans-serif" }}
+              />
+              <button
+                type="submit"
+                disabled={busy || !draft.trim()}
+                style={{ height: 34, padding: '0 16px', borderRadius: 999, border: 0, background: 'var(--ink)', color: '#fff', font: "600 13px 'Schibsted Grotesk', system-ui, sans-serif", cursor: busy || !draft.trim() ? 'default' : 'pointer', opacity: busy || !draft.trim() ? 0.45 : 1 }}
+              >
+                {busy ? 'Saving…' : mode === 'edit' ? 'Save' : 'Reply'}
+              </button>
+              <button type="button" onClick={() => setMode(null)} style={{ ...actionButton, padding: '0 10px' }}>
+                Cancel
+              </button>
+            </label>
+            {error && <p role="alert" style={{ margin: '0 14px', fontSize: 13, fontWeight: 600, color: 'var(--error)' }}>{error}</p>}
+          </form>
+        ) : confirmingDelete ? (
+          <div role="alert" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '6px 12px', marginTop: 2, fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>
+            {replyCount > 0 ? `Delete this comment and its ${replyCount === 1 ? 'reply' : `${replyCount} replies`}?` : 'Delete this comment?'}
+            <button
+              type="button"
+              onClick={() => {
+                setConfirmingDelete(false)
+                onDelete(comment)
+              }}
+              style={{ height: 28, padding: '0 14px', borderRadius: 999, border: 0, background: 'var(--error)', color: '#fff', font: "600 13px 'Schibsted Grotesk', system-ui, sans-serif", cursor: 'pointer' }}
+            >
+              Confirm delete
+            </button>
+            <button type="button" onClick={() => setConfirmingDelete(false)} style={actionButton}>
+              Cancel
+            </button>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 14px', marginTop: 2 }}>
+            <button type="button" onClick={() => open('reply')} aria-label={`Reply to ${author.name}`} style={actionButton}>Reply</button>
+            {isAuthor && <button type="button" onClick={() => open('edit')} aria-label="Edit your comment" style={actionButton}>Edit</button>}
+            {isHost && !isReply && (
+              <button type="button" onClick={() => onPin(comment)} style={actionButton}>
+                {comment.pinned ? 'Unpin' : '📌 Pin'}
+              </button>
+            )}
+            {(isAuthor || isHost) && (
+              <button type="button" onClick={() => setConfirmingDelete(true)} aria-label={`Delete comment by ${author.name}`} style={{ ...actionButton, color: 'var(--error)' }}>
+                Delete
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function GameView({ game: initialGame, me }) {
+  const [game, setGame] = useState(initialGame)
+  const [dialog, setDialog] = useState(null) // { type: 'edit' } | { type: 'remove', player }
+  const [players, setPlayers] = useState(initialGame.players)
   const [busy, setBusy] = useState(false)
   const [notice, setNotice] = useState(null)
 
   const [now] = useState(() => new Date())
   const { location, host } = game
-  const [comments, setComments] = useState(game.comments)
+  const isHost = me.id === host.id
+  const [comments, setComments] = useState(initialGame.comments)
   const [draft, setDraft] = useState('')
   const [posting, setPosting] = useState(false)
   const [commentError, setCommentError] = useState(null)
@@ -321,12 +430,10 @@ function GameView({ game, me }) {
     }
   }
 
-  const isHost = me.id === host.id
-
   const togglePin = async (comment) => {
     setCommentError(null)
     try {
-      const saved = await setPinned(game.id, comment.id, !comment.pinned)
+      const saved = await updateComment(game.id, comment.id, { pinned: !comment.pinned })
       setComments((list) => sortComments(list.map((c) => (c.id === saved.id ? saved : c))))
     } catch (err) {
       setCommentError(err.message)
@@ -337,11 +444,25 @@ function GameView({ game, me }) {
     setCommentError(null)
     try {
       await deleteComment(game.id, comment.id)
-      setComments((list) => list.filter((c) => c.id !== comment.id))
+      setComments((list) => list.filter((c) => c.id !== comment.id && c.parentId !== comment.id))
     } catch (err) {
       setCommentError(err.message)
     }
   }
+
+  // These two throw on failure so the comment's own form can show the error.
+  const editComment = async (comment, body) => {
+    const saved = await updateComment(game.id, comment.id, { body })
+    setComments((list) => list.map((c) => (c.id === saved.id ? saved : c)))
+  }
+
+  // Replies attach to the top-level comment, so replying to a reply joins the same thread.
+  const addReply = async (comment, body) => {
+    const saved = await postComment(game.id, body, comment.parentId ?? comment.id)
+    setComments((list) => sortComments([...list, saved]))
+  }
+
+  const commentActions = { me, host, now, onPin: togglePin, onEdit: editComment, onReply: addReply, onDelete: removeComment }
 
   const toggle = async () => {
     setBusy(true)
@@ -363,8 +484,8 @@ function GameView({ game, me }) {
 
   const leftText = isFull ? 'Full' : spotsLeft === 1 ? '1 spot left' : `${spotsLeft} spots left`
   const isCanceled = game.status === 'canceled'
-  const buttonDisabled = busy || ((isFull || isCanceled) && !joined)
-  const buttonLabel = joined ? 'Leave game' : isCanceled ? 'Game canceled' : isFull ? 'Game full' : 'Join game'
+  const buttonDisabled = busy || isHost || ((isFull || isCanceled) && !joined)
+  const buttonLabel = isHost ? 'You’re hosting' : joined ? 'Leave game' : isCanceled ? 'Game canceled' : isFull ? 'Game full' : 'Join game'
   const noticeColor = notice?.kind === 'success' ? 'var(--success)' : notice?.kind === 'error' ? 'var(--error)' : 'var(--muted)'
 
   return (
@@ -405,7 +526,7 @@ function GameView({ game, me }) {
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', gap: 32 }}>
           <div style={{ flex: '999 1 600px', minWidth: 0, display: 'flex', flexDirection: 'column', gap: 36 }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
-              <h1 style={{ fontSize: 52, lineHeight: 1, fontWeight: 800, letterSpacing: '-0.05em', textWrap: 'balance' }}>{game.title}</h1>
+              <h1 style={{ fontSize: 40, lineHeight: 1.15, fontWeight: 400, letterSpacing: '0.01em', textWrap: 'balance' }}>{game.title}</h1>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(240px, 100%), 1fr))', gap: 12 }}>
                 <InfoTile
                   label="When"
@@ -422,14 +543,14 @@ function GameView({ game, me }) {
 
             {game.notes && (
               <section aria-labelledby="about" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                <h2 id="about" style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-0.035em' }}>About this game</h2>
+                <h2 id="about" style={{ fontSize: 20, fontWeight: 400, letterSpacing: '0.02em' }}>About this game</h2>
                 <p style={{ margin: 0, fontSize: 17, lineHeight: 1.6, color: 'var(--text-2)', maxWidth: 680 }}>{game.notes}</p>
               </section>
             )}
 
             <section aria-labelledby="roster" style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 12 }}>
-                <h2 id="roster" style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-0.035em' }}>Players</h2>
+                <h2 id="roster" style={{ fontSize: 20, fontWeight: 400, letterSpacing: '0.02em' }}>Players</h2>
                 <span style={{ fontSize: 15, color: 'var(--muted)' }}>
                   <strong style={{ color: 'var(--ink)' }}>{count}/{game.maxPlayers}</strong> joined
                 </span>
@@ -444,7 +565,17 @@ function GameView({ game, me }) {
                         <strong style={{ fontSize: 15, color: 'var(--ink)' }}>{isYou ? 'You' : player.name}</strong>
                         <span style={{ fontSize: 13, color: 'var(--muted)' }}>{player.id === host.id ? 'Host' : player.skill ?? game.skill}</span>
                       </span>
-                      {isYou && (
+                      {isHost && !isYou && (
+                        <button
+                          type="button"
+                          onClick={() => setDialog({ type: 'remove', player })}
+                          aria-label={`Remove ${player.name}`}
+                          style={{ ...actionButton, marginLeft: 'auto', color: 'var(--error)' }}
+                        >
+                          Remove
+                        </button>
+                      )}
+                      {isYou && !isHost && (
                         <button
                           type="button"
                           onClick={toggle}
@@ -499,7 +630,7 @@ function GameView({ game, me }) {
             </section>
 
             <section aria-labelledby="thread" style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <h2 id="thread" style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-0.035em' }}>Updates &amp; comments</h2>
+              <h2 id="thread" style={{ fontSize: 20, fontWeight: 400, letterSpacing: '0.02em' }}>Updates &amp; comments</h2>
               <div style={{ ...card, borderRadius: 22, overflow: 'hidden' }}>
                 {comments.length === 0 && (
                   <p style={{ margin: 0, padding: '28px 18px', textAlign: 'center', fontSize: 16, color: 'var(--muted)', borderBottom: '1px solid var(--border)' }}>
@@ -507,35 +638,18 @@ function GameView({ game, me }) {
                     There’s nothing here yet. Start the conversation!
                   </p>
                 )}
-                {comments.map((c) => {
-                  const { author } = c
-                  return (
-                    <div key={c.id} style={{ display: 'flex', gap: 12, padding: 18, background: c.pinned ? '#F4F7FC' : 'transparent', borderBottom: '1px solid var(--border)' }}>
-                      <Avatar userId={author.id} name={author.name} size={36} />
-                      <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
-                        <span style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, fontSize: 14 }}>
-                          <strong style={{ color: 'var(--ink)' }}>{author.name}</strong>
-                          {author.id === host.id && (
-                            <span style={{ padding: '2px 8px', borderRadius: 999, background: 'var(--ink)', color: '#fff', fontSize: 11, fontWeight: 700 }}>Host</span>
-                          )}
-                          {c.pinned && <span style={{ color: 'var(--accent)', fontWeight: 600 }}><span aria-hidden="true">📌 </span>Pinned</span>}
-                          <span style={{ color: 'var(--muted)' }}>{ago(c.createdAt, now)}</span>
-                        </span>
-                        <p style={{ margin: 0, fontSize: 16, lineHeight: 1.5, overflowWrap: 'anywhere' }}>{c.body}</p>
-                      </div>
-                      {isHost && (
-                        <span style={{ flex: 'none', alignSelf: 'flex-start', display: 'flex', gap: 6 }}>
-                          <button type="button" onClick={() => togglePin(c)} style={miniButton}>
-                            {c.pinned ? 'Unpin' : '📌 Pin'}
-                          </button>
-                          <button type="button" onClick={() => removeComment(c)} aria-label={`Delete comment by ${author.name}`} style={{ ...miniButton, color: 'var(--error)' }}>
-                            Delete
-                          </button>
-                        </span>
-                      )}
-                    </div>
-                  )
-                })}
+                {comments
+                  .filter((c) => !c.parentId)
+                  .map((c) => (
+                    <Fragment key={c.id}>
+                      <CommentItem comment={c} replyCount={comments.filter((r) => r.parentId === c.id).length} {...commentActions} />
+                      {comments
+                        .filter((r) => r.parentId === c.id)
+                        .map((r) => (
+                          <CommentItem key={r.id} comment={r} isReply {...commentActions} />
+                        ))}
+                    </Fragment>
+                  ))}
                 <form onSubmit={submitComment} style={{ padding: 12 }}>
                   <label style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '6px 6px 6px 16px', borderRadius: 999, background: 'var(--fill)' }}>
                     <span style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0 0 0 0)' }}>Comment</span>
@@ -605,12 +719,21 @@ function GameView({ game, me }) {
               >
                 {busy ? 'Working…' : buttonLabel}
               </button>
+              {isHost && (
+                <button
+                  type="button"
+                  onClick={() => setDialog({ type: 'edit' })}
+                  style={{ height: 46, borderRadius: 999, border: '1px solid var(--border-2)', background: 'var(--surface)', color: 'var(--ink)', font: "600 14px 'Schibsted Grotesk', system-ui, sans-serif", cursor: 'pointer' }}
+                >
+                  Edit game
+                </button>
+              )}
             </div>
 
             <div style={{ ...card, borderRadius: 26, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
               <div style={{ position: 'relative', isolation: 'isolate' }}>
                 <a href={directionsUrl(location)} target="_blank" rel="noreferrer" aria-label={`Get directions to ${location.name}`} style={{ display: 'block' }}>
-                  <MapPreview lat={location.lat} lng={location.lng} />
+                  <MapPreview key={location.id} lat={location.lat} lng={location.lng} sport={game.sport} />
                 </a>
                 <a
                   href="https://www.openstreetmap.org/copyright"
@@ -656,6 +779,21 @@ function GameView({ game, me }) {
           </aside>
         </div>
       </main>
+
+      {dialog?.type === 'remove' && (
+        <RemovePlayerDialog gameId={game.id} player={dialog.player} onClose={() => setDialog(null)} onRemoved={setPlayers} />
+      )}
+      {dialog?.type === 'edit' && (
+        <EditGameDialog
+          game={game}
+          playerCount={players.length}
+          onClose={() => setDialog(null)}
+          onSaved={(saved) => {
+            setGame(saved)
+            setPlayers(saved.players)
+          }}
+        />
+      )}
     </div>
   )
 }

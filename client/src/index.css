@@ -1,16 +1,19 @@
 /* Design tokens from design/HANDOFF.md section 2 */
 :root {
-  --bg: #f8f8f7;
+  --bg: #F2F0EF;
   --surface: #ffffff;
-  --ink: #121316;
-  --text-2: #4d5058;
+  --ink: black;
+  --text-2: #242528;
   --muted: #63666e;
   --muted-2: #5c5f67;
+  --muted-3: #fdf0d5;
   --border: #ececee;
   --border-2: #e2e2e6;
   --input-border: #dfdfe3;
+  --label: #003049;
   --fill: #f1f1f3;
-  --accent: #2f62b0;
+  --accent: #c1121f;
+  --accent-2: #780000;
   --live: #4c8dff;
   --success: #22663f;
   --error: #a3263a;
@@ -30,6 +33,15 @@
   -webkit-font-smoothing: antialiased;
 }
 
+@font-face {
+    font-family: "Integral CF";
+    src: url("https://db.onlinewebfonts.com/t/e5cf4323214de97c3428d64ece016410.eot");
+    src: url("https://db.onlinewebfonts.com/t/e5cf4323214de97c3428d64ece016410.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/e5cf4323214de97c3428d64ece016410.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/e5cf4323214de97c3428d64ece016410.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/e5cf4323214de97c3428d64ece016410.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/e5cf4323214de97c3428d64ece016410.svg#Integral CF")format("svg");
+}
 * {
   box-sizing: border-box;
 }
@@ -44,4 +56,5 @@ h2,
 h3 {
   color: var(--ink);
   margin: 0;
+  font-family: 'Integral CF';
 }

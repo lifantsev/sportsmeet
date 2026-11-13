@@ -1,7 +1,7 @@
 -- Tables for the data model in design/HANDOFF.md section 6.
 -- Running this drops and recreates everything, so only use it in development.
 
-DROP TABLE IF EXISTS comments, game_players, games, locations, user_sports, users CASCADE;
+DROP TABLE IF EXISTS player_messages, comments, game_players, games, locations, user_sports, users CASCADE;
 
 CREATE TABLE users (
   id          text PRIMARY KEY DEFAULT gen_random_uuid()::text,
@@ -59,7 +59,19 @@ CREATE TABLE comments (
   author_id   text NOT NULL REFERENCES users(id),
   body        text NOT NULL,
   pinned      boolean NOT NULL DEFAULT false,
+  parent_id   text REFERENCES comments(id) ON DELETE CASCADE,  -- set on replies; one level deep
+  edited_at   timestamptz,                                    -- set when the author edits the body
   created_at  timestamptz NOT NULL DEFAULT now()
+);
+
+-- Messages a host sends a player, e.g. when removing them from a game. There is no inbox UI yet.
+CREATE TABLE player_messages (
+  id            text PRIMARY KEY DEFAULT gen_random_uuid()::text,
+  game_id       text NOT NULL REFERENCES games(id) ON DELETE CASCADE,
+  to_user_id    text NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  from_user_id  text NOT NULL REFERENCES users(id),
+  body          text NOT NULL,
+  created_at    timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE INDEX games_starts_at_idx ON games (starts_at);
