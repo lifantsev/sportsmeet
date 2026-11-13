@@ -35,7 +35,7 @@ export function loadGoogleScript() {
             fail(script, 'Failed to load Google sign-in script');
         })
 
-        if (isNew) document.head.appendChild(script);
+        if (isNew) document.head.appendChild(script)
     });
 
     return promise;
