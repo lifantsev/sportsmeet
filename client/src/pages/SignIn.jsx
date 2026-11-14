@@ -35,7 +35,7 @@ function SignIn() {
                 if (!res.ok) throw new Error(`HTTP ${res.status}\nServer rejected sign-in`)
 
                 // TODO: sign-in succeeded. Update auth state or navigate here.
-            } catch (err) {
+            } catch {
                 if (!cancelled) setError('Sign-in failed. Please try again.')
             } finally {
                 if (!cancelled) setSigningIn(false)
@@ -76,8 +76,13 @@ function SignIn() {
     }, [])
 
     return (
-        <div style={{ maxWidth: 400, margin: '0 auto', padding: 32 }}>
-            <h1 style={{ fontSize: 36, fontWeight: 800, letterSpacing: '-0.05em' }}>sign in</h1>
+        <div style={{ maxWidth: 1350, margin: '0 auto', padding: 32 }}>
+            <h1 style={{ fontSize: 32, fontWeight: 800, letterSpacing: '-0.05em', lineHeight: 1.2, marginBottom: 150 }}>
+                pickup
+            </h1>
+            <h1 style={{ maxWidth: 600, lineHeight: 0.99, fontSize: 84, fontWeight: 800, letterSpacing: '-0.05em' }}>
+                Play pickup tonight.
+            </h1>
             <p>Use your Google account to sign in.</p>
 
             {status === 'loading' && <p>Loading Google sign-in...</p>}
