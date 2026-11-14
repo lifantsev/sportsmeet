@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "node --env-file-if-exists=.env --watch index.js",
     "start": "node --env-file-if-exists=.env index.js",
-    "db:reset": "node --env-file-if-exists=.env db/reset.js"
   },
   "dependencies": {
     "@prisma/orm-postgres": "^8.0.0-rc.23",
