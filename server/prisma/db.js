@@ -9,4 +9,4 @@ const db = postgres({
     url: process.env.DATABASE_URL,
 });
 
-export default db
+export default db.orm.public
