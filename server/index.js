@@ -17,28 +17,28 @@ app.use('/users', usersRouter)
 
 app.put('/resetdb', async (req, res, next) => {
     try {
-        await db.orm.public.GameParticipant.where({}).deleteAll()
-        await db.orm.public.Game.where({}).deleteAll()
-        await db.orm.public.User.where({}).deleteAll()
+        await db.GameParticipant.where({}).deleteAll()
+        await db.Game.where({}).deleteAll()
+        await db.User.where({}).deleteAll()
 
-        const alice = await db.orm.public.User.create({
+        const alice = await db.User.create({
             email: 'alice@sportsmeet.test',
             name: 'Alice Organizer'
         })
 
-        const bob = await db.orm.public.User.create({
+        const bob = await db.User.create({
             email: 'bob@sportsmeet.test',
             name: 'Bob Player'
         })
 
-        const game = await db.orm.public.Game.create({
+        const game = await db.Game.create({
             sport: 'soccer',
             place: 'IM Field',
             time: new Date('2026-11-20T17:30:00Z'),
             ownerId: alice.id,
         })
 
-        await db.orm.public.GameParticipant.create({
+        await db.GameParticipant.create({
             userId: bob.id,
             gameId: game.id,
         })
