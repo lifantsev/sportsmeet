@@ -1,4 +1,5 @@
 import express from 'express'
+import authRouter from './routes/auth.js'
 import gamesRouter from './routes/games.js'
 import usersRouter from './routes/users.js'
 import db from './prisma/db.js'
@@ -12,6 +13,7 @@ app.get('/health', (req, res) => {
     res.json({ ok: true })
 })
 
+app.use('/auth', authRouter)
 app.use('/games', gamesRouter)
 app.use('/users', usersRouter)
 
