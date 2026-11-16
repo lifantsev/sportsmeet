@@ -1,20 +1,28 @@
 /* Design tokens from design/HANDOFF.md section 2 */
 :root {
-  --bg: #f8f8f7;
-  --surface: #ffffff;
-  --ink: #121316;
-  --text-2: #4d5058;
-  --muted: #63666e;
-  --muted-2: #5c5f67;
-  --border: #ececee;
-  --border-2: #e2e2e6;
-  --input-border: #dfdfe3;
-  --fill: #f1f1f3;
-  --accent: #2f62b0;
-  --live: #4c8dff;
-  --success: #22663f;
-  --error: #a3263a;
-  --error-bg: #fbedee;
+
+  --bg: #f1efee;
+  --surface: #fdfdfc;
+  --ink: #080909;
+  --text-2: #032c40;       /* metadata text, icons */
+  --muted: #777777;        /* separators */
+  --muted-2: #4a4d55;      /* text on disabled buttons */
+  --border: #e3e1de;       /* card borders */
+  --border-2: #d9d6d2;     /* row rules */
+  --input-border: #032c40;
+  --fill: #dfe0e4;         /* Game Full, neutral tags */
+  --accent: #ce0c1b;       /* Join Game, sport labels, balls */
+  --live: #032c40;         /* active date/filter selection */
+  --success: #032c40;      /* "Joined" tag; no green in the design */
+  --error: #af0a17;
+  --error-bg: #f9eaeb;     /* not in the design; see note below */
+
+  /* extras your template doesn't have */
+  --secondary: #6699b5;    /* date strip, soccer field, water */
+  --on-primary: #ffffff;
+  --on-accent: #ffffff;
+  --cream: #f8efd6;        /* court lines, sand */
+  --sage: #ccd3c9;
 
   --radius-pill: 999px;
   --radius-card: 26px;
@@ -44,4 +52,12 @@ h2,
 h3 {
   color: var(--ink);
   margin: 0;
+}
+
+.msg {
+  padding: 12px 14px;
+  border-left: 4px solid var(--live);
+  background: var(--surface);
+  margin-bottom: 8px;
+  font-size: 14px;
 }

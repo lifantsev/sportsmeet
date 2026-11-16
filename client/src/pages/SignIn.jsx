@@ -3,13 +3,11 @@ import { loadGoogleScript } from "../loadGoogleScript"
 
 const clientID = import.meta.env.VITE_GOOGLE_CLIENT_ID
 
-function SignIn() {
+function SignIn({ onSignedIn }) {
     const buttonRef = useRef(null)
     const [status, setStatus] = useState('loading') // 'loading', 'ready', 'error'
     const [signingIn, setSigningIn] = useState(false)
     const [error, setError] = useState(null)
-
-    
 
     useEffect( () => {
         let cancelled = false
@@ -35,6 +33,9 @@ function SignIn() {
                 if (!res.ok) throw new Error(`HTTP ${res.status}\nServer rejected sign-in`)
 
                 // TODO: sign-in succeeded. Update auth state or navigate here.
+                const { user } = await res.json()
+                if (!cancelled) onSignedIn(user)
+
             } catch {
                 if (!cancelled) setError('Sign-in failed. Please try again.')
             } finally {
@@ -83,13 +84,15 @@ function SignIn() {
             <h1 style={{ maxWidth: 600, lineHeight: 0.99, fontSize: 84, fontWeight: 800, letterSpacing: '-0.05em' }}>
                 Play pickup tonight.
             </h1>
-            <p>Use your Google account to sign in.</p>
+            <div class="msg" style={{ maxWidth: 450 }}>
+                Use your Google account to sign in.
+            </div>
 
             {status === 'loading' && <p>Loading Google sign-in...</p>}
             {signingIn && <p>Signing you in...</p>}
             {error && <p role='alert' style={{ color: 'crimson' }}>{error}</p>}
 
-            <div ref={buttonRef} style={{ display: 'inline-block' }} />
+            <div ref={buttonRef} style={{ display: 'inline-block', maxWidth: 450 }} />
         </div>
     )
 }

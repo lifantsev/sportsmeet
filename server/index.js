@@ -1,4 +1,5 @@
 import express from 'express'
+import { sessionMiddleware } from './session.js'
 import authRouter from './routes/auth.js'
 import gamesRouter from './routes/games.js'
 import usersRouter from './routes/users.js'
@@ -8,6 +9,7 @@ const app = express()
 const PORT = process.env.PORT || 3001
 
 app.use(express.json())
+app.use(sessionMiddleware)
 
 app.get('/health', (req, res) => {
     res.json({ ok: true })

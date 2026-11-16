@@ -1,5 +1,14 @@
 import db from '../prisma/db.js'
 
+export function publicUser(user) {
+  return {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    createdAt: user.createdAt
+  }
+}
+
 export class EmailConflictError extends Error {
   constructor(message = 'Email already belongs to another user') {
     super(message)
@@ -28,4 +37,8 @@ export async function findOrCreateGoogleUser({ sub, email, name }) {
 
     throw err
   }
+}
+
+export async function getUserByID(id) {
+  return db.User.where({ id }).first() 
 }
