@@ -44,7 +44,7 @@ const initials = (name) =>
     .toUpperCase()
 
 const avatarColors = (userId) =>
-  AVATARS[[...userId].reduce((sum, ch) => sum + ch.charCodeAt(0), 0) % AVATARS.length]
+  AVATARS[[...String(userId)].reduce((sum, ch) => sum + ch.charCodeAt(0), 0) % AVATARS.length]
 
 const fmt = (date, opts) => new Intl.DateTimeFormat('en-US', { timeZone: TZ, ...opts }).format(date)
 
@@ -410,7 +410,7 @@ function GameView({ game: initialGame, me }) {
   const joined = players.some((p) => p.id === me.id)
   const startsIn = startsInText(game.startsAt, now)
   const [sportBg, sportFg] = SPORT_TINTS[game.sport] ?? SPORT_TINTS.Basketball
-  const miles = me.homeLocation ? distanceMi(me.homeLocation, location) : null
+  const miles = me.homeLocation && location.lat != null ? distanceMi(me.homeLocation, location) : null
   const startClock = fmt(new Date(game.startsAt), { hour: 'numeric', minute: '2-digit' }).replace(' PM', '').replace(' AM', '')
 
   const submitComment = async (event) => {
@@ -731,19 +731,22 @@ function GameView({ game: initialGame, me }) {
             </div>
 
             <div style={{ ...card, borderRadius: 26, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-              <div style={{ position: 'relative', isolation: 'isolate' }}>
-                <a href={directionsUrl(location)} target="_blank" rel="noreferrer" aria-label={`Get directions to ${location.name}`} style={{ display: 'block' }}>
-                  <MapPreview key={location.id} lat={location.lat} lng={location.lng} sport={game.sport} />
-                </a>
-                <a
-                  href="https://www.openstreetmap.org/copyright"
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{ position: 'absolute', right: 0, bottom: 0, zIndex: 1000, padding: '1px 6px', fontSize: 10, color: '#333', background: 'rgba(255,255,255,0.8)', textDecoration: 'none' }}
-                >
-                  © OpenStreetMap
-                </a>
-              </div>
+              {/* Games made without a saved location (e.g. created through the plain /games API) have no coordinates. */}
+              {location.lat != null && (
+                <div style={{ position: 'relative', isolation: 'isolate' }}>
+                  <a href={directionsUrl(location)} target="_blank" rel="noreferrer" aria-label={`Get directions to ${location.name}`} style={{ display: 'block' }}>
+                    <MapPreview key={location.id} lat={location.lat} lng={location.lng} sport={game.sport} />
+                  </a>
+                  <a
+                    href="https://www.openstreetmap.org/copyright"
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ position: 'absolute', right: 0, bottom: 0, zIndex: 1000, padding: '1px 6px', fontSize: 10, color: '#333', background: 'rgba(255,255,255,0.8)', textDecoration: 'none' }}
+                  >
+                    © OpenStreetMap
+                  </a>
+                </div>
+              )}
               <div style={{ padding: '18px 20px 20px', display: 'flex', flexDirection: 'column', gap: 4 }}>
                 <strong style={{ fontSize: 17, color: 'var(--ink)' }}>{location.name}</strong>
                 {location.address && <span style={{ fontSize: 14, color: 'var(--muted)' }}>{location.address}</span>}
