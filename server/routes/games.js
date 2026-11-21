@@ -17,7 +17,7 @@ async function getgame(idStr, include) {
 router.param('id', async (req, res, next, idStr) => {
     try {
         const game = await getgame(idStr, '')
-        if (!game) return res.status(404).json({ error: "No game with id "+id+" exists" })
+        if (!game) return res.status(404).json({ error: "No game with id "+idStr+" exists" })
         req.game = game
         next()
     } catch (err) { next(err) }
@@ -26,7 +26,7 @@ router.param('id', async (req, res, next, idStr) => {
 router.param('id_part', async (req, res, next, idStr) => {
     try {
         const game = await getgame(idStr, 'participants')
-        if (!game) return res.status(404).json({ error: "No game with id "+id+" exists" })
+        if (!game) return res.status(404).json({ error: "No game with id "+idStr+" exists" })
         req.game = game
         next()
     } catch (err) { next(err) }
@@ -35,7 +35,7 @@ router.param('id_part', async (req, res, next, idStr) => {
 router.param('id_own', async (req, res, next, idStr) => {
     try {
         const game = await getgame(idStr, 'owner')
-        if (!game) return res.status(404).json({ error: "No game with id "+id+" exists" })
+        if (!game) return res.status(404).json({ error: "No game with id "+idStr+" exists" })
         req.game = game
         next()
     } catch (err) { next(err) }
