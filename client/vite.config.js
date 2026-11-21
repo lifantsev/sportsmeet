@@ -5,9 +5,13 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [react()],
   server: {
-    // Forward /api requests to the Express server so the client can use relative URLs
+    // Forward /api requests to the Express server so the client can use relative URLs.
+    // The server mounts routes without the prefix, so /api/games becomes /games.
     proxy: {
-      '/api': 'http://localhost:3001',
+      '/api': {
+        target: 'http://localhost:3001',
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
     },
   },
 })
