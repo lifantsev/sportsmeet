@@ -5,7 +5,7 @@ function FilterBar({
     onToggleJoinable 
 }) {
     return(
-         <div class="filter-button-container">
+         <div className="filter-button-container">
       <button
 
           onClick={() => {
