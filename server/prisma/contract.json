@@ -40,6 +40,13 @@
                   "kind": "scalar"
                 }
               },
+              "maxPlayers": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              },
               "ownerId": {
                 "nullable": false,
                 "type": {
@@ -48,6 +55,13 @@
                 }
               },
               "place": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "skill": {
                 "nullable": false,
                 "type": {
                   "codecId": "pg/text@1",
@@ -69,6 +83,13 @@
                   "typeParams": {
                     "precision": 3
                   }
+                }
+              },
+              "title": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
                 }
               }
             },
@@ -113,17 +134,26 @@
                 "id": {
                   "column": "id"
                 },
+                "maxPlayers": {
+                  "column": "maxPlayers"
+                },
                 "ownerId": {
                   "column": "ownerId"
                 },
                 "place": {
                   "column": "place"
                 },
+                "skill": {
+                  "column": "skill"
+                },
                 "sport": {
                   "column": "sport"
                 },
                 "time": {
                   "column": "time"
+                },
+                "title": {
+                  "column": "title"
                 }
               },
               "namespaceId": "public",
@@ -334,12 +364,22 @@
                   },
                   "nullable": false
                 },
+                "maxPlayers": {
+                  "codecId": "pg/int4@1",
+                  "dataType": "pg/int4",
+                  "nullable": false
+                },
                 "ownerId": {
                   "codecId": "pg/int4@1",
                   "dataType": "pg/int4",
                   "nullable": false
                 },
                 "place": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": false
+                },
+                "skill": {
                   "codecId": "pg/text@1",
                   "dataType": "pg/text",
                   "nullable": false
@@ -356,6 +396,11 @@
                   "typeParams": {
                     "precision": 3
                   }
+                },
+                "title": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": false
                 }
               },
               "foreignKeys": [
@@ -555,7 +600,7 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "91998c3f90e339b0331688fdf9e297680143768aeef7ec3436d9e9dddebc8d7b"
+    "storageHash": "da5d0d9364a01393c000d659aa69f879ba9ffb3da22f39af20876f6435137480"
   },
   "capabilities": {
     "postgres": {

@@ -66,10 +66,14 @@ router.post('/:id/participants', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-    const { sport, place, time, ownerId } = req.body
+    const { sport, place, time, ownerId, title, skill, maxPlayers } = req.body
     if (!sport || !place || !time || !ownerId) 
         return res.status(400).json({ error: 'One of required fields for game creation is missing: sport, place, time, ownerId'})
 
+    if (typeof title !== 'string' || !title.trim() || typeof skill !== 'string' || !skill.trim())
+        return res.status(400).json({ error: 'Title and skill are required' })
+    if (!Number.isInteger(maxPlayers) || maxPlayers < 1 || maxPlayers > 2_147_483_647)
+        return res.status(400).json({ error: 'maxPlayers must be a positive 32-bit integer' })
     const parsedTime = new Date(time)
     if (isNaN(parsedTime.getTime()))
         return res.status(400).json({ error: 'Invalid time format. Use ISO 8601 (ie 2026-11-20T17:30:00Z)' })
@@ -78,7 +82,15 @@ router.post('/', async (req, res, next) => {
     if (!owner)
         return res.status(404).json({ error: "Invalid ownerId. User with id "+ownerId+" doesn't exist" })
 
-    const game = await db.Game.create({ sport, place, time: parsedTime, ownerId: Number(ownerId) })
+    const game = await db.Game.create({
+        sport,
+        place,
+        time: parsedTime,
+        ownerId: Number(ownerId),
+        title: title.trim(),
+        skill: skill.trim(),
+        maxPlayers,
+    })
 
     res.status(201).json(game)
 })
@@ -100,7 +112,11 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.get('/', async (req, res, next) => {
-    res.json(await db.Game.all())
+    const games = await db.Game.include('participants').all()
+    res.json(games.map(({ participants, ...game }) => ({
+        ...game,
+        playerCount: participants.length
+    })))
 })
 
 export default router

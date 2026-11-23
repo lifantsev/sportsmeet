@@ -23,7 +23,7 @@ import type {
 } from '@prisma/orm-postgres/contract/types';
 
 export type StorageHash =
-  StorageHashBase<'91998c3f90e339b0331688fdf9e297680143768aeef7ec3436d9e9dddebc8d7b'>;
+  StorageHashBase<'da5d0d9364a01393c000d659aa69f879ba9ffb3da22f39af20876f6435137480'>;
 export type ExecutionHash = ExecutionHashBase<string>;
 export type ProfileHash =
   ProfileHashBase<'3916f444a8a17ad749191acf9e08dad97d1a327b88c2f1d45d12f240296aa8b2'>;
@@ -311,10 +311,13 @@ export namespace Models {
   export type public_Game = {
     createdAt: FieldOutputTypes['public']['Game']['createdAt'];
     id: FieldOutputTypes['public']['Game']['id'];
+    maxPlayers: FieldOutputTypes['public']['Game']['maxPlayers'];
     ownerId: FieldOutputTypes['public']['Game']['ownerId'];
     place: FieldOutputTypes['public']['Game']['place'];
+    skill: FieldOutputTypes['public']['Game']['skill'];
     sport: FieldOutputTypes['public']['Game']['sport'];
     time: FieldOutputTypes['public']['Game']['time'];
+    title: FieldOutputTypes['public']['Game']['title'];
     owner: public_User;
     participants: public_GameParticipant[];
     readonly [RelationKeys]?: 'owner' | 'participants';
@@ -385,6 +388,12 @@ type ContractBase = Omit<
                   };
                   readonly many: false;
                 };
+                readonly maxPlayers: {
+                  readonly dataType: 'pg/int4';
+                  readonly codecId: 'pg/int4@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
                 readonly ownerId: {
                   readonly dataType: 'pg/int4';
                   readonly codecId: 'pg/int4@1';
@@ -392,6 +401,12 @@ type ContractBase = Omit<
                   readonly many: false;
                 };
                 readonly place: {
+                  readonly dataType: 'pg/text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                  readonly many: false;
+                };
+                readonly skill: {
                   readonly dataType: 'pg/text';
                   readonly codecId: 'pg/text@1';
                   readonly nullable: false;
@@ -408,6 +423,12 @@ type ContractBase = Omit<
                   readonly codecId: 'pg/timestamptz-date@1';
                   readonly nullable: false;
                   readonly typeParams: { readonly precision: 3 };
+                  readonly many: false;
+                };
+                readonly title: {
+                  readonly dataType: 'pg/text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
                   readonly many: false;
                 };
               };
@@ -585,11 +606,19 @@ type ContractBase = Omit<
                 readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
               };
+              readonly maxPlayers: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
+              };
               readonly ownerId: {
                 readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
               };
               readonly place: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly skill: {
                 readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
               };
@@ -604,6 +633,10 @@ type ContractBase = Omit<
                   readonly codecId: 'pg/timestamptz-date@1';
                   readonly typeParams: { readonly precision: 3 };
                 };
+              };
+              readonly title: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
               };
             };
             readonly relations: {
@@ -634,10 +667,13 @@ type ContractBase = Omit<
               readonly fields: {
                 readonly createdAt: { readonly column: 'createdAt' };
                 readonly id: { readonly column: 'id' };
+                readonly maxPlayers: { readonly column: 'maxPlayers' };
                 readonly ownerId: { readonly column: 'ownerId' };
                 readonly place: { readonly column: 'place' };
+                readonly skill: { readonly column: 'skill' };
                 readonly sport: { readonly column: 'sport' };
                 readonly time: { readonly column: 'time' };
+                readonly title: { readonly column: 'title' };
               };
             };
           };

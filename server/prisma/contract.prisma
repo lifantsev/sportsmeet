@@ -18,7 +18,9 @@ model Game {
   sport        String
   place        String
   time         DateTime
-  
+  title        String
+  skill        String
+  maxPlayers   Int
   ownerId      Int
   owner        User             @relation("GameOwner", fields: [ownerId], references: [id], onDelete: Cascade)
   
