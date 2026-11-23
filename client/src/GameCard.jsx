@@ -46,15 +46,9 @@ function GameCard({game}){
         <div className = "game-card">
             <div className = 'card-information'>
                 <div className = 'card-header'>
-                        <h2 className = 'card-game-sport'>{game.sport}</h2>
-                        <div className= 'card-location-section'>
-                            <span className='card-label'><FaLocationPin aria-hidden="true" /><span>{game.locationName}</span></span>
-                            <span className="card-label-separator" aria-hidden="true">|</span>
-                            <span className='card-label'><FaLocationArrow aria-hidden="true" /><span>5 mi</span></span>
-                            <span className="card-label-separator" aria-hidden="true">|</span>
-                            <span className='card-label'><FaRunning aria-hidden="true" /><span>{game.skill}</span></span>
 
-                        </div>
+                        <h2 className = 'card-game-sport'>{game.sport}</h2>
+                        <h2 className='card-game-title'>{game.title}</h2>
                         <div className = 'card-more-info'>
                              <span className='card-label time-label'><FaClock aria-hidden="true" /><span>{startsAt}</span></span>
                              
@@ -63,7 +57,15 @@ function GameCard({game}){
 
                 </div>
                 <div className = 'card-footer'>
-                    <h2 className='card-game-title'>{game.title}</h2>
+                    
+                    <div className= 'card-location-section'>
+                            <span className='card-label'><FaLocationPin aria-hidden="true" /><span>{game.locationName}</span></span>
+                            <span className="card-label-separator" aria-hidden="true">|</span>
+                            <span className='card-label'><FaLocationArrow aria-hidden="true" /><span>5 mi</span></span>
+                            <span className="card-label-separator" aria-hidden="true">|</span>
+                            <span className='card-label'><FaRunning aria-hidden="true" /><span>{game.skill}</span></span>
+
+                    </div>
                     <div style = {{display: 'flex', gap: '10px', alignItems: 'center'}}>
                         <button className = {gameJoinable? 'join-button': 'join-button full'}>
                             {gameJoinable? 'JOIN GAME' : 'GAME FULL'}</button>

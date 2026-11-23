@@ -112,11 +112,11 @@ h3 {
   background-color: white;
   border:3px solid transparent;
   border-radius:10px;
-  padding: 20px;
-  margin: 8px;
+  padding: 10px;
+  margin: 4px;
   text-align: center;
   display: inline-block;
-  min-width: 900px;
+  min-width: 800px;
   min-height: 200px;
   height: auto;
   justify-content: space-between;
@@ -148,13 +148,15 @@ h3 {
   color: var(--accent-2);
   border: 2px var(--accent-2);
   border-radius: 20px;
-  padding: 7px;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: 800;
 }
 
 .filter-button-container{
    display: flex;            
   flex-direction: row;       
-  gap: 2px;                
+  gap: 5px;                
   justify-content: flex-start; 
 }
 
@@ -182,9 +184,9 @@ h3 {
   color: #ffffff;
   font-family: 'Helvetica Neue';
   font-weight: 600;
-  font-size: larger;
+  font-size: large;
   border-radius: 10px;
-  padding:10px;
+  padding:8px;
   transition: border-color 180ms ease ;
 }
 
@@ -248,6 +250,7 @@ h3 {
   gap: 10px;
   justify-content: space-between;
   align-items: start;
+  text-align: start;
 }
 
 .card-footer{
@@ -274,7 +277,7 @@ h3 {
 
 .card-game-title {
   font-weight: 500;
-  font-size: larger;
+  font-size: large;
   white-space: normal;
   overflow-wrap: anywhere;
 }
@@ -284,9 +287,9 @@ h3 {
   flex-direction: column;
   align-items: flex-start;
   width: 250px;
-  height: 64px;
+  height: 48px;
   font-weight: 700;
-  font-size: 22;
+  font-size:48;
   font-family: 'Integral CF';
   border: 3px solid transparent;
   border-radius: 10px;

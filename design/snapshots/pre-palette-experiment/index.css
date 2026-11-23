@@ -1,0 +1,341 @@
+/* Design tokens from design/HANDOFF.md section 2 */
+:root {
+  --bg: #F2F0EF;
+  --surface: #ffffff;
+  --ink: black;
+  --text-2: #242528;
+  --muted: #63666e;
+  --muted-2: #5c5f67;
+  --muted-3: #fdf0d5
+  --border: #ececee;
+  --border-2: #e2e2e6;
+  --input-border: #dfdfe3;
+  --label: #003049;
+  --fill: #f1f1f3;
+  --accent: #c1121f;
+  --accent-2: #780000;
+  --live: #4c8dff;
+  --success: #22663f;
+  --error: #a3263a;
+  --error-bg: #fbedee;
+
+  --radius-pill: 999px;
+  --radius-card: 26px;
+  --radius-panel: 28px;
+  --radius-input: 14px;
+  --radius-tile: 16px;
+
+  --shadow-float: 0 10px 30px rgba(18, 19, 22, 0.08);
+
+  font-family: 'Schibsted Grotesk', system-ui, sans-serif;
+  color: var(--text-2);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+@font-face {
+    font-family: "Integral CF";
+    src: url("https://db.onlinewebfonts.com/t/e5cf4323214de97c3428d64ece016410.eot");
+    src: url("https://db.onlinewebfonts.com/t/e5cf4323214de97c3428d64ece016410.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/e5cf4323214de97c3428d64ece016410.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/e5cf4323214de97c3428d64ece016410.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/e5cf4323214de97c3428d64ece016410.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/e5cf4323214de97c3428d64ece016410.svg#Integral CF")format("svg");
+}
+* {
+  box-sizing: border-box;
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .game-card {
+    animation: none;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--ink);
+  margin: 0;
+  font-family: 'Integral CF';
+}
+
+.game-card{
+  background-color: white;
+  border:3px solid transparent;
+  border-radius:10px;
+  padding: 10px;
+  margin: 4px;
+  text-align: center;
+  display: inline-block;
+  min-width: 800px;
+  min-height: 200px;
+  height: auto;
+  justify-content: space-between;
+  position:relative;
+  overflow: hidden;
+  display: flex;           /* Replace display: inline-block */
+  transition: transform 180ms ease, border-color 180ms ease;
+  animation: card-enter 220ms ease-out;
+}
+
+.game-card:hover{
+  border-color: var(--accent-2);
+  transform: translateY(-4px);
+  
+}
+.card-information{
+  width: 40%;
+  padding: 10px;
+  display: flex;
+  flex-direction:column;
+  justify-content: space-between;
+  gap: 14px;
+  
+  z-index: 2;
+}
+
+.filter-button{
+  background-color: white;
+  color: var(--accent-2);
+  border: 2px var(--accent-2);
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.filter-button-container{
+   display: flex;            
+  flex-direction: row;       
+  gap: 5px;                
+  justify-content: flex-start; 
+}
+
+.filter-button.active{
+  background-color: var(--accent);
+  color:#dfdfe3;
+  border: 1px solid #e2e2e6;
+  
+}
+
+.game-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-x: auto;
+}
+
+.join-button{
+  background-color: var(--accent);
+  border: 2px solid transparent;
+  color: #ffffff;
+  font-family: 'Helvetica Neue';
+  font-weight: 600;
+  font-size: large;
+  border-radius: 10px;
+  padding:8px;
+  transition: border-color 180ms ease ;
+}
+
+.join-button:hover{
+  border-color: var(--accent-2);
+}
+
+.join-button.full{
+  background-color: #e2e2e6;
+  color:#5c5f67;
+}
+
+
+.card-label{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-align: left;
+  color: var(--label);
+  font-weight: 700;
+  width: fit-content;
+  font-size:smaller;
+  line-height: 1.4;
+}
+
+.card-label > svg {
+  display: block;
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+}
+
+.card-more-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+}
+
+.card-location{
+
+  border: 1px solid #e2e2e6;
+  border-radius: 10px;
+  background-color: var(--label);
+  color:#dfdfe3;
+  padding: 5px;
+  font-weight: 700;
+}
+
+.card-location-section{
+  display: flex; 
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-header{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: start;
+  text-align: start;
+}
+
+.card-footer{
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-section{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+}
+
+
+.calendar-bar{
+  display:flex;
+  gap: 5px;
+}
+
+
+
+.card-game-title {
+  font-weight: 500;
+  font-size: large;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.calendar-button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 250px;
+  height: 48px;
+  font-weight: 700;
+  font-size:48;
+  font-family: 'Integral CF';
+  border: 3px solid transparent;
+  border-radius: 10px;
+  padding: 5px;
+  text-align: left;
+  background-color: #669bbc;
+  transition: border-color 180ms ease;
+}
+
+.calendar-button.active {
+  background-color: var(--label);
+  color:#dfdfe3;
+  border-color: #ececee;
+}
+
+.calendar-button:hover{
+  border-color: var(--label);
+}
+
+.card-game-sport{
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 500;
+  text-align: start;
+  color : var(--accent)
+}
+
+.card-media{
+  position: absolute;
+  width: 57%;
+  inset: 0 0 0 auto;
+  z-index: 1; /* allows for stacking */
+  clip-path: polygon(25% 0, 100% 0, 100% 100%, 0 100%); /* allows for diagonal crop */
+}
+
+.card-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.card-label.time-label{
+  font-size:16px;
+  font-weight:800;
+}
+
+
+/* Diagonal game card rebuild — pair these steps with the GameCard.jsx TODOs.
+ *
+ * TODO 2: Lay out the two panels.
+ * - Rename .gameCard to .game-card to match your JSX, then update its rules
+ *   rather than leaving conflicting width/display rules.
+ * - Aim for a cream card about 720px wide and at least 380px tall.
+ * - Give the card position: relative and overflow: hidden.
+ * - Keep the left panel in normal flow, about 57% wide, with padding.
+ * - Use a vertical flex layout and gap inside it; push Join down with auto margin.
+ * - Position the right panel absolutely against the top, bottom, and right edges;
+ *   aim for 47% width. Keep the text above it with positioning and z-index.
+ * Check: first get two rectangular panels working, with no text hidden.
+ *
+ * TODO 4: Cut the diagonal and fill it with the image.
+ * - Use clip-path: polygon(...) on the RIGHT PANEL, not the whole card.
+ * - Polygon points go clockwise: inset top-left, top-right, bottom-right,
+ *   bottom-left. Try moving only the top-left point inward to form the slope.
+ * - Give the image the panel's full width and height, using object-fit: cover.
+ * - Avoid inner padding so the image reaches every panel edge.
+ * Check: the image is cropped rather than stretched, with no gaps at its edges.
+ *
+ * TODO 5: Fine-tune the style and image crop.
+ * - Try a red uppercase sport/skill label, navy italic title, and red Join button.
+ * - Use object-position on the volleyball-only image class to center the ball;
+ *   the preview used 75% center. Other images can stay centered.
+ *
+ * TODO 6: Check smaller screens and difficult content.
+ * - Add a media query for a narrower card and smaller title.
+ * - Test long titles, full games, each sport, and missing images.
+ * - Ensure the information doesn't overlap the slanted image edge.
+ */
