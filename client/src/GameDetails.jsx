@@ -5,7 +5,7 @@ import { api, gameUrl } from './api.js'
 import { EditGameDialog, RemovePlayerDialog } from './HostTools.jsx'
 
 // Game detail page (design/screens/Game.dc.html).
-// Loads the game from GET /api/games/:id and the viewer from GET /api/users/me.
+// Loads the game from GET /api/game-details/:id and the viewer from GET /api/me.
 // The join/leave handlers below are still local stand-ins for the real endpoints.
 
 const TZ = 'America/Los_Angeles'
@@ -247,7 +247,7 @@ export default function GameDetails({ gameId }) {
 
   useEffect(() => {
     let cancelled = false
-    Promise.all([fetchJson(`/api/games/${encodeURIComponent(gameId)}`), fetchJson('/api/users/me')])
+    Promise.all([fetchJson(`/api/game-details/${encodeURIComponent(gameId)}`), fetchJson('/api/me')])
       .then(([game, me]) => !cancelled && setState({ status: game && me ? 'ready' : 'missing', game, me }))
       .catch((err) => !cancelled && setState({ status: 'error', message: err.message }))
     return () => {
@@ -305,7 +305,7 @@ function CommentItem({ comment, isReply = false, replyCount = 0, me, host, now, 
   }
 
   return (
-    <div style={{ display: 'flex', gap: 12, padding: isReply ? '14px 18px 14px 66px' : 18, background: comment.pinned || byHost ? 'var(--muted-3)' : 'transparent', borderLeft: `4px solid ${byHost ? 'var(--accent)' : 'transparent'}`, borderBottom: '1px solid var(--border)' }}>
+    <div style={{ display: 'flex', gap: 12, padding: isReply ? '14px 18px 14px 66px' : 18, background: comment.pinned || byHost ? 'var(--cream)' : 'transparent', borderLeft: `4px solid ${byHost ? 'var(--accent)' : 'transparent'}`, borderBottom: '1px solid var(--border)' }}>
       <Avatar userId={author.id} name={author.name} size={isReply ? 30 : 36} />
       <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
         <span style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, fontSize: 14 }}>

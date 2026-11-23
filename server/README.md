@@ -4,6 +4,10 @@
 
 `db` to run the database server (script from ../flake.nix)
 
+Alternatively, to avoid using the Nix script:
+
+`pg_ctl -D .postgres -l .postgres/logfile start` to run the database server
+
 `createdb sportsmeet -h localhost` to initialize sportsmeet db (postgres must be running)
 
 # Prisma ORM
@@ -68,29 +72,26 @@ List of User objects that have joined this game as participants
 
 # Game Details page
 
-The Game Details page (`client/src/GameDetails.jsx`) is served by `routes/gameDetails.js` and `routes/me.js`, mounted under `/api` (the Vite dev server proxies `/api` to this server). They use the same Prisma models as the REST API above. The host is the game's `owner` and is not a `GameParticipant` row, so a game's player count is its participants + 1.
+The Game Details page (`client/src/GameDetails.jsx`) is served by `routes/gameDetails.js` and `routes/me.js`. They use the same Prisma models as the REST API above, under their own paths so they don't collide with `/games` and `/users` (the client reaches them as `/api/game-details`, `/api/me` and `/api/locations`). The host is the game's `owner` and is not a `GameParticipant` row, so a game's player count is its participants + 1.
 
 `npm run db:seed` empties the database and loads `../design/sample-data.json` (users, locations, games, comments). Run it after `npx prisma db init`. `PUT /resetdb` is the quick dummy reset and does not load the sample data.
 
-The signed-in user is a stand-in (`currentUser.js`, the seeded user `sophia@sportsmeet.test`) until Google sign-in exists.
+The acting user is the signed-in user (`req.session.userId`). When nobody is signed in, the seeded sample user `sophia@sportsmeet.test` stands in so the page can be tried without Google sign-in (see `currentUser.js`).
 
-### GET /api/games?q=&sport=
-Games with player counts, for list pages.
-
-### GET /api/games/:id
+### GET /game-details/:id
 One game with its host, location, roster (host first) and comments (pinned first).
 
-### PATCH /api/games/:id
+### PATCH /game-details/:id
 Host only. Edit `sport`, `skill`, `locationId`, `maxPlayers` or `startsAt`.
 
-### POST /api/games/:id/join, DELETE /api/games/:id/join
+### POST /game-details/:id/join, DELETE /game-details/:id/join
 Join or leave as the current user. Joining locks the game row, so the last spot can't be taken twice.
 
-### DELETE /api/games/:id/players/:userId
+### DELETE /game-details/:id/players/:userId
 Host only. Removes a player and saves an optional `message` to them (`PlayerMessage`).
 
-### POST /api/games/:id/comments, PATCH/DELETE /api/games/:id/comments/:commentId
+### POST /game-details/:id/comments, PATCH/DELETE /game-details/:id/comments/:commentId
 Comments, replies (one level deep), edit (author), pin (host) and delete (author or host).
 
-### GET /api/users/me, GET /api/locations
+### GET /me, GET /locations
 The current user, and every location (for the host's edit form).

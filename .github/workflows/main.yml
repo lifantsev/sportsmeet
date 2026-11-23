@@ -1,0 +1,63 @@
+name: Gemini PR Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'Pull request number to review (e.g., 42)'
+        required: true
+        type: string
+
+concurrency:
+  group: gemini-review-${{ github.event.pull_request.number || inputs.pr_number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  gemini-review:
+    runs-on: ubuntu-latest
+    env:
+      GEMINI_CLI_TRUST_WORKSPACE: 'true'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Gemini PR Review
+        uses: google-github-actions/run-gemini-cli@v0
+        env:
+          GEMINI_CLI_TRUST_WORKSPACE: 'true'
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          prompt: |
+            You are an expert senior software engineer conducting a thorough, constructive pull request review on PR #${{ github.event.pull_request.number || inputs.pr_number }}.
+
+            First, inspect the pull request metadata and diff using the GitHub CLI:
+            - `gh pr view ${{ github.event.pull_request.number || inputs.pr_number }}`
+            - `gh pr diff ${{ github.event.pull_request.number || inputs.pr_number }}`
+
+            Focus strictly on the modified and newly added code rather than unrelated legacy files.
+
+            Evaluate the changes across these priorities:
+            1. **Bugs & Edge Cases:** Logic errors, null/undefined handling, race conditions, off-by-one errors, unhandled promise rejections/exceptions, or broken state transitions.
+            2. **Security & Data Integrity:** Exposed secrets, injection risks, improper authentication/authorization checks, or unsafe input handling.
+            3. **Performance & Architecture:** Unnecessary re-renders, N+1 queries, memory leaks, or tight coupling that hurts maintainability.
+            4. **Clarity & Conventions:** Confusing naming, dead code, or missing error handling. Skip trivial nitpicks (e.g., minor formatting or subjective style preferences).
+
+            Output Rules:
+            - Post your review directly to the pull request using `gh pr review ${{ github.event.pull_request.number || inputs.pr_number }} --comment --body "..."`.
+            - Do not approve or request changes; post a comment review only.
+            - Format your review cleanly in Markdown with:
+              - **Summary:** 2–3 sentences summarizing what the PR does and an overall assessment.
+              - **Actionable Findings:** Group by severity (`Critical`, `Warning`, `Suggestion`). For each item, cite the exact `file:line`, explain *why* it is an issue, and include a concise code snippet showing the fix.
+            - If the diff is clean and has no meaningful issues, state that clearly in a brief comment without inventing filler feedback.

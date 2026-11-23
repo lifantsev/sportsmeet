@@ -13,4 +13,4 @@ export async function api(method, url, body) {
   return res.status === 204 ? null : res.json()
 }
 
-export const gameUrl = (gameId) => `/api/games/${encodeURIComponent(gameId)}`
+export const gameUrl = (gameId) => `/api/game-details/${encodeURIComponent(gameId)}`

@@ -726,6 +726,13 @@
                   "kind": "scalar"
                 }
               },
+              "googleSub": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
               "homeLabel": {
                 "nullable": true,
                 "type": {
@@ -864,6 +871,9 @@
                 },
                 "email": {
                   "column": "email"
+                },
+                "googleSub": {
+                  "column": "googleSub"
                 },
                 "homeLabel": {
                   "column": "homeLabel"
@@ -1586,6 +1596,11 @@
                   "dataType": "pg/text",
                   "nullable": false
                 },
+                "googleSub": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": true
+                },
                 "homeLabel": {
                   "codecId": "pg/text@1",
                   "dataType": "pg/text",
@@ -1627,6 +1642,11 @@
                 {
                   "columns": [
                     "email"
+                  ]
+                },
+                {
+                  "columns": [
+                    "googleSub"
                   ]
                 }
               ]
@@ -1695,7 +1715,7 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "6daad416b152a527fa7f9ffce635aeb5566043604d7c2e6553d2af49d9a91458"
+    "storageHash": "cba98220e0f2f9c5761c2d8cd175ac9c68af58e383c2da1f0efd41c27677e8fa"
   },
   "capabilities": {
     "postgres": {

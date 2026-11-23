@@ -1,26 +1,31 @@
 import express from 'express'
+import { sessionMiddleware } from './session.js'
+import authRouter from './routes/auth.js'
 import gamesRouter from './routes/games.js'
 import usersRouter from './routes/users.js'
 import gameDetailsRouter from './routes/gameDetails.js'
-import { usersRouter as meRouter, locationsRouter } from './routes/me.js'
+import { meRouter, locationsRouter } from './routes/me.js'
 import db from './prisma/db.js'
 
 const app = express()
 const PORT = process.env.PORT || 3001
 
 app.use(express.json())
+app.use(sessionMiddleware)
 
 app.get('/health', (req, res) => {
     res.json({ ok: true })
 })
 
+app.use('/auth', authRouter)
 app.use('/games', gamesRouter)
 app.use('/users', usersRouter)
 
-// Game Details page (client calls these through the Vite /api proxy)
-app.use('/api/games', gameDetailsRouter)
-app.use('/api/users', meRouter)
-app.use('/api/locations', locationsRouter)
+// Game Details page. These have their own paths so they don't collide with the /games and /users
+// routes above. The client reaches them as /api/game-details, /api/me and /api/locations.
+app.use('/game-details', gameDetailsRouter)
+app.use('/me', meRouter)
+app.use('/locations', locationsRouter)
 
 app.put('/resetdb', async (req, res, next) => {
     try {

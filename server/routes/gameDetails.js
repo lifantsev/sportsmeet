@@ -1,8 +1,7 @@
-// Endpoints behind the Game Details page, served under /api/games (see index.js).
+// Endpoints behind the Game Details page, served under /game-details (see index.js).
 // Built on the Prisma models in prisma/contract.prisma. The host is the game's `owner`; they are
 // not a GameParticipant row, so the roster is the owner plus the participants.
 import { Router } from 'express'
-import { or } from '@prisma/orm-postgres/orm-client'
 import db, { client } from '../prisma/db.js'
 import { currentUserId } from '../currentUser.js'
 
@@ -40,42 +39,6 @@ const rosterOf = async (orm, game) => {
 }
 
 const titleOf = (game) => game.title ?? `${game.sport} at ${game.place}`
-
-// GET /api/games?q=&sport=
-// q matches the game title or place name, case-insensitive.
-router.get('/', async (req, res, next) => {
-  try {
-    const { q, sport } = req.query
-    let games = db.Game
-    if (sport) games = games.where({ sport })
-    if (q) {
-      games = games.where((g) => or(g.title.ilike(`%${q}%`), g.place.ilike(`%${q}%`)))
-    }
-    const rows = await games
-      .include('location')
-      .include('participants')
-      .orderBy((g) => g.time.asc())
-      .all()
-    res.json(
-      rows.map((g) => ({
-        id: g.id,
-        sport: g.sport,
-        skill: g.skill,
-        title: titleOf(g),
-        startsAt: g.time,
-        durationMin: g.durationMin,
-        maxPlayers: g.maxPlayers,
-        hostId: g.ownerId,
-        locationName: g.location?.name ?? g.place,
-        lat: g.location?.lat ?? null,
-        lng: g.location?.lng ?? null,
-        playerCount: g.participants.length + 1,
-      })),
-    )
-  } catch (err) {
-    next(err)
-  }
-})
 
 // Comments are one level deep: top-level comments can have replies, replies can't.
 const formatComment = (c) => ({
@@ -122,7 +85,7 @@ const loadGame = async (id) => {
   }
 }
 
-// GET /api/games/:id
+// GET /game-details/:id
 router.get('/:id', async (req, res, next) => {
   try {
     const id = parseId(req.params.id)
@@ -143,7 +106,7 @@ const withLockedGame = async (req, res, next, work) => {
   try {
     const id = parseId(req.params.id)
     if (id === null) return reply(res, 404, 'Game not found')
-    const me = await currentUserId()
+    const me = await currentUserId(req)
     if (me === null) return reply(res, 401, 'No current user. Run `npm run db:seed` in server/.')
 
     const result = await client.transaction(async (tx) => {
@@ -162,7 +125,7 @@ const withLockedGame = async (req, res, next, work) => {
 
 const fail = (status, error) => ({ status, body: { error } })
 
-// PATCH /api/games/:id  { sport?, skill?, locationId?, maxPlayers?, startsAt? }
+// PATCH /game-details/:id  { sport?, skill?, locationId?, maxPlayers?, startsAt? }
 // Host only. Changes the listed fields and returns the game in the same shape as GET /:id.
 router.patch('/:id', (req, res, next) =>
   withLockedGame(req, res, next, async (orm, game, me) => {
@@ -202,7 +165,7 @@ router.patch('/:id', (req, res, next) =>
   }),
 )
 
-// DELETE /api/games/:id/players/:userId  { message? }
+// DELETE /game-details/:id/players/:userId  { message? }
 // Host only. Removes a player and saves the host's message to them. Returns the new roster.
 router.delete('/:id/players/:userId', (req, res, next) =>
   withLockedGame(req, res, next, async (orm, game, me) => {
@@ -220,7 +183,7 @@ router.delete('/:id/players/:userId', (req, res, next) =>
   }),
 )
 
-// POST /api/games/:id/join  (also served at /participants)
+// POST /game-details/:id/join  (also served at /participants)
 // Adds the current user to the roster. The game row is locked, so two people can't take the last
 // spot at once. Returns the updated roster.
 router.post(['/:id/join', '/:id/participants'], (req, res, next) =>
@@ -236,7 +199,7 @@ router.post(['/:id/join', '/:id/participants'], (req, res, next) =>
   }),
 )
 
-// DELETE /api/games/:id/join  (also served at /participants)
+// DELETE /game-details/:id/join  (also served at /participants)
 // Removes the current user from the roster. The host can't leave their own game.
 router.delete(['/:id/join', '/:id/participants'], (req, res, next) =>
   withLockedGame(req, res, next, async (orm, game, me) => {
@@ -265,16 +228,16 @@ const findComment = async (req, res) => {
 }
 
 // Replies 401 and returns null when there is no current user (the database hasn't been seeded).
-const requireMe = async (res) => (await currentUserId()) ?? reply(res, 401, 'No current user. Run `npm run db:seed` in server/.')
+const requireMe = async (req, res) => (await currentUserId(req)) ?? reply(res, 401, 'No current user. Run `npm run db:seed` in server/.')
 
-// POST /api/games/:id/comments  { body, parentId? }
+// POST /game-details/:id/comments  { body, parentId? }
 // Adds a comment (or a reply, when parentId is given) from the current user.
 router.post('/:id/comments', async (req, res, next) => {
   try {
     const gameId = parseId(req.params.id)
     const game = gameId && (await db.Game.where({ id: gameId }).first())
     if (!game) return reply(res, 404, 'Game not found')
-    const me = await requireMe(res)
+    const me = await requireMe(req, res)
     if (me === null) return
     const body = cleanBody(res, req.body?.body)
     if (body === null) return
@@ -294,7 +257,7 @@ router.post('/:id/comments', async (req, res, next) => {
   }
 })
 
-// PATCH /api/games/:id/comments/:commentId  { pinned } or { body }
+// PATCH /game-details/:id/comments/:commentId  { pinned } or { body }
 // { pinned }: host only, top-level comments only. { body }: the comment's author only.
 router.patch('/:id/comments/:commentId', async (req, res, next) => {
   try {
@@ -304,7 +267,7 @@ router.patch('/:id/comments/:commentId', async (req, res, next) => {
     }
     const comment = await findComment(req, res)
     if (!comment) return
-    const me = await requireMe(res)
+    const me = await requireMe(req, res)
     if (me === null) return
 
     if (typeof pinned === 'boolean') {
@@ -323,13 +286,13 @@ router.patch('/:id/comments/:commentId', async (req, res, next) => {
   }
 })
 
-// DELETE /api/games/:id/comments/:commentId
+// DELETE /game-details/:id/comments/:commentId
 // The comment's author or the game's host. Deleting a top-level comment deletes its replies too.
 router.delete('/:id/comments/:commentId', async (req, res, next) => {
   try {
     const comment = await findComment(req, res)
     if (!comment) return
-    const me = await requireMe(res)
+    const me = await requireMe(req, res)
     if (me === null) return
     if (comment.authorId !== me && comment.hostId !== me) {
       return reply(res, 403, 'Only the author or the host can delete this comment')

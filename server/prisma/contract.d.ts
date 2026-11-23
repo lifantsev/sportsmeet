@@ -23,7 +23,7 @@ import type {
 } from '@prisma/orm-postgres/contract/types';
 
 export type StorageHash =
-  StorageHashBase<'6daad416b152a527fa7f9ffce635aeb5566043604d7c2e6553d2af49d9a91458'>;
+  StorageHashBase<'cba98220e0f2f9c5761c2d8cd175ac9c68af58e383c2da1f0efd41c27677e8fa'>;
 export type ExecutionHash = ExecutionHashBase<string>;
 export type ProfileHash =
   ProfileHashBase<'3916f444a8a17ad749191acf9e08dad97d1a327b88c2f1d45d12f240296aa8b2'>;
@@ -377,6 +377,7 @@ export namespace Models {
     bio: FieldOutputTypes['public']['User']['bio'];
     createdAt: FieldOutputTypes['public']['User']['createdAt'];
     email: FieldOutputTypes['public']['User']['email'];
+    googleSub: FieldOutputTypes['public']['User']['googleSub'];
     homeLabel: FieldOutputTypes['public']['User']['homeLabel'];
     homeLat: FieldOutputTypes['public']['User']['homeLat'];
     homeLng: FieldOutputTypes['public']['User']['homeLng'];
@@ -950,6 +951,12 @@ type ContractBase = Omit<
                   readonly nullable: false;
                   readonly many: false;
                 };
+                readonly googleSub: {
+                  readonly dataType: 'pg/text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: true;
+                  readonly many: false;
+                };
                 readonly homeLabel: {
                   readonly dataType: 'pg/text';
                   readonly codecId: 'pg/text@1';
@@ -986,7 +993,10 @@ type ContractBase = Omit<
                 };
               };
               primaryKey: { readonly columns: readonly ['id'] };
-              uniques: readonly [{ readonly columns: readonly ['email'] }];
+              uniques: readonly [
+                { readonly columns: readonly ['email'] },
+                { readonly columns: readonly ['googleSub'] },
+              ];
               indexes: readonly [];
               foreignKeys: readonly [];
             };
@@ -1490,6 +1500,10 @@ type ContractBase = Omit<
                 readonly nullable: false;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
               };
+              readonly googleSub: {
+                readonly nullable: true;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
               readonly homeLabel: {
                 readonly nullable: true;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
@@ -1583,6 +1597,7 @@ type ContractBase = Omit<
                 readonly bio: { readonly column: 'bio' };
                 readonly createdAt: { readonly column: 'createdAt' };
                 readonly email: { readonly column: 'email' };
+                readonly googleSub: { readonly column: 'googleSub' };
                 readonly homeLabel: { readonly column: 'homeLabel' };
                 readonly homeLat: { readonly column: 'homeLat' };
                 readonly homeLng: { readonly column: 'homeLng' };
