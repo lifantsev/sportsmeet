@@ -59,7 +59,7 @@ function boundsAround(locations) {
   }
 }
 
-function MapPage() {
+function MapPage({ user, onSignInNeeded }) {
   const days = useMemo(() => nextSevenDays(), [])
   const locations = useMemo(() => getLocations(), [])
   const allGames = useMemo(() => getGames(), [])
@@ -100,7 +100,19 @@ function MapPage() {
           <a href="#">Discover</a>
           <a href="#" className="active">Map</a>
           <a href="#">Create game</a>
-          <a href="#">Profile</a>
+          {user ? (
+            <a href="#">Profile</a>
+          ) : (
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault()
+                onSignInNeeded()
+              }}
+            >
+              Sign in
+            </a>
+          )}
         </nav>
       </header>
 
@@ -217,8 +229,14 @@ function MapPage() {
                 {game.skill}
               </p>
               <div className="card-actions">
-                {/* TODO: link to the game page once routing exists */}
-                <button type="button" disabled={game.playerCount >= game.maxPlayers}>
+                {/* TODO: join through the API once games come from the server */}
+                <button
+                  type="button"
+                  disabled={game.playerCount >= game.maxPlayers}
+                  onClick={() => {
+                    if (!user) onSignInNeeded()
+                  }}
+                >
                   {game.playerCount >= game.maxPlayers ? 'Game full' : 'Join game'}
                 </button>
                 <span>
