@@ -1,4 +1,6 @@
 import express from 'express'
+import { sessionMiddleware } from './session.js'
+import authRouter from './routes/auth.js'
 import gamesRouter from './routes/games.js'
 import usersRouter from './routes/users.js'
 import db from './prisma/db.js'
@@ -7,11 +9,13 @@ const app = express()
 const PORT = process.env.PORT || 3001
 
 app.use(express.json())
+app.use(sessionMiddleware)
 
 app.get('/health', (req, res) => {
     res.json({ ok: true })
 })
 
+app.use('/auth', authRouter)
 app.use('/games', gamesRouter)
 app.use('/users', usersRouter)
 

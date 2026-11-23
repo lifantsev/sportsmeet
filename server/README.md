@@ -4,6 +4,10 @@
 
 `db` to run the database server (script from ../flake.nix)
 
+Alternatively, to avoid using the Nix script:
+
+`pg_ctl -D .postgres -l .postgres/logfile start` to run the database server
+
 `createdb sportsmeet -h localhost` to initialize sportsmeet db (postgres must be running)
 
 # Prisma ORM
