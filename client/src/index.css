@@ -329,6 +329,37 @@ h3 {
   font-weight:800;
 }
 
+
+/* Diagonal game card rebuild — pair these steps with the GameCard.jsx TODOs.
+ *
+ * TODO 2: Lay out the two panels.
+ * - Aim for a cream card about 720px wide and at least 380px tall.
+ * - Give the card position: relative and overflow: hidden.
+ * - Keep the left panel in normal flow, about 57% wide, with padding.
+ * - Use a vertical flex layout and gap inside it; push Join down with auto margin.
+ * - Position the right panel absolutely against the top, bottom, and right edges;
+ *   aim for 47% width. Keep the text above it with positioning and z-index.
+ * Check: first get two rectangular panels working, with no text hidden.
+ *
+ * TODO 4: Cut the diagonal and fill it with the image.
+ * - Use clip-path: polygon(...) on the RIGHT PANEL, not the whole card.
+ * - Polygon points go clockwise: inset top-left, top-right, bottom-right,
+ *   bottom-left. Try moving only the top-left point inward to form the slope.
+ * - Give the image the panel's full width and height, using object-fit: cover.
+ * - Avoid inner padding so the image reaches every panel edge.
+ * Check: the image is cropped rather than stretched, with no gaps at its edges.
+ *
+ * TODO 5: Fine-tune the style and image crop.
+ * - Try a red uppercase sport/skill label, navy italic title, and red Join button.
+ * - Use object-position on the volleyball-only image class to center the ball;
+ *   the preview used 75% center. Other images can stay centered.
+ *
+ * TODO 6: Check smaller screens and difficult content.
+ * - Add a media query for a narrower card and smaller title.
+ * - Test long titles, full games, each sport, and missing images.
+ * - Ensure the information doesn't overlap the slanted image edge.
+ */
+
 @media (prefers-reduced-motion: reduce) {
   .game-card {
     animation: none;

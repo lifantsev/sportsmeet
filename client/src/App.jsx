@@ -15,6 +15,8 @@ function App() {
     const controller = new AbortController()
     const { signal } = controller
 
+    // TODO(discover 6): Fetch with the selected filters and page cursor once the API
+    // supports them. Reset the list on filter changes.
     fetch('/api/games', { signal })
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`)

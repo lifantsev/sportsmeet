@@ -21,6 +21,8 @@ function Discover({ games, loading, error }) {
     setDateFilter(date.toDateString())
   }
 
+  
+
   function toggleSport(sport) {
     setSportFilter((previous) => {
       const next = new Set(previous)
@@ -35,10 +37,9 @@ function Discover({ games, loading, error }) {
 
   const selectedSports = new Set(Array.from(sportFilter, (sport) => sport.toLowerCase()))
   const visibleGames = games.filter((game) => {
-    const startDate = new Date(game.time ?? game.startsAt)
+    const startDate = new Date(game.time)
     const matchesSport = selectedSports.size === 0 || selectedSports.has(game.sport.trim().toLowerCase())
-    const joinable = Number.isFinite(game.maxPlayers) && Number.isFinite(game.playerCount) &&
-      game.playerCount < game.maxPlayers
+    const joinable = game.playerCount < game.maxPlayers
 
     return startDate.toDateString() === dateFilter && matchesSport && (!onlyJoinable || joinable)
   })
@@ -74,6 +75,8 @@ function Discover({ games, loading, error }) {
           </ul>
         )}
       </section>
+      {/* TODO(discover 6): Add Load more when the response has a next cursor.
+          Keep existing cards visible while loading and append the next page. */}
     </main>
   )
 }
