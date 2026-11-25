@@ -3,6 +3,8 @@ import { sessionMiddleware } from './session.js'
 import authRouter from './routes/auth.js'
 import gamesRouter from './routes/games.js'
 import usersRouter from './routes/users.js'
+import gameDetailsRouter from './routes/gameDetails.js'
+import { meRouter, locationsRouter } from './routes/me.js'
 import db from './prisma/db.js'
 
 const app = express()
@@ -18,6 +20,12 @@ app.get('/health', (req, res) => {
 app.use('/auth', authRouter)
 app.use('/games', gamesRouter)
 app.use('/users', usersRouter)
+
+// Game Details page. These have their own paths so they don't collide with the /games and /users
+// routes above. The client reaches them as /api/game-details, /api/me and /api/locations.
+app.use('/game-details', gameDetailsRouter)
+app.use('/me', meRouter)
+app.use('/locations', locationsRouter)
 
 app.put('/resetdb', async (req, res, next) => {
     try {

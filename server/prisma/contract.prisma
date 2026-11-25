@@ -10,6 +10,16 @@ model User {
   ownedGames   Game[]           @relation("GameOwner")
   joinedGames  GameParticipant[]
 
+  // Profile fields used by the game details page
+  bio          String           @default("")
+  homeLabel    String?
+  homeLat      Float?
+  homeLng      Float?
+  sports       UserSport[]
+  comments     Comment[]
+  messagesSent     PlayerMessage[] @relation("MessageFrom")
+  messagesReceived PlayerMessage[] @relation("MessageTo")
+
   createdAt    DateTime         @default(now())
 }
 
@@ -24,6 +34,18 @@ model Game {
   
   participants GameParticipant[]
 
+  // Fields used by the game details page. The host is the owner and is not a GameParticipant row.
+  title        String?
+  skill        String           @default("All levels")  // All levels | Beginner | Intermediate | Advanced
+  durationMin  Int              @default(60)
+  maxPlayers   Int              @default(10)            // counts the host
+  notes        String           @default("")
+  status       String           @default("open")        // open | canceled
+  locationId   Int?
+  location     Location?        @relation(fields: [locationId], references: [id])
+  comments     Comment[]
+  messages     PlayerMessage[]
+
   createdAt    DateTime         @default(now())
 }
 
@@ -35,4 +57,56 @@ model GameParticipant {
   joinedAt     DateTime         @default(now())
 
   @@id([userId, gameId]) // Composite primary key ensures a user can't join the same game twice
+}
+
+model Location {
+  id       Int      @id @default(autoincrement())
+  name     String
+  address  String?
+  lat      Float
+  lng      Float
+
+  games    Game[]
+}
+
+model UserSport {
+  userId  Int
+  sport   String
+  skill   String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, sport])
+}
+
+// Comments are one level deep: a top-level comment can have replies, a reply can't.
+model Comment {
+  id        Int       @id @default(autoincrement())
+  gameId    Int
+  authorId  Int
+  body      String
+  pinned    Boolean   @default(false)
+  parentId  Int?
+  editedAt  DateTime?
+  createdAt DateTime  @default(now())
+
+  game      Game      @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  parent    Comment?  @relation("Replies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies   Comment[] @relation("Replies")
+
+  @@index([gameId, createdAt])
+}
+
+// Messages a host sends a player, e.g. when removing them from a game. There is no inbox UI yet.
+model PlayerMessage {
+  id         Int      @id @default(autoincrement())
+  gameId     Int
+  toUserId   Int
+  fromUserId Int
+  body       String
+  createdAt  DateTime @default(now())
+
+  game       Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  to         User     @relation("MessageTo", fields: [toUserId], references: [id], onDelete: Cascade)
+  from       User     @relation("MessageFrom", fields: [fromUserId], references: [id], onDelete: Cascade)
 }
